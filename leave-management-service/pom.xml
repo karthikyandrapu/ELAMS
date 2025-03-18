@@ -9,10 +9,10 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.elams</groupId>
-	<artifactId>shift-service</artifactId>
+	<artifactId>leave-management-service</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>shift-service</name>
-	<description>Shift Module</description>
+	<name>leave-management-service</name>
+	<description>Leave Management Module</description>
 	<url/>
 	<licenses>
 		<license/>
