@@ -30,7 +30,7 @@ class ShiftRepositoryTestCase {
     void testSave_positive() {
         Shift shift = new Shift();
         shift.setEmployeeId(1001L);
-        shift.setShiftDate(LocalDate.of(2004, 1, 21));
+        shift.setShiftDate(LocalDate.now());
         shift.setShiftTime(LocalTime.of(9, 11));
         testEntityManager.persist(shift);
         Shift shiftSaved = shiftRepository.save(shift);
@@ -55,14 +55,14 @@ class ShiftRepositoryTestCase {
     void findByEmployeeId_positive() {
         Shift shift = new Shift();
         shift.setEmployeeId(1001L);
-        shift.setShiftDate(LocalDate.of(2004, 1, 21));
+        shift.setShiftDate(LocalDate.now());
         shift.setShiftTime(LocalTime.of(9, 11));
         testEntityManager.persist(shift);
         testEntityManager.flush();
         List<Shift> actual = shiftRepository.findByEmployeeId(shift.getEmployeeId());
         assertFalse(actual.isEmpty());
         assertEquals(1001L, actual.get(0).getEmployeeId());
-        assertEquals(LocalDate.of(2004, 1, 21), actual.get(0).getShiftDate());
+        assertEquals(LocalDate.now(), actual.get(0).getShiftDate());
         assertEquals(LocalTime.of(9, 11), actual.get(0).getShiftTime());
     }
 
@@ -78,22 +78,22 @@ class ShiftRepositoryTestCase {
     void findByEmployeeIdIn_positive_multipleMatches() {
         Shift shift1 = new Shift();
         shift1.setEmployeeId(1010L);
-        shift1.setShiftDate(LocalDate.of(2024, 12, 1));
+        shift1.setShiftDate(LocalDate.now());
         shift1.setShiftTime(LocalTime.of(1, 10));
 
         Shift shift2 = new Shift();
         shift2.setEmployeeId(1011L);
-        shift2.setShiftDate(LocalDate.of(2024, 12, 1));
+        shift2.setShiftDate(LocalDate.now());
         shift2.setShiftTime(LocalTime.of(1, 10));
 
         Shift shift3 = new Shift();
         shift3.setEmployeeId(1012L);
-        shift3.setShiftDate(LocalDate.of(2024, 12, 1));
+        shift3.setShiftDate(LocalDate.now());
         shift3.setShiftTime(LocalTime.of(1, 10));
 
         Shift shift4 = new Shift();
         shift4.setEmployeeId(1013L);
-        shift4.setShiftDate(LocalDate.of(2024, 12, 1));
+        shift4.setShiftDate(LocalDate.now());
         shift4.setShiftTime(LocalTime.of(1, 10));
 
         testEntityManager.persist(shift1);
@@ -114,7 +114,7 @@ class ShiftRepositoryTestCase {
     void findByEmployeeIdIn_positive_singleMatch() {
         Shift shift1 = new Shift();
         shift1.setEmployeeId(1010L);
-        shift1.setShiftDate(LocalDate.of(2024, 12, 1));
+        shift1.setShiftDate(LocalDate.now());
         shift1.setShiftTime(LocalTime.of(1, 10));
 
         testEntityManager.persist(shift1);
@@ -130,7 +130,7 @@ class ShiftRepositoryTestCase {
     void findByEmployeeIdIn_negative_noMatches() {
         Shift shift1 = new Shift();
         shift1.setEmployeeId(1001L);
-        shift1.setShiftDate(LocalDate.of(2024, 1, 1));
+        shift1.setShiftDate(LocalDate.now());
         shift1.setShiftTime(LocalTime.of(9, 0));
 
         testEntityManager.persist(shift1);
@@ -145,18 +145,18 @@ class ShiftRepositoryTestCase {
     void existsByEmployeeIdAndShiftDate_positive() {
         Shift shift1 = new Shift();
         shift1.setEmployeeId(1001L);
-        shift1.setShiftDate(LocalDate.of(2024, 1, 22));
+        shift1.setShiftDate(LocalDate.now());
         shift1.setShiftTime(LocalTime.of(9, 0));
 
         Shift shift2 = new Shift();
         shift2.setEmployeeId(1002L);
-        shift2.setShiftDate(LocalDate.of(2024, 1, 23));
+        shift2.setShiftDate(LocalDate.now().plusDays(1));
         shift2.setShiftTime(LocalTime.of(10, 0));
         testEntityManager.persist(shift1);
         testEntityManager.persist(shift2);
         testEntityManager.flush();
 
-        boolean exists = shiftRepository.existsByEmployeeIdAndShiftDate(1001L, LocalDate.of(2024, 1, 22));
+        boolean exists = shiftRepository.existsByEmployeeIdAndShiftDate(1001L, LocalDate.now());
         assertTrue(exists);
     }
 
@@ -165,7 +165,7 @@ class ShiftRepositoryTestCase {
     void existsByEmployeeIdAndShiftDate_negative_employeeIdDoesNotExist() {
         Shift shift1 = new Shift();
         shift1.setEmployeeId(1001L);
-        shift1.setShiftDate(LocalDate.of(2024, 1, 22));
+        shift1.setShiftDate(LocalDate.now());
         shift1.setShiftTime(LocalTime.of(9, 0));
         testEntityManager.persist(shift1);
         testEntityManager.flush();
@@ -178,7 +178,7 @@ class ShiftRepositoryTestCase {
     void existsByEmployeeIdAndShiftDate_negative_shiftDateDoesNotExist() {
         Shift shift1 = new Shift();
         shift1.setEmployeeId(1001L);
-        shift1.setShiftDate(LocalDate.of(2024, 1, 23));
+        shift1.setShiftDate(LocalDate.now());
         shift1.setShiftTime(LocalTime.of(9, 0));
         testEntityManager.persist(shift1);
         testEntityManager.flush();
@@ -197,25 +197,25 @@ class ShiftRepositoryTestCase {
     void findByShiftDate_returnsCorrectShift() {
         Shift shift1 = new Shift();
         shift1.setEmployeeId(1001L);
-        shift1.setShiftDate(LocalDate.of(2024, 1, 23));
+        shift1.setShiftDate(LocalDate.now());
         shift1.setShiftTime(LocalTime.of(9, 0));
         testEntityManager.persist(shift1);
 
         Shift shift2 = new Shift();
         shift2.setEmployeeId(1002L);
-        shift2.setShiftDate(LocalDate.of(2024, 1, 24));
+        shift2.setShiftDate(LocalDate.now().plusDays(1));
         shift2.setShiftTime(LocalTime.of(9, 0));
         testEntityManager.persist(shift2);
 
         testEntityManager.flush();
 
-        List<Shift> actual = shiftRepository.findByShiftDate(LocalDate.of(2024, 1, 23));
+        List<Shift> actual = shiftRepository.findByShiftDate(LocalDate.now());
 
         assertEquals(1, actual.size());
         assertEquals(1001L, actual.get(0).getEmployeeId());
-        assertEquals(LocalDate.of(2024, 1, 23), actual.get(0).getShiftDate());
+        assertEquals(LocalDate.now(), actual.get(0).getShiftDate());
 
-        List<Shift> actual2 = shiftRepository.findByShiftDate(LocalDate.of(2024, 1, 24));
+        List<Shift> actual2 = shiftRepository.findByShiftDate(LocalDate.now().plusDays(1));
         assertEquals(1, actual2.size());
         assertEquals(1002L, actual2.get(0).getEmployeeId());
     }
@@ -225,12 +225,12 @@ class ShiftRepositoryTestCase {
     void findByShiftDate_returnsEmptyList_whenNoMatch() {
         Shift shift1 = new Shift();
         shift1.setEmployeeId(1001L);
-        shift1.setShiftDate(LocalDate.of(2024, 1, 23));
+        shift1.setShiftDate(LocalDate.now());
         shift1.setShiftTime(LocalTime.of(9, 0));
         testEntityManager.persist(shift1);
         testEntityManager.flush();
 
-        List<Shift> actual = shiftRepository.findByShiftDate(LocalDate.of(2024, 1, 25));
+        List<Shift> actual = shiftRepository.findByShiftDate(LocalDate.now().plusDays(1));
 
         assertTrue(actual.isEmpty());
     }
@@ -239,7 +239,7 @@ class ShiftRepositoryTestCase {
     @DisplayName("Exists by Employee ID, Shift Date, and Shift Time - Positive Case")
     void existsByEmployeeIdAndShiftDateAndShiftTime_positive() {
         Long employeeId = 1001L;
-        LocalDate shiftDate = LocalDate.of(2024, 1, 23);
+        LocalDate shiftDate = LocalDate.now();
         LocalTime shiftTime = LocalTime.of(9, 0);
 
         Shift shift = new Shift();
@@ -258,7 +258,7 @@ class ShiftRepositoryTestCase {
     @DisplayName("Exists by Employee ID, Shift Date, and Shift Time - Negative Case (Employee ID Mismatch)")
     void existsByEmployeeIdAndShiftDateAndShiftTime_negative_employeeIdMismatch() {
         Long employeeId = 1001L;
-        LocalDate shiftDate = LocalDate.of(2024, 1, 23);
+        LocalDate shiftDate = LocalDate.now();
         LocalTime shiftTime = LocalTime.of(9, 0);
 
         Shift shift = new Shift();
@@ -276,7 +276,7 @@ class ShiftRepositoryTestCase {
     @DisplayName("Exists by Employee ID, Shift Date, and Shift Time - Negative Case (Shift Date Mismatch)")
     void existsByEmployeeIdAndShiftDateAndShiftTime_negative_shiftDateMismatch() {
         Long employeeId = 1001L;
-        LocalDate shiftDate = LocalDate.of(2024, 1, 23);
+        LocalDate shiftDate = LocalDate.now();
         LocalTime shiftTime = LocalTime.of(9, 0);
 
         Shift shift = new Shift();
@@ -286,7 +286,7 @@ class ShiftRepositoryTestCase {
         testEntityManager.persist(shift);
         testEntityManager.flush();
 
-        boolean exists = shiftRepository.existsByEmployeeIdAndShiftDateAndShiftTime(employeeId, LocalDate.of(2024, 1, 24), shiftTime);
+        boolean exists = shiftRepository.existsByEmployeeIdAndShiftDateAndShiftTime(employeeId,LocalDate.now().plusDays(1), shiftTime);
         assertFalse(exists);
     }
 
@@ -294,7 +294,7 @@ class ShiftRepositoryTestCase {
     @DisplayName("Exists by Employee ID, Shift Date, and Shift Time - Negative Case (Shift Time Mismatch)")
     void existsByEmployeeIdAndShiftDateAndShiftTime_negative_shiftTimeMismatch() {
         Long employeeId = 1001L;
-        LocalDate shiftDate = LocalDate.of(2024, 1, 23);
+        LocalDate shiftDate = LocalDate.now();
         LocalTime shiftTime = LocalTime.of(9, 0);
 
         Shift shift = new Shift();
@@ -312,7 +312,7 @@ class ShiftRepositoryTestCase {
     @DisplayName("Exists by Employee ID, Shift Date, and Shift Time - Negative Case (No Matching Shift)")
     void existsByEmployeeIdAndShiftDateAndShiftTime_negative_noMatchingShift() {
         Long employeeId = 1001L;
-        LocalDate shiftDate = LocalDate.of(2024, 1, 23);
+        LocalDate shiftDate = LocalDate.now();
         LocalTime shiftTime = LocalTime.of(9, 0);
 
         boolean exists = shiftRepository.existsByEmployeeIdAndShiftDateAndShiftTime(employeeId, shiftDate, shiftTime);
@@ -323,7 +323,7 @@ class ShiftRepositoryTestCase {
     @DisplayName("Find Shift by Employee ID, Shift Date, and Shift Time - Positive Case")
     void findByEmployeeIdAndShiftDateAndShiftTime_positive() {
         Long employeeId = 1001L;
-        LocalDate shiftDate = LocalDate.of(2024, 1, 23);
+        LocalDate shiftDate = LocalDate.now();
         LocalTime shiftTime = LocalTime.of(9, 0);
 
         Shift shift = new Shift();
@@ -344,7 +344,7 @@ class ShiftRepositoryTestCase {
     @DisplayName("Find Shift by Employee ID, Shift Date, and Shift Time - Negative Case (Employee ID Mismatch)")
     void findByEmployeeIdAndShiftDateAndShiftTime_negative_employeeIdMismatch() {
         Long employeeId = 1001L;
-        LocalDate shiftDate = LocalDate.of(2024, 1, 23);
+        LocalDate shiftDate = LocalDate.now();
         LocalTime shiftTime = LocalTime.of(9, 0);
 
         Shift shift = new Shift();
@@ -362,7 +362,7 @@ class ShiftRepositoryTestCase {
     @DisplayName("Find Shift by Employee ID, Shift Date, and Shift Time - Negative Case (Shift Date Mismatch)")
     void findByEmployeeIdAndShiftDateAndShiftTime_negative_shiftDateMismatch() {
         Long employeeId = 1001L;
-        LocalDate shiftDate = LocalDate.of(2024, 1, 23);
+        LocalDate shiftDate =LocalDate.now();
         LocalTime shiftTime = LocalTime.of(9, 0);
 
         Shift shift = new Shift();
@@ -372,14 +372,14 @@ class ShiftRepositoryTestCase {
         testEntityManager.persist(shift);
         testEntityManager.flush();
 
-        Shift foundShift = shiftRepository.findByEmployeeIdAndShiftDateAndShiftTime(employeeId, LocalDate.of(2024, 1, 24), shiftTime);
+        Shift foundShift = shiftRepository.findByEmployeeIdAndShiftDateAndShiftTime(employeeId, LocalDate.now().plusDays(1), shiftTime);
         assertNull(foundShift);
     }
     @Test
     @DisplayName("Find Shift by Employee ID, Shift Date, and Shift Time - Negative Case (Shift Time Mismatch)")
     void findByEmployeeIdAndShiftDateAndShiftTime_negative_shiftTimeMismatch() {
         Long employeeId = 1001L;
-        LocalDate shiftDate = LocalDate.of(2024, 1, 23);
+        LocalDate shiftDate = LocalDate.now();
         LocalTime shiftTime = LocalTime.of(9, 0);
 
         Shift shift = new Shift();
@@ -397,7 +397,7 @@ class ShiftRepositoryTestCase {
     @DisplayName("Find Shift by Employee ID, Shift Date, and Shift Time - Negative Case (No Matching Shift)")
     void findByEmployeeIdAndShiftDateAndShiftTime_negative_noMatchingShift() {
         Long employeeId = 1001L;
-        LocalDate shiftDate = LocalDate.of(2024, 1, 23);
+        LocalDate shiftDate = LocalDate.now();
         LocalTime shiftTime = LocalTime.of(9, 0);
 
         Shift foundShift = shiftRepository.findByEmployeeIdAndShiftDateAndShiftTime(employeeId, shiftDate, shiftTime);
@@ -408,7 +408,7 @@ class ShiftRepositoryTestCase {
     @DisplayName("Find Shift by Employee ID and Shift Date - Positive Case")
     void findByEmployeeIdAndShiftDate_positive() {
         Long employeeId = 1001L;
-        LocalDate shiftDate = LocalDate.of(2024, 1, 23);
+        LocalDate shiftDate = LocalDate.now();
         LocalTime shiftTime = LocalTime.of(9, 0);
 
         Shift shift = new Shift();
@@ -428,7 +428,7 @@ class ShiftRepositoryTestCase {
     @DisplayName("Find Shift by Employee ID and Shift Date - Negative Case (Employee ID Mismatch)")
     void findByEmployeeIdAndShiftDate_negative_employeeIdMismatch() {
         Long employeeId = 1001L;
-        LocalDate shiftDate = LocalDate.of(2024, 1, 23);
+        LocalDate shiftDate = LocalDate.now();
         LocalTime shiftTime = LocalTime.of(9, 0);
 
         Shift shift = new Shift();
@@ -446,7 +446,7 @@ class ShiftRepositoryTestCase {
     @DisplayName("Find Shift by Employee ID and Shift Date - Negative Case (Shift Date Mismatch)")
     void findByEmployeeIdAndShiftDate_negative_shiftDateMismatch() {
         Long employeeId = 1001L;
-        LocalDate shiftDate = LocalDate.of(2024, 1, 23);
+        LocalDate shiftDate = LocalDate.now();
         LocalTime shiftTime = LocalTime.of(9, 0);
 
         Shift shift = new Shift();
@@ -456,7 +456,7 @@ class ShiftRepositoryTestCase {
         testEntityManager.persist(shift);
         testEntityManager.flush();
 
-        Shift foundShift = shiftRepository.findByEmployeeIdAndShiftDate(employeeId, LocalDate.of(2024, 1, 24));
+        Shift foundShift = shiftRepository.findByEmployeeIdAndShiftDate(employeeId, LocalDate.now().plusDays(1));
         assertNull(foundShift);
     }
 
@@ -464,7 +464,7 @@ class ShiftRepositoryTestCase {
     @DisplayName("Find Shift by Employee ID and Shift Date - Negative Case (No Matching Shift)")
     void findByEmployeeIdAndShiftDate_negative_noMatchingShift() {
         Long employeeId = 1001L;
-        LocalDate shiftDate = LocalDate.of(2024, 1, 23);
+        LocalDate shiftDate = LocalDate.now();
 
         Shift foundShift = shiftRepository.findByEmployeeIdAndShiftDate(employeeId, shiftDate);
         assertNull(foundShift);

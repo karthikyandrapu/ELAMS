@@ -11,3 +11,7 @@ spring:
       ddl-auto: create
 server:
   port: 8084
+
+shift:
+  duration:
+    hours: 9
