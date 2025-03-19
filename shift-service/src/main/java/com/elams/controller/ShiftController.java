@@ -42,7 +42,7 @@ public interface ShiftController {
             @ApiResponse(responseCode = "403", description = "Unauthorized access"),
             @ApiResponse(responseCode = "500", description = "Internal server error")
     })
-    @PostMapping("/managers/{managerId}/shifts")
+	@PostMapping("/assign")
     ResponseEntity<ShiftDTO> assignShift(
             @Parameter(description = "Manager ID", required = true) @RequestParam Long managerId,
             @Parameter(description = "Shift details", required = true) @Valid @RequestBody ShiftDTO shiftDTO,
@@ -57,7 +57,7 @@ public interface ShiftController {
             @ApiResponse(responseCode = "404", description = "Employee not found"),
             @ApiResponse(responseCode = "500", description = "Internal server error")
     })
-    @GetMapping("/employees/{employeeId}/shifts")
+    @GetMapping("/employee/{employeeId}")
     ResponseEntity<List<ShiftDTO>> getEmployeeShifts(
             @Parameter(description = "Employee ID", required = true) @PathVariable Long employeeId);
 
@@ -71,7 +71,7 @@ public interface ShiftController {
             @ApiResponse(responseCode = "404", description = "Manager not found"),
             @ApiResponse(responseCode = "500", description = "Internal server error")
     })
-    @GetMapping("/managers/{managerId}/managed-shifts")
+    @GetMapping("/manager/{managerId}/employees")
     ResponseEntity<List<ShiftDTO>> viewManagerShifts(
             @Parameter(description = "Manager ID", required = true) @PathVariable Long managerId,
             @Parameter(description = "Employee Role", required = true) @RequestHeader("role") EmployeeRole role);
@@ -86,7 +86,7 @@ public interface ShiftController {
             @ApiResponse(responseCode = "404", description = "Manager not found"),
             @ApiResponse(responseCode = "500", description = "Internal server error")
     })
-    @GetMapping("/managers/{managerId}/own-shifts")
+    @GetMapping("/manager/{managerId}")
     ResponseEntity<List<ShiftDTO>> viewManagerOwnShifts(
             @Parameter(description = "Manager ID", required = true) @PathVariable Long managerId,
             @Parameter(description = "Employee Role", required = true) @RequestHeader("role") EmployeeRole role);
@@ -102,7 +102,7 @@ public interface ShiftController {
             @ApiResponse(responseCode = "404", description = "Shift or employee not found"),
             @ApiResponse(responseCode = "500", description = "Internal server error")
     })
-    @PostMapping("/employees/swap-request")
+    @PostMapping("/swap/request")
     ResponseEntity<ShiftDTO> requestShiftSwap(
             @Parameter(description = "Employee ID requesting swap", required = true) @RequestParam Long employeeId,
             @Parameter(description = "Shift ID to be swapped", required = true) @RequestParam Long shiftId,
@@ -119,7 +119,7 @@ public interface ShiftController {
             @ApiResponse(responseCode = "404", description = "Shift or manager not found"),
             @ApiResponse(responseCode = "500", description = "Internal server error")
     })
-    @PutMapping("/managers/{managerId}/shifts/{shiftId}/approve-swap")
+    @PostMapping("/swap/{shiftId}/approve")
     ResponseEntity<ShiftDTO> approveShiftSwap(
             @Parameter(description = "Shift ID to be approved", required = true) @PathVariable Long shiftId,
             @Parameter(description = "Manager ID approving swap", required = true) @RequestParam Long managerId,
@@ -136,7 +136,7 @@ public interface ShiftController {
             @ApiResponse(responseCode = "404", description = "Shift or manager not found"),
             @ApiResponse(responseCode = "500", description = "Internal server error")
     })
-    @PutMapping("/managers/{managerId}/shifts/{shiftId}/reject-swap")
+    @PostMapping("/swap/{shiftId}/reject")
     ResponseEntity<ShiftDTO> rejectShiftSwap(
             @Parameter(description = "Shift ID to be rejected", required = true) @PathVariable Long shiftId,
             @Parameter(description = "Manager ID rejecting swap", required = true) @RequestParam Long managerId,
@@ -153,7 +153,7 @@ public interface ShiftController {
             @ApiResponse(responseCode = "404", description = "Shift or manager not found"),
             @ApiResponse(responseCode = "500", description = "Internal server error")
     })
-    @PutMapping("/managers/{managerId}/shifts/{shiftId}")
+    @PutMapping("/{shiftId}/update")
     ResponseEntity<ShiftDTO> updateShift(
             @Parameter(description = "Shift ID to be updated", required = true) @PathVariable Long shiftId,
             @Parameter(description = "Manager ID updating shift", required = true) @RequestParam Long managerId,
@@ -170,7 +170,7 @@ public interface ShiftController {
             @ApiResponse(responseCode = "404", description = "Shift or manager not found"),
             @ApiResponse(responseCode = "500", description = "Internal server error")
     })
-    @DeleteMapping("/managers/{managerId}/shifts/{shiftId}")
+    @DeleteMapping("/{shiftId}/delete")
     ResponseEntity<Void> deleteShift(
             @Parameter(description = "Shift ID to be deleted", required = true) @PathVariable Long shiftId,
             @Parameter(description = "Manager ID deleting shift", required = true) @RequestParam Long managerId,
@@ -186,7 +186,7 @@ public interface ShiftController {
             @ApiResponse(responseCode = "404", description = "Employee not found"),
             @ApiResponse(responseCode = "500", description = "Internal server error")
     })
-    @GetMapping("/employees/{employeeId}/colleague-shifts")
+    @DeleteMapping("/{shiftId}/delete")
     ResponseEntity<List<ShiftDTO>> getColleagueShifts(
             @Parameter(description = "Employee ID requesting colleague shifts", required = true) @PathVariable Long employeeId,
             @Parameter(description = "Date of shifts", required = true) @RequestParam LocalDate shiftDate,
@@ -202,7 +202,7 @@ public interface ShiftController {
             @ApiResponse(responseCode = "404", description = "Manager or employee not found"),
             @ApiResponse(responseCode = "500", description = "Internal server error")
     })
-    @GetMapping("/managers/{managerId}/employees/{employeeId}/shifts")
+    @GetMapping("/manager/{managerId}/employee/{employeeId}")
     ResponseEntity<List<ShiftDTO>> viewManagerEmployeeShifts(
             @Parameter(description = "Manager ID", required = true) @PathVariable Long managerId,
             @Parameter(description = "Employee ID", required = true) @PathVariable Long employeeId,
@@ -218,7 +218,7 @@ public interface ShiftController {
             @ApiResponse(responseCode = "404", description = "Manager not found"),
             @ApiResponse(responseCode = "500", description = "Internal server error")
     })
-    @GetMapping("/managers/{managerId}/swap-requests")
+    @GetMapping("/manager/{managerId}/swap-requests")
     ResponseEntity<List<ShiftDTO>> getManagerSwapRequests(
             @Parameter(description = "Manager ID", required = true) @PathVariable Long managerId,
             @Parameter(description = "Employee Role", required = true) @RequestHeader("role") EmployeeRole role);
