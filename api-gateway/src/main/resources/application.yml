@@ -41,7 +41,7 @@ spring:
             - Path=/employees/**
 
 server:
-  port: 8084
+  port: 8089
 
 eureka:
   client:
