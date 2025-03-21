@@ -7,13 +7,9 @@ import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.Objects;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import com.elams.config.ShiftDurationConfig;
-
 import com.elams.config.ShiftDurationConfig;
 import com.elams.dtos.EmployeeDTO;
 import com.elams.dtos.ShiftDTO;
