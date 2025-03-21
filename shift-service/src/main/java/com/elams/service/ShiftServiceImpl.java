@@ -11,6 +11,10 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import com.elams.config.ShiftDurationConfig;
+
+import com.elams.config.ShiftDurationConfig;
 import com.elams.dtos.EmployeeDTO;
 import com.elams.dtos.ShiftDTO;
 import com.elams.dtos.ShiftStatusDTO;
@@ -45,7 +49,8 @@ import feign.FeignException.FeignClientException;
  */
 @Service
 public class ShiftServiceImpl implements ShiftService {
-
+	
+	private final ShiftDurationConfig shiftDurationConfig;
     private final EmployeeServiceClient employeeClient;
     private final ShiftRepository shiftRepository;
     private final ShiftStatusRepository shiftStatusRepository;
@@ -65,12 +70,13 @@ public class ShiftServiceImpl implements ShiftService {
      */
     public ShiftServiceImpl(EmployeeServiceClient employeeClient, ShiftRepository shiftRepository,
                               ShiftStatusRepository shiftStatusRepository, ShiftMapper shiftMapper,
-                              ShiftStatusMapper shiftStatusMapper) {
+                              ShiftStatusMapper shiftStatusMapper,ShiftDurationConfig shiftDurationConfig) {
         this.employeeClient = employeeClient;
         this.shiftRepository = shiftRepository;
         this.shiftStatusRepository = shiftStatusRepository;
         this.shiftMapper = shiftMapper;
         this.shiftStatusMapper = shiftStatusMapper;
+        this.shiftDurationConfig = shiftDurationConfig;
     }
 
     /**
@@ -150,8 +156,6 @@ public class ShiftServiceImpl implements ShiftService {
         return resultDto;
     }
 
-    @Value("${shift.duration.hours}")
-    private int shiftDurationHours;
 
     /**
      * Completes assigned shifts that have passed their end time.
@@ -167,7 +171,7 @@ public class ShiftServiceImpl implements ShiftService {
             Shift shift = shiftRepository.findById(shiftStatus.getShiftId()).orElse(null);
             if (shift != null) {
                 try {
-                    LocalTime endTime = shift.getShiftTime().plusHours(shiftDurationHours);
+                    LocalTime endTime = shift.getShiftTime().plusHours(shiftDurationConfig.getDurationHours());
                     ZonedDateTime shiftEndTime = ZonedDateTime.of(shift.getShiftDate(), endTime, ZoneId.systemDefault());
                     ZonedDateTime now = ZonedDateTime.now(ZoneId.systemDefault());
                     if (shiftEndTime.isBefore(now)) {
