@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
  * Feign client interface for communicating with the employee-service.
  * This interface defines methods to retrieve employee data from the employee-service.
  */
-@FeignClient(name = "api-gateway")
+@FeignClient(name = "employee-service")
 public interface EmployeeServiceClient {
 
     /**
