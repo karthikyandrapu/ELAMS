@@ -1,5 +1,4 @@
 package com.elams.config;
-
 import org.springframework.context.annotation.Configuration;
 
 /**

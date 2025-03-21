@@ -174,10 +174,13 @@ public class ShiftServiceImpl implements ShiftService {
                         shiftStatus.setStatus(ShiftStatusType.COMPLETED);
                         shiftStatusRepository.save(shiftStatus);
                     }
-                } catch (DateTimeException | NullPointerException e) {
-                    // Catch any DateTimeException (e.g., invalid date/time calculations) or NullPointerException (e.g., missing shift data).
-                    // Currently, these exceptions are ignored, but specific handling can be added here if needed.
-                }
+                } catch (DateTimeException e) {
+                    throw new DateTimeException(
+                            "Error calculating shift end time for shift ID: " + shift.getShiftId() +
+                                    ". Please verify the shift date, time, and duration configurations.", e
+                    );
+                } 
+                
             }
         }
     }

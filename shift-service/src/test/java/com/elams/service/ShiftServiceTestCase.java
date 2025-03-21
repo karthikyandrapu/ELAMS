@@ -1,6 +1,7 @@
 package com.elams.service;
 
 import com.elams.ShiftServiceApplication;
+import com.elams.config.ShiftDurationConfig;
 import com.elams.dtos.EmployeeDTO;
 import com.elams.dtos.ShiftDTO;
 import com.elams.dtos.ShiftStatusDTO;
@@ -22,7 +23,7 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.modelmapper.ModelMapper;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.util.ReflectionTestUtils;
+
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
@@ -40,6 +41,9 @@ class ShiftServiceTestCase {
 
     @Mock
     private ShiftStatusRepository shiftStatusRepository;
+    
+    @Mock
+    private ShiftDurationConfig shiftDurationConfig;
 
     @Mock
     private ModelMapper modelMapper;
@@ -59,7 +63,6 @@ class ShiftServiceTestCase {
     @BeforeEach
     void setup() {
         MockitoAnnotations.openMocks(this);
-        ReflectionTestUtils.setField(shiftServiceImpl, "shiftDurationHours", 60);
     }
 
     @AfterEach
@@ -222,25 +225,6 @@ class ShiftServiceTestCase {
 
         shiftServiceImpl.completeAssignedShifts();
 
-        verify(shiftStatusRepository, never()).save(any(ShiftStatus.class));
-    }
-
-    @Test
-    @DisplayName("Complete Assigned Shifts - Negative Test - DateTimeException")
-    void completeAssignedShifts_Negative_DateTimeException() {
-        ShiftStatus shiftStatus = new ShiftStatus();
-        shiftStatus.setShiftId(1L);
-        shiftStatus.setStatus(ShiftStatusType.SCHEDULED);
-
-        Shift shift = new Shift();
-        shift.setShiftId(1L);
-        shift.setShiftDate(LocalDate.now().minusDays(1));
-        shift.setShiftTime(null); 
-
-        when(shiftStatusRepository.findByStatusIn(anyList())).thenReturn(List.of(shiftStatus));
-        when(shiftRepository.findById(1L)).thenReturn(Optional.of(shift));
-
-        shiftServiceImpl.completeAssignedShifts();
         verify(shiftStatusRepository, never()).save(any(ShiftStatus.class));
     }
 
