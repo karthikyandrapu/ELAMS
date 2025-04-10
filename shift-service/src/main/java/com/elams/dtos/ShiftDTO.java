@@ -31,7 +31,7 @@ public class ShiftDTO {
 
     @NotNull(message = "Shift date is required")
     @FutureOrPresent(message = "Shift date must be in the present or future")
-    @Schema(name = "shiftDate", description = "Represents the shift date of Employee, should be valid Date in திறன்-MM-DD format", requiredMode = Schema.RequiredMode.REQUIRED)
+    @Schema(name = "shiftDate", description = "Represents the shift date of Employee, should be valid Date in YYYY-MM-DD format", requiredMode = Schema.RequiredMode.REQUIRED)
     private LocalDate shiftDate;
 
     @NotNull(message = "Shift time is required")

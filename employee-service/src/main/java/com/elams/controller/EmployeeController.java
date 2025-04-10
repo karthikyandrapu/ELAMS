@@ -15,7 +15,7 @@ import java.util.List;
 @RestController
 
 @RequestMapping("/employees")
-
+@CrossOrigin(origins = "http://localhost:4200") // Replace with your Angular app's URL
 public class EmployeeController {
  
     @Autowired
@@ -38,6 +38,12 @@ public class EmployeeController {
 
     }
  
+    @GetMapping("/employeeIds")
+    public List findAllEmployeeId(){
+    	return employeeService.findAllEmployeeId();
+    }
+    
+
     @PostMapping
 
     @ResponseStatus(HttpStatus.CREATED)
@@ -73,6 +79,13 @@ public class EmployeeController {
         return employeeService.getEmployeesByManager(managerId);
 
     }
+    
+    
+    @GetMapping("/employeeIds/{managerId}")
+    public List findAllEmployeeIdsByManagerId(@PathVariable Long managerId){
+    	return employeeService.findAllEmployeeIdsByManagerId(managerId);
+    }
+    
  
     @PutMapping("/{id}/manager")
 

@@ -20,5 +20,8 @@ public interface EmployeeService {
 
     EmployeeDTO updateEmployeeManager(Long id, Long managerId); // Added method
 
+    List<Long[]> findAllEmployeeId();
+
+	List findAllEmployeeIdsByManagerId(Long managerId);
 }
  

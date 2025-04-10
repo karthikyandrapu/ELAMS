@@ -189,7 +189,7 @@ public class ShiftServiceImpl implements ShiftService {
      * Retrieves the shifts of an employee's colleagues on a specific date.
      *
      * @param employeeId The ID of the employee whose colleagues' shifts are requested
-    * @param shiftDate  The date of the shifts.
+     * @param shiftDate  The date of the shifts.
      * @return A list of ShiftDTO representing the colleague's shifts.
      * @throws IllegalArgumentException If the shift date is null.
      * @throws ManagerNotFoundException   If the manager ID is not found for the employee.

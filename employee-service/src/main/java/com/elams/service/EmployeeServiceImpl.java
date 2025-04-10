@@ -11,7 +11,8 @@ import com.elams.repository.EmployeeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.stereotype.Service;
- 
+
+import java.util.ArrayList;
 import java.util.List;
 
 import java.util.stream.Collectors;
@@ -127,6 +128,28 @@ public class EmployeeServiceImpl implements EmployeeService {
         return null;
 
     }
+
+    @Override
+    public List findAllEmployeeId() {
+        List<Employee> employees = employeeRepository.findAll();
+        List<Long> employeeIds = new ArrayList<>();
+        for (Employee employee : employees) {
+            employeeIds.add(employee.getId());
+        }
+        return employeeIds;
+    }
+
+	@Override
+	public List findAllEmployeeIdsByManagerId(Long managerId) {
+		List<Employee> employees = employeeRepository.findAll();
+        List<Long> employeeIds = new ArrayList<>();
+        for (Employee employee : employees) {
+        	if(employee.getManagerId()== managerId) {
+            employeeIds.add(employee.getId());
+        	}
+        }
+        return employeeIds;
+	}
 
 }
  
