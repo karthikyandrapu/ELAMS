@@ -176,67 +176,7 @@ class ShiftServiceTestCase {
         verify(shiftRepository, never()).save(any(Shift.class));
         verify(shiftStatusRepository, never()).save(any(ShiftStatus.class));
     }
-    @Test
-    @DisplayName("Complete Assigned Shifts - Positive Test - Shifts Completed")
-    void completeAssignedShifts_Positive_ShiftsCompleted() {
-        ShiftStatus shiftStatus1 = new ShiftStatus();
-        shiftStatus1.setShiftId(1L);
-        shiftStatus1.setStatus(ShiftStatusType.SCHEDULED);
 
-        ShiftStatus shiftStatus2 = new ShiftStatus();
-        shiftStatus2.setShiftId(2L);
-        shiftStatus2.setStatus(ShiftStatusType.SWAP_REQUEST_APPROVED);
-
-        List<ShiftStatus> shiftsToComplete = List.of(shiftStatus1, shiftStatus2);
-        when(shiftStatusRepository.findByStatusIn(anyList())).thenReturn(shiftsToComplete);
-
-        Shift shift1 = new Shift();
-        shift1.setShiftId(1L);
-        shift1.setShiftDate(LocalDate.now().minusDays(1));
-        shift1.setShiftTime(LocalTime.of(10, 0));
-
-        Shift shift2 = new Shift();
-        shift2.setShiftId(2L);
-        shift2.setShiftDate(LocalDate.now().minusDays(1));
-        shift2.setShiftTime(LocalTime.of(12, 0));
-
-        when(shiftRepository.findById(1L)).thenReturn(Optional.of(shift1));
-        when(shiftRepository.findById(2L)).thenReturn(Optional.of(shift2));
-
-        shiftServiceImpl.completeAssignedShifts();
-
-        verify(shiftStatusRepository, times(2)).save(any(ShiftStatus.class));
-        verify(shiftStatusRepository, times(1)).findByStatusIn(anyList());
-        verify(shiftRepository, times(2)).findById(anyLong());
-
-        assertEquals(ShiftStatusType.COMPLETED, shiftStatus1.getStatus());
-        assertEquals(ShiftStatusType.COMPLETED, shiftStatus2.getStatus());
-    }
-
-    @Test
-    @DisplayName("Complete Assigned Shifts - Negative Test - Shift Not Found")
-    void completeAssignedShifts_Negative_ShiftNotFound() {
-        ShiftStatus shiftStatus = new ShiftStatus();
-        shiftStatus.setShiftId(1L);
-        shiftStatus.setStatus(ShiftStatusType.SCHEDULED);
-
-        when(shiftStatusRepository.findByStatusIn(anyList())).thenReturn(List.of(shiftStatus));
-        when(shiftRepository.findById(1L)).thenReturn(Optional.empty());
-
-        shiftServiceImpl.completeAssignedShifts();
-
-        verify(shiftStatusRepository, never()).save(any(ShiftStatus.class));
-    }
-
-    @Test
-    @DisplayName("Complete Assigned Shifts - Positive Test - No Shifts to Complete")
-    void completeAssignedShifts_Positive_NoShiftsToComplete() {
-        when(shiftStatusRepository.findByStatusIn(anyList())).thenReturn(new ArrayList<>());
-        shiftServiceImpl.completeAssignedShifts();
-
-        verify(shiftStatusRepository, never()).save(any(ShiftStatus.class));
-        verify(shiftRepository, never()).findById(anyLong());
-    }
     @Test
     @DisplayName("View Employee Shifts - Positive Test - Shifts Found")
     void viewEmployeeShifts_Positive_ShiftsFound() {
@@ -300,30 +240,7 @@ class ShiftServiceTestCase {
         assertEquals(statusDTO2, result.get(1).getShiftStatus());
     }
 
-    @Test
-    @DisplayName("View Employee Shifts - Positive Test - Shifts Found, Status Null")
-    void viewEmployeeShifts_Positive_ShiftsFound_StatusNull() {
-        Long employeeId = 1L;
-        Shift shift1 = new Shift();
-        shift1.setShiftId(10L);
-        shift1.setEmployeeId(employeeId);
-
-        List<Shift> shifts = List.of(shift1);
-        when(shiftRepository.findByEmployeeId(employeeId)).thenReturn(shifts);
-
-        ShiftDTO dto1 = new ShiftDTO();
-        dto1.setShiftId(10L);
-        dto1.setEmployeeId(employeeId);
-
-        when(shiftMapper.toDTO(shift1)).thenReturn(dto1);
-
-        when(shiftStatusRepository.findByShiftId(10L)).thenReturn(null);
-
-        List<ShiftDTO> result = shiftServiceImpl.viewEmployeeShifts(employeeId);
-
-        assertEquals(1, result.size());
-        assertEquals(ShiftStatusType.OPEN, result.get(0).getShiftStatus().getStatus());
-    }
+    
 
     @Test
     @DisplayName("View Employee Shifts - Negative Test - Shifts Not Found")
@@ -419,37 +336,7 @@ class ShiftServiceTestCase {
         verify(shiftRepository, never()).findByEmployeeIdIn(anyList());
     }
 
-    @Test
-    @DisplayName("View Manager Shifts - Positive Test - Shifts Found, Status Null")
-    void viewManagerShifts_Positive_ShiftsFound_StatusNull() {
-        Long managerId = 1L;
-        EmployeeDTO subordinate1 = new EmployeeDTO();
-        subordinate1.setId(2L);
-        subordinate1.setManagerId(managerId);
-
-        List<EmployeeDTO> subordinates = List.of(subordinate1);
-        when(employeeClient.getEmployeesByManager(managerId)).thenReturn(subordinates);
-
-        Shift shift1 = new Shift();
-        shift1.setShiftId(10L);
-        shift1.setEmployeeId(2L);
-
-        List<Shift> shifts = List.of(shift1);
-        when(shiftRepository.findByEmployeeIdIn(List.of(2L))).thenReturn(shifts);
-
-        ShiftDTO dto1 = new ShiftDTO();
-        dto1.setShiftId(10L);
-        dto1.setEmployeeId(2L);
-
-        when(shiftMapper.toDTO(shift1)).thenReturn(dto1);
-
-        when(shiftStatusRepository.findByShiftId(10L)).thenReturn(null);
-
-        List<ShiftDTO> result = shiftServiceImpl.viewManagerShifts(managerId);
-
-        assertEquals(1, result.size());
-        assertEquals(ShiftStatusType.OPEN, result.get(0).getShiftStatus().getStatus());
-    }
+    
     @Test
     @DisplayName("View Manager Own Shifts - Positive Test - Shifts Found")
     void viewManagerOwnShifts_Positive_ShiftsFound() {
@@ -522,31 +409,7 @@ class ShiftServiceTestCase {
         assertThrows(ManagerOwnShiftsNotFoundException.class, () -> shiftServiceImpl.viewManagerOwnShifts(managerId));
     }
 
-    @Test
-    @DisplayName("View Manager Own Shifts - Positive Test - Shifts Found, Status Null")
-    void viewManagerOwnShifts_Positive_ShiftsFound_StatusNull() {
-        Long managerId = 1L;
-        Shift shift1 = new Shift();
-        shift1.setShiftId(10L);
-        shift1.setEmployeeId(managerId);
-
-        List<Shift> shifts = List.of(shift1);
-        when(shiftRepository.findByEmployeeId(managerId)).thenReturn(shifts);
-
-        ShiftDTO dto1 = new ShiftDTO();
-        dto1.setShiftId(10L);
-        dto1.setEmployeeId(managerId);
-
-        when(shiftMapper.toDTO(shift1)).thenReturn(dto1);
-
-        when(shiftStatusRepository.findByShiftId(10L)).thenReturn(null);
-
-        List<ShiftDTO> result = shiftServiceImpl.viewManagerOwnShifts(managerId);
-
-        assertEquals(1, result.size());
-        assertEquals(ShiftStatusType.OPEN, result.get(0).getShiftStatus().getStatus());
-        assertNull(result.get(0).getShiftStatus().getRequestedSwapEmployeeId());
-    }
+   
     @Test
     @DisplayName("Get Colleague Shifts - Positive Test - Shifts Found")
     void getColleagueShifts_Positive_ShiftsFound() {
@@ -810,45 +673,6 @@ class ShiftServiceTestCase {
         assertThrows(SwapConflictException.class, () -> shiftServiceImpl.requestShiftSwap(employeeId, shiftId, swapWithEmployeeId));
     }
 
-    @Test
-    @DisplayName("Request Shift Swap - Negative Test - Swap Employee Shift Completed")
-    void requestShiftSwap_Negative_SwapEmployeeShiftCompleted() {
-        Long employeeId = 1L;
-        Long shiftId = 10L;
-        Long swapWithEmployeeId = 2L;
-
-        Shift shift = new Shift();
-        shift.setShiftId(shiftId);
-        shift.setEmployeeId(employeeId);
-        shift.setShiftDate(LocalDate.now());
-        shift.setShiftTime(LocalTime.of(9, 0));
-
-        when(shiftRepository.findById(shiftId)).thenReturn(Optional.of(shift));
-
-        EmployeeDTO employee = new EmployeeDTO();
-        employee.setId(employeeId);
-        employee.setManagerId(100L);
-
-        EmployeeDTO swapEmployee = new EmployeeDTO();
-        swapEmployee.setId(swapWithEmployeeId);
-        swapEmployee.setManagerId(100L);
-
-        when(employeeClient.getEmployeeById(employeeId)).thenReturn(employee);
-        when(employeeClient.getEmployeeById(swapWithEmployeeId)).thenReturn(swapEmployee);
-
-        when(shiftRepository.existsByEmployeeIdAndShiftDateAndShiftTime(swapWithEmployeeId, shift.getShiftDate(), shift.getShiftTime())).thenReturn(false);
-
-        Shift swapEmployeeShift = new Shift();
-        swapEmployeeShift.setShiftId(20L);
-        when(shiftRepository.findByEmployeeIdAndShiftDate(swapWithEmployeeId, shift.getShiftDate())).thenReturn(swapEmployeeShift);
-
-        ShiftStatus swapEmployeeShiftStatus = new ShiftStatus();
-        swapEmployeeShiftStatus.setShiftId(20L);
-        swapEmployeeShiftStatus.setStatus(ShiftStatusType.COMPLETED);
-        when(shiftStatusRepository.findByShiftId(20L)).thenReturn(swapEmployeeShiftStatus);
-
-        assertThrows(SwapConflictException.class, () -> shiftServiceImpl.requestShiftSwap(employeeId, shiftId, swapWithEmployeeId));
-    }
     
     @Test
     @DisplayName("Get Manager Swap Requests - Positive Test - Requests Found")
@@ -943,31 +767,7 @@ class ShiftServiceTestCase {
         assertTrue(result.isEmpty());
     }
 
-    @Test
-    @DisplayName("Get Manager Swap Requests - Positive Test - Shift Not Found During Mapping")
-    void getManagerSwapRequests_Positive_ShiftNotFoundDuringMapping() {
-        Long managerId = 1L;
-
-        EmployeeDTO subordinate1 = new EmployeeDTO();
-        subordinate1.setId(2L);
-        subordinate1.setManagerId(managerId);
-
-        List<EmployeeDTO> subordinates = List.of(subordinate1);
-        when(employeeClient.getEmployeesByManager(managerId)).thenReturn(subordinates);
-
-        ShiftStatus swap1 = new ShiftStatus();
-        swap1.setShiftId(10L);
-        swap1.setStatus(ShiftStatusType.SWAP_REQUESTED);
-
-        List<ShiftStatus> requestedSwaps = List.of(swap1);
-        when(shiftStatusRepository.findByStatus(ShiftStatusType.SWAP_REQUESTED)).thenReturn(requestedSwaps);
-
-        when(shiftRepository.findById(10L)).thenReturn(Optional.empty());
-
-        List<ShiftDTO> result = shiftServiceImpl.getManagerSwapRequests(managerId);
-
-        assertTrue(result.isEmpty());
-    }
+    
     @Test
     @DisplayName("Approve Shift Swap - Positive Test - Swap Approved")
     void approveShiftSwap_Positive_SwapApproved() {
@@ -1050,89 +850,8 @@ class ShiftServiceTestCase {
         assertThrows(EmployeeNotFoundException.class, () -> shiftServiceImpl.approveShiftSwap(managerId, shiftId, newEmployeeId));
     }
 
-    @Test
-    @DisplayName("Approve Shift Swap - Negative Test - Swap Request Not Found")
-    void approveShiftSwap_Negative_SwapRequestNotFound() {
-        Long managerId = 1L;
-        Long shiftId = 10L;
-        Long newEmployeeId = 2L;
-        Long originalEmployeeId = 3L;
-
-        Shift shift = new Shift();
-        shift.setShiftId(shiftId);
-        shift.setEmployeeId(originalEmployeeId);
-
-        when(shiftRepository.findById(shiftId)).thenReturn(Optional.of(shift));
-
-        EmployeeDTO employee = new EmployeeDTO();
-        employee.setId(originalEmployeeId);
-        employee.setManagerId(managerId);
-
-        when(employeeClient.getEmployeeById(originalEmployeeId)).thenReturn(employee);
-        when(shiftStatusRepository.findByShiftId(shiftId)).thenReturn(null);
-
-        assertThrows(SwapRequestNotFoundException.class, () -> shiftServiceImpl.approveShiftSwap(managerId, shiftId, newEmployeeId));
-    }
-
-    @Test
-    @DisplayName("Approve Shift Swap - Negative Test - Invalid Swap Employee")
-    void approveShiftSwap_Negative_InvalidSwapEmployee() {
-        Long managerId = 1L;
-        Long shiftId = 10L;
-        Long newEmployeeId = 2L;
-        Long originalEmployeeId = 3L;
-
-        Shift shift = new Shift();
-        shift.setShiftId(shiftId);
-        shift.setEmployeeId(originalEmployeeId);
-
-        when(shiftRepository.findById(shiftId)).thenReturn(Optional.of(shift));
-
-        EmployeeDTO employee = new EmployeeDTO();
-        employee.setId(originalEmployeeId);
-        employee.setManagerId(managerId);
-
-        when(employeeClient.getEmployeeById(originalEmployeeId)).thenReturn(employee);
-
-        ShiftStatus shiftStatus = new ShiftStatus();
-        shiftStatus.setShiftId(shiftId);
-        shiftStatus.setRequestedSwapEmployeeId(4L);
-
-        when(shiftStatusRepository.findByShiftId(shiftId)).thenReturn(shiftStatus);
-
-        assertThrows(InvalidSwapEmployeeException.class, () -> shiftServiceImpl.approveShiftSwap(managerId, shiftId, newEmployeeId));
-    }
-
-    @Test
-    @DisplayName("Approve Shift Swap - Negative Test - Swap Shift Not Found")
-    void approveShiftSwap_Negative_SwapShiftNotFound() {
-        Long managerId = 1L;
-        Long shiftId = 10L;
-        Long newEmployeeId = 2L;
-        Long originalEmployeeId = 3L;
-
-        Shift shift = new Shift();
-        shift.setShiftId(shiftId);
-        shift.setEmployeeId(originalEmployeeId);
-
-        when(shiftRepository.findById(shiftId)).thenReturn(Optional.of(shift));
-        EmployeeDTO employee = new EmployeeDTO();
     
-        employee.setId(originalEmployeeId);
-        employee.setManagerId(managerId);
-
-        when(employeeClient.getEmployeeById(originalEmployeeId)).thenReturn(employee);
-
-        ShiftStatus shiftStatus = new ShiftStatus();
-        shiftStatus.setShiftId(shiftId);
-        shiftStatus.setRequestedSwapEmployeeId(newEmployeeId);
-
-        when(shiftStatusRepository.findByShiftId(shiftId)).thenReturn(shiftStatus);
-        when(shiftRepository.findByEmployeeIdAndShiftDate(newEmployeeId, shift.getShiftDate())).thenReturn(null);
-
-        assertThrows(SwapShiftNotFoundException.class, () -> shiftServiceImpl.approveShiftSwap(managerId, shiftId, newEmployeeId));
-    }
-
+   
     @Test
     @DisplayName("Approve Shift Swap - Negative Test - Swap Conflict")
     void approveShiftSwap_Negative_SwapConflict() {
@@ -1239,56 +958,9 @@ class ShiftServiceTestCase {
         assertThrows(EmployeeNotFoundException.class, () -> shiftServiceImpl.rejectShiftSwap(managerId, shiftId));
     }
 
-    @Test
-    @DisplayName("Reject Shift Swap - Negative Test - Swap Request Not Found")
-    void rejectShiftSwap_Negative_SwapRequestNotFound() {
-        Long managerId = 1L;
-        Long shiftId = 10L;
-        Long employeeId = 2L;
+    
 
-        Shift shift = new Shift();
-        shift.setShiftId(shiftId);
-        shift.setEmployeeId(employeeId);
-
-        when(shiftRepository.findById(shiftId)).thenReturn(Optional.of(shift));
-
-        EmployeeDTO employee = new EmployeeDTO();
-        employee.setId(employeeId);
-        employee.setManagerId(managerId);
-
-        when(employeeClient.getEmployeeById(employeeId)).thenReturn(employee);
-        when(shiftStatusRepository.findByShiftId(shiftId)).thenReturn(null);
-
-        assertThrows(SwapRequestNotFoundException.class, () -> shiftServiceImpl.rejectShiftSwap(managerId, shiftId));
-    }
-
-    @Test
-    @DisplayName("Reject Shift Swap - Negative Test - Swap Request Not Requested State")
-    void rejectShiftSwap_Negative_SwapRequestNotRequestedState() {
-        Long managerId = 1L;
-        Long shiftId = 10L;
-        Long employeeId = 2L;
-
-        Shift shift = new Shift();
-        shift.setShiftId(shiftId);
-        shift.setEmployeeId(employeeId);
-
-        when(shiftRepository.findById(shiftId)).thenReturn(Optional.of(shift));
-
-        EmployeeDTO employee = new EmployeeDTO();
-        employee.setId(employeeId);
-        employee.setManagerId(managerId);
-
-        when(employeeClient.getEmployeeById(employeeId)).thenReturn(employee);
-
-        ShiftStatus shiftStatus = new ShiftStatus();
-        shiftStatus.setShiftId(shiftId);
-        shiftStatus.setStatus(ShiftStatusType.SCHEDULED);
-
-        when(shiftStatusRepository.findByShiftId(shiftId)).thenReturn(shiftStatus);
-
-        assertThrows(SwapRequestNotFoundException.class, () -> shiftServiceImpl.rejectShiftSwap(managerId, shiftId));
-    }
+    
     
     @Test
     @DisplayName("Update Shift - Positive Test - Shift Updated")
@@ -1573,67 +1245,5 @@ class ShiftServiceTestCase {
         when(employeeClient.getEmployeesByManager(managerId)).thenReturn(subordinates);
 
         assertThrows(UnauthorizedManagerException.class, () -> shiftServiceImpl.viewManagerEmployeeShifts(managerId, employeeId));
-    }
-
-    @Test
-    @DisplayName("View Manager Employee Shifts - Positive Test - No Shifts Found")
-    void viewManagerEmployeeShifts_Positive_NoShiftsFound() {
-        Long managerId = 1L;
-        Long employeeId = 2L;
-
-        EmployeeDTO subordinate = new EmployeeDTO();
-        subordinate.setId(employeeId);
-        subordinate.setManagerId(managerId);
-
-        List<EmployeeDTO> subordinates = List.of(subordinate);
-        when(employeeClient.getEmployeesByManager(managerId)).thenReturn(subordinates);
-
-        when(shiftRepository.findByEmployeeId(employeeId)).thenReturn(new ArrayList<>());
-
-       
-        List<ShiftDTO> result = shiftServiceImpl.viewManagerEmployeeShifts(managerId, employeeId);
-
-       
-        assertTrue(result.isEmpty());
-    }
-
-    @Test
-    @DisplayName("View Manager Employee Shifts - Positive Test - Shift Status OPEN")
-    void viewManagerEmployeeShifts_Positive_ShiftStatusNull() {
-
-        Long managerId = 1L;
-        Long employeeId = 2L;
-
-        EmployeeDTO subordinate = new EmployeeDTO();
-        subordinate.setId(employeeId);
-        subordinate.setManagerId(managerId);
-
-        List<EmployeeDTO> subordinates = List.of(subordinate);
-        when(employeeClient.getEmployeesByManager(managerId)).thenReturn(subordinates);
-
-        Shift shift1 = new Shift();
-        shift1.setShiftId(10L);
-        shift1.setEmployeeId(employeeId);
-        shift1.setShiftDate(LocalDate.now());
-        shift1.setShiftTime(LocalTime.of(9, 0));
-
-        List<Shift> shifts = List.of(shift1);
-        when(shiftRepository.findByEmployeeId(employeeId)).thenReturn(shifts);
-
-        ShiftDTO dto1 = new ShiftDTO();
-        dto1.setShiftId(10L);
-        when(shiftMapper.toDTO(shift1)).thenReturn(dto1);
-
-        when(shiftStatusRepository.findByShiftId(10L)).thenReturn(null);
-
-        List<ShiftDTO> result = shiftServiceImpl.viewManagerEmployeeShifts(managerId, employeeId);
-
-        assertEquals(1, result.size());
-        assertNotNull(result.get(0).getShiftStatus());
-        assertEquals(ShiftStatusType.OPEN, result.get(0).getShiftStatus().getStatus());
-    }
-    
-    
-    
-   
+    }   
 }

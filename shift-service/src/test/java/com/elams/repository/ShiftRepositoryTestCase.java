@@ -471,10 +471,4 @@ class ShiftRepositoryTestCase {
     }
     
     
-    ///findby_id
-    ///delete shift
-    
-    
-    
-    
 }

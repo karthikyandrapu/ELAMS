@@ -62,7 +62,6 @@ class ShiftStatusRepositoryTestCase {
     @Test
     @DisplayName("existsByShiftId - Positive - ShiftStatus Exists")
     void existsByShiftId_positive_shiftStatusExists() {
-        // Arrange
         Long shiftId = 1L;
         ShiftStatus shiftStatus = new ShiftStatus();
         shiftStatus.setShiftId(shiftId);
@@ -158,7 +157,6 @@ class ShiftStatusRepositoryTestCase {
     @Test
     @DisplayName("findByStatus - Negative - Null Status")
     void findByStatus_negative_nullStatus() {
-        // Arrange
         ShiftStatusType status = null;
         List<ShiftStatus> foundStatuses = shiftStatusRepository.findByStatus(status);
 
