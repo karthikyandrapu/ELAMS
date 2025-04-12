@@ -1,0 +1,43 @@
+<app-leaveemployeehome></app-leaveemployeehome>
+<div class="container mt-5">
+  <h2 class="text-center text-primary">Request Leave</h2>
+  <form (ngSubmit)="submitRequest()">
+    <div class="form-group mb-3">
+      <label for="employeeId">Employee Id</label>
+      <input type="number" id="employeeId" class="form-control" [(ngModel)]="leaveRequest.id" name="employeeId" required [readonly]="true">
+    </div>
+
+    <div class="form-group mb-3">
+      <label for="managerId">Manager Id</label>
+      <input type="number" id="managerId" class="form-control" [(ngModel)]="leaveRequest.managerId" name="managerId" required [readonly]="true">
+    </div>
+
+    <div class="form-group mb-3">
+      <label for="leaveType">Leave Type</label>
+      <select id="leaveType" class="form-select" [(ngModel)]="leaveRequest.leaveType" name="leaveType" required (change)="onLeaveTypeChange()">
+        <option value="" disabled>Select Leave Type</option>
+        <option value="SICK">Sick Leave</option>
+        <option value="CASUAL">Casual Leave</option>
+        <option value="VACATION">Vacation Leave</option>
+        <option value="OTHER">Other Leave</option>
+      </select>
+    </div>
+
+    <div class="form-group mb-3">
+      <label for="startDate">Start Date</label>
+      <input type="date" id="startDate" class="form-control" [(ngModel)]="leaveRequest.startDate" name="startDate" min="2025-04-11" max="2026-04-11" required (change)="onStartDateChange()">
+    </div>
+
+    <div class="form-group mb-3">
+      <label for="endDate">End Date</label>
+      <input type="date" id="endDate" class="form-control" min="2025-04-11" max="2026-04-11" [(ngModel)]="leaveRequest.endDate" name="endDate" required (change)="onEndDateChange()">
+    </div>
+
+    <button type="submit" class="btn btn-primary w-100" [disabled]="isSubmitting">Submit Leave Request</button>
+
+    <div *ngIf="isLeaveBalanceSufficient === false" class="alert alert-danger mt-2">
+      Insufficient leave balance for the selected leave type and duration.
+    </div>
+ 
+  </form>
+</div>

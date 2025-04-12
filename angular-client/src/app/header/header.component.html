@@ -1,0 +1,32 @@
+<div *ngIf="!isLoggedOut">
+  <nav class="navbar">
+    <div class="navbar-container">
+      <a routerLink="/home" routerLinkActive="active">Home</a>
+
+      <ng-container *ngIf="empRole?.toUpperCase() === 'EMPLOYEE'">
+        <a routerLink="/attendance-employeedashboard" routerLinkActive="active"
+          >Attendance</a
+        >
+        <a routerLink="/leaveserviceemployee" routerLinkActive="active">Leave</a>
+        <a routerLink="/shift-service-employee" routerLinkActive="active"
+          >Shifts</a
+        >
+        <a routerLink="employee/reports" routerLinkActive="active">Reports</a>
+      </ng-container>
+
+      <ng-container *ngIf="empRole?.toUpperCase() === 'MANAGER'">
+        <a routerLink="/attendance-managerdashboard" routerLinkActive="active"
+          >Manager Attendance</a
+        >
+        <a routerLink="/leaveservicemanager" routerLinkActive="active">Leave</a>
+        <a routerLink="/shift-service-manager" routerLinkActive="active"
+          >Shifts</a
+        >
+        <a routerLink="/attendancehome" routerLinkActive="active">Reports</a>
+      </ng-container>
+      <a routerLink="/logout" (click)="logout()" routerLinkActive="active"
+        >Logout</a
+      >
+    </div>
+  </nav>
+</div>

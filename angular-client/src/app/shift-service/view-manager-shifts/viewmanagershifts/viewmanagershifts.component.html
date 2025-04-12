@@ -1,0 +1,44 @@
+<app-shiftmanagerhome></app-shiftmanagerhome>
+<div class="view-manager-shifts-container">
+  <h2>View Employee Shifts</h2>
+
+  <div *ngIf="noRecordFound" class="alert alert-warning">
+    No shifts found for the given Manager ID.
+  </div>
+
+  <div *ngIf="errorMessage" class="alert alert-danger">
+    {{ errorMessage }}
+  </div>
+
+  <div *ngIf="shifts.length > 0">
+    <h3>Shifts for Manager ID: {{ managerId }}</h3>
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th>Shift ID</th>
+          <th>Employee ID</th>
+          <th>Shift Date</th>
+          <th>Shift Time</th>
+          <th>Shift Status</th>
+          <th>Request Swap with</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let shift of shifts">
+          <td>{{ shift.shiftId }}</td>
+          <td>{{ shift.employeeId }}</td>
+          <td>{{ shift.shiftDate }}</td>
+          <td>{{ shift.shiftTime }}</td>
+          <td>{{ shift.shiftStatus.status }}</td>
+          <td style="text-align: center">
+            {{
+              shift.shiftStatus.requestedSwapEmployeeId
+                ? shift.shiftStatus.requestedSwapEmployeeId
+                : "――"
+            }}
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

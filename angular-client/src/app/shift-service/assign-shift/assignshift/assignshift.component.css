@@ -1,0 +1,48 @@
+.assign-shift-container {
+  max-width: 600px;
+  margin: 150px 0px 0px 450px; /* Corrected syntax for margin */
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+label {
+  display: block; /* Make labels appear on their own line */
+  margin-bottom: 5px;
+  font-weight: bold; /* Optional: make labels bold */
+}
+
+.form-control {
+  width: calc(100% - 20px); /* Adjust width for padding */
+  padding: 10px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 4px; /* Slightly rounded corners */
+  box-sizing: border-box; /* Ensure padding and border are included in the element's total width and height */
+}
+
+.btn-primary {
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  padding: 10px 15px;
+  cursor: pointer;
+  border-radius: 4px; /* Match button corners */
+  font-size: 16px; /* Slightly larger font for button */
+}
+
+.btn-primary:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+.error {
+  color: red;
+  font-size: 12px;
+  margin-top: 5px;
+}

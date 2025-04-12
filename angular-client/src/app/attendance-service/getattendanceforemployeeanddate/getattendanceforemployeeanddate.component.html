@@ -1,0 +1,25 @@
+<h3>View Employee Attendance by Date</h3>
+<div>
+  <label for="employeeIdDate">Employee ID:</label>
+  <input type="number" id="employeeIdDate" [(ngModel)]="selectedEmployeeId">
+  <label for="date">Date:</label>
+  <input type="date" id="date" [(ngModel)]="selectedDate">
+  <button id="loadAttendanceByDateBtn" (click)="loadAttendanceByDate()">Load Attendance by Date</button>
+</div>
+<table *ngIf="dateAttendanceRecords.length > 0">
+  <thead>
+    <tr>
+      <th>Clock In Time</th>
+      <th>Clock Out Time</th>
+      <th>Work Hours</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let record of dateAttendanceRecords">
+      <td>{{ record.clockInTime | date: 'HH:mm:ss' }}</td>
+      <td>{{ record.clockOutTime | date: 'HH:mm:ss' }}</td>
+      <td>{{ record.workHours | number: '2.1-2' }}</td>
+    </tr>
+  </tbody>
+</table>
+<p *ngIf="dateAttendanceRecords.length === 0 && selectedEmployeeId && selectedDate && !errorMessage">No attendance records for employee {{ selectedEmployeeId }} on {{ selectedDate }}.</p>

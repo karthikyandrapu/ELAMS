@@ -1,0 +1,130 @@
+/* Import Font Awesome for icons (ensure you have it set up in your project) */
+@import url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css");
+ 
+.login-container-best {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: linear-gradient(
+    135deg,
+    #6dd5ed,
+    #2193b0
+  ); /* Gradient background */
+  padding: 15px; /* Further reduce container padding */
+}
+ 
+.login-card {
+  background-color: rgba(255, 255, 255, 0.9); /* Semi-transparent white card */
+  padding: 25px; /* Further reduce card padding */
+  border-radius: 8px; /* Further reduce border-radius */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Even less pronounced shadow */
+  width: 280px; /* Further decrease card width */
+  text-align: center;
+}
+ 
+h2 {
+  color: #333;
+  margin-bottom: 20px; /* Further reduce margin */
+  font-size: 1.8em; /* Further reduce font size */
+  font-weight: 700;
+}
+ 
+.login-form {
+  display: flex;
+  flex-direction: column;
+}
+ 
+.form-group {
+  margin-bottom: 16px; /* Further reduce margin */
+  text-align: left;
+}
+ 
+label {
+  display: block;
+  margin-bottom: 5px; /* Further reduce margin */
+  color: #555;
+  font-weight: 600;
+  font-size: 0.9em; /* Further reduce font size */
+}
+ 
+label i {
+  margin-right: 5px; /* Further reduce margin */
+  color: #007bff; /* Icon color */
+}
+ 
+input[type="text"],
+input[type="password"] {
+  padding: 8px; /* Further reduce padding */
+  border: 1px solid #ddd;
+  border-radius: 4px; /* Further reduce border-radius */
+  font-size: 14px; /* Further reduce font size */
+  width: calc(100% - 18px);
+  box-sizing: border-box;
+  transition: border-color 0.3s ease;
+}
+ 
+input[type="text"]:focus,
+input[type="password"]:focus {
+  border-color: #007bff;
+  outline: none;
+  box-shadow: 0 0 4px rgba(0, 123, 255, 0.5); /* Further reduce focus highlight */
+}
+ 
+input::placeholder {
+  color: #aaa;
+  font-size: 0.85em; /* Further reduce placeholder font size */
+}
+ 
+.error-message {
+  color: #e44d26;
+  margin-top: 8px; /* Further reduce margin */
+  text-align: center;
+  font-size: 0.8em; /* Further reduce font size */
+}
+ 
+.error-message i {
+  margin-right: 3px; /* Further reduce margin */
+}
+ 
+.login-button {
+  background-color: #007bff;
+  color: white;
+  padding: 10px 15px; /* Further reduce padding */
+  border: none;
+  border-radius: 4px; /* Further reduce border-radius */
+  cursor: pointer;
+  font-size: 0.9em; /* Further reduce font size */
+  font-weight: 600;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1); /* Even less pronounced shadow */
+}
+ 
+.login-button i {
+  margin-right: 5px; /* Further reduce margin */
+}
+ 
+.login-button:hover {
+  background-color: #0056b3;
+  transform: translateY(-1px); /* Further reduce lift */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Even less pronounced hover shadow */
+}
+ 
+.signup-link {
+  margin-top: 16px; /* Further reduce margin */
+  color: #777;
+  font-size: 0.85em; /* Further reduce font size */
+}
+ 
+.signup-link a {
+  color: #007bff;
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 0.9em; /* Slightly increase link font size for better readability */
+}
+ 
+.signup-link a:hover {
+  text-decoration: underline;
+}
+ 
+ 

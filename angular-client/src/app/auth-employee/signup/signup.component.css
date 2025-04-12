@@ -1,0 +1,146 @@
+/* Import Font Awesome */
+@import url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css");
+ 
+.signup-container-best {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #a1c4fd, #c2e9fb);
+  padding: 8px; /* Slightly smaller container padding */
+}
+ 
+.signup-card-grid {
+  background-color: rgba(255, 255, 255, 0.95);
+  padding: 33px; /* Slightly smaller card padding */
+  border-radius: 7px; /* Slightly smaller border-radius */
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.08); /* Even less pronounced shadow */
+  width: 480px; /* Slightly smaller card width */
+  text-align: center;
+}
+ 
+h2 {
+  color: #37474f;
+  margin-bottom: 18px; /* Slightly smaller margin */
+  font-size: 1.9em; /* Slightly smaller font size */
+  font-weight: 700;
+}
+ 
+.signup-form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr; /* Two columns layout */
+  gap: 8px; /* Slightly smaller spacing between grid items */
+}
+ 
+.form-group-grid {
+  text-align: left;
+}
+ 
+.form-group-grid-full {
+  grid-column: 1 / -1; /* Make the role dropdown span both columns */
+  text-align: left;
+}
+ 
+label {
+  display: block;
+  margin-bottom: 3px; /* Slightly smaller margin */
+  color: #546e7a;
+  font-weight: 600;
+  font-size: 0.85em; /* Slightly smaller font size */
+}
+ 
+label i {
+  margin-right: 4px; /* Slightly smaller margin */
+  color: #3f51b5;
+}
+ 
+input[type="number"],
+input[type="text"],
+input[type="password"],
+select {
+  padding: 7px; /* Slightly smaller padding */
+  border: 1px solid #cfd8dc;
+  border-radius: 3px; /* Slightly smaller border-radius */
+  font-size: 13px; /* Slightly smaller font size */
+  width: calc(100% - 14px);
+  box-sizing: border-box;
+  transition: border-color 0.3s ease;
+}
+ 
+input[type="number"]:focus,
+input[type="text"]:focus,
+input[type="password"]:focus,
+select:focus {
+  border-color: #3f51b5;
+  outline: none;
+  box-shadow: 0 0 3px rgba(63, 81, 181, 0.5); /* Even less focus shadow */
+}
+ 
+input::placeholder {
+  color: #b0bec5;
+  font-size: 0.75em; /* Slightly smaller placeholder font size */
+}
+ 
+select {
+  appearance: none;
+  background-image: url('data:image/svg+xml;charset=UTF-8,<svg fill="%233f51b5" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg>');
+  background-repeat: no-repeat;
+  background-position: right 5px center; /* Slightly adjusted background position */
+  background-size: 0.7em; /* Slightly smaller background size */
+}
+ 
+.signup-button-grid {
+  grid-column: 1 / -1; /* Make the button span both columns */
+  background-color: #3f51b5;
+  color: white;
+  padding: 9px 14px; /* Slightly smaller padding */
+  border: none;
+  border-radius: 3px; /* Slightly smaller border-radius */
+  cursor: pointer;
+  font-size: 0.85em; /* Slightly smaller font size */
+  font-weight: 600;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.08); /* Even less shadow */
+}
+ 
+.signup-button-grid i {
+  margin-right: 4px; /* Slightly smaller margin */
+}
+ 
+.signup-button-grid:hover {
+  background-color: #303f9f;
+  transform: translateY(-0.5px); /* Even less hover lift */
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1); /* Even less hover shadow */
+}
+ 
+.error-message-grid {
+  grid-column: 1 / -1; /* Make the error message span both columns */
+  color: #d32f2f;
+  margin-top: 8px; /* Slightly smaller margin */
+  text-align: center;
+  font-size: 0.75em; /* Slightly smaller font size */
+}
+ 
+.error-message-grid i {
+  margin-right: 3px; /* Slightly smaller margin */
+}
+ 
+.login-link-grid {
+  grid-column: 1 / -1; /* Make the login link span both columns */
+  margin-top: 18px; /* Slightly smaller margin */
+  color: #78909c;
+  font-size: 0.8em; /* Slightly smaller font size */
+  text-align: center;
+}
+ 
+.login-link-grid a {
+  color: #3f51b5;
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 0.85em; /* Slightly smaller link font size */
+}
+ 
+.login-link-grid a:hover {
+  text-decoration: underline;
+}
+ 

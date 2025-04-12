@@ -1,0 +1,34 @@
+<app-header></app-header>
+<div class="d-flex" id="wrapper">
+  <div class="bg-dark border-right" id="sidebar-wrapper">
+    <div class="sidebar-heading text-white">Shift Management</div>
+    <div class="list-group list-group-flush">
+      <a
+        routerLink="/shiftserviceemployee"
+        class="list-group-item list-group-item-action text-white"
+        >Home</a
+      >
+      <a
+        routerLink="/get-employee-shifts"
+        class="list-group-item list-group-item-action text-white"
+        >View My Shifts</a
+      >
+      <a
+        routerLink="/request-shift"
+        class="list-group-item list-group-item-action text-white"
+        >Request Shift Swap</a
+      >
+      <a
+        routerLink="/get-colleague-shifts"
+        class="list-group-item list-group-item-action text-white"
+        >View Colleague Shifts</a
+      >
+    </div>
+  </div>
+  <div id="page-content-wrapper">
+    <div class="container-fluid">
+      <h1>Employee Shift Service</h1>
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,69 @@
+<app-shiftmanagerhome></app-shiftmanagerhome>
+<div class="update-shift-container">
+  <h2>Update Shift</h2>
+  <form (ngSubmit)="updateShift()">
+    <div class="form-group">
+      <label for="shiftId">Shift ID</label>
+      <input
+        type="number"
+        id="shiftId"
+        [(ngModel)]="shiftId"
+        name="shiftId"
+        class="form-control"
+        placeholder="Enter Shift ID"
+        required
+      />
+    </div>
+
+    <div class="form-group">
+      <label for="managerId">Manager ID</label>
+      <input
+        type="number"
+        id="managerId"
+        [(ngModel)]="managerId"
+        name="managerId"
+        class="form-control"
+        placeholder="Enter Manager ID"
+        required
+      />
+    </div>
+
+    <div class="form-group">
+      <label for="shiftDate">Shift Date</label>
+      <input
+        type="text"
+        id="shiftDate"
+        [(ngModel)]="shiftDate"
+        name="shiftDate"
+        class="form-control"
+        placeholder="Enter Shift Date (YYYY-MM-DD)"
+        required
+      />
+    </div>
+
+    <div class="form-group">
+      <label for="shiftTime">Shift Time</label>
+      <input
+        type="text"
+        id="shiftTime"
+        [(ngModel)]="shiftTime"
+        name="shiftTime"
+        class="form-control"
+        placeholder="Enter Shift Time (HH:MM:SS)"
+        required
+      />
+    </div>
+
+    <button type="submit" class="btn btn-primary">Update Shift</button>
+  </form>
+
+  <div *ngIf="submitted">
+    <div *ngIf="successMessage" class="alert alert-success">
+      {{ successMessage }}
+    </div>
+
+    <div *ngIf="errorMessage" class="alert alert-danger">
+      {{ errorMessage }}
+    </div>
+  </div>
+</div>

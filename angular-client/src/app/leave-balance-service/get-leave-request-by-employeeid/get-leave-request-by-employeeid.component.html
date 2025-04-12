@@ -1,0 +1,45 @@
+<app-leaveemployeehome></app-leaveemployeehome>
+<div class="container mt-5">
+    <h2>Leave Requests</h2>
+    <div class="form-group">
+      <label for="employeeId">Employee ID:</label>
+      <input
+        type="number"
+        class="form-control"
+        id="employeeId"
+        [(ngModel)]="employeeId"
+        placeholder="Enter Employee ID"
+      />
+    </div>
+    <button class="btn btn-primary mt-2" (click)="getLeaveRequestsByEmployeeId()">Fetch Leave Requests</button>
+  
+    <div class="mt-4" *ngIf="errorMessage">
+      <div class="alert alert-danger">{{ errorMessage }}</div>
+    </div>
+  
+    <div class="mt-4" *ngIf="leaveRequests && leaveRequests.length > 0">
+      <h3>Leave Request Details</h3>
+      <table class="table table-bordered">
+        <thead class="thead-dark">
+          <tr>
+            <th>Leave ID</th>
+            <th>Start Date</th>
+            <th>End Date</th>
+            <th>Leave Type</th>
+            <th>No of days</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let request of leaveRequests">
+            <td>{{ request.leaveId }}</td>
+            <td>{{ request.startDate }}</td>
+            <td>{{ request.endDate }}</td>
+            <td>{{ request.leaveType }}</td>
+            <td>{{ calculateDays(request.startDate, request.endDate)}}</td>
+            
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  

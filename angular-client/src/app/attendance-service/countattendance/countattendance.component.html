@@ -1,0 +1,11 @@
+<h3>Count Employee Attendance</h3>
+<div>
+  <label for="employeeIdCount">Employee ID:</label>
+  <input type="number" id="employeeIdCount" [(ngModel)]="countSelectedEmployeeId">
+  <label for="startDate">Start Date:</label>
+  <input type="date" id="startDate" [(ngModel)]="startDate">
+  <label for="endDate">End Date:</label>
+  <input type="date" id="endDate" [(ngModel)]="endDate">
+  <button (click)="countAttendance()">Count Attendance</button>
+  <p *ngIf="countResult !== null">Attendance Count: {{ countResult }}</p>
+</div>

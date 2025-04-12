@@ -1,0 +1,26 @@
+
+<div class="container-fluid rounded-sm">
+    <div class="mb-2">
+        <h3>Your Attendance Records</h3>
+    </div>
+    
+<table *ngIf="attendanceRecords.length > 0" class="table table-striped table-hover">
+  <thead>
+    <tr>
+      <th scope="col">Date</th>
+      <th scope="col">Clock In Time</th>
+      <th scope="col">Clock Out Time</th>
+      <th scope="col">Work Hours</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let record of attendanceRecordBody">
+      <td>{{ record.clockInTime | date:'yyyy-MM-dd' }}</td>
+      <td>{{ record.clockInTime | date: 'HH:mm:ss' }}</td>
+      <td>{{ record.clockOutTime | date: 'HH:mm:ss' }}</td>
+      <td>{{ record.workHours | number: '2.1-2' }}</td>
+    </tr>
+  </tbody>
+</table>
+<p *ngIf="attendanceRecords?.length === 0 && !errorMessage">No attendance records found.</p>
+</div>

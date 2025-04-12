@@ -1,0 +1,10 @@
+h3 {
+    border-bottom: 2px solid transparent; /* Initially transparent border */
+    transition: border-bottom 0.3s ease-in-out; /* Smooth transition */
+    padding-bottom: 3px; /* Optional: Add some space for the border */
+    display: inline;
+  }
+  
+  h3:hover {
+    border-bottom: 2px solid currentColor; /* Border color matches text color */
+  }

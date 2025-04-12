@@ -1,0 +1,21 @@
+<h3>Today's Attendance</h3>
+<button id="loadTodayAttendaceBtn" (click)="loadTodayAttendance()">Load Today's Attendance</button>
+<table *ngIf="todayAttendanceRecords.length > 0">
+  <thead>
+    <tr>
+      <th>Employee ID</th>
+      <th>Clock In Time</th>
+      <th>Clock Out Time</th>
+      <th>Work Hours</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let record of todayAttendanceRecords">
+      <td>{{ record.employeeId }}</td>
+      <td>{{ record.clockInTime | date: 'HH:mm:ss' }}</td>
+      <td>{{ record.clockOutTime | date: 'HH:mm:ss' }}</td>
+      <td>{{ record.workHours }}</td>
+    </tr>
+  </tbody>
+</table>
+<p *ngIf="todayAttendanceRecords.length === 0 && errorMessage">No attendance records for today.</p>

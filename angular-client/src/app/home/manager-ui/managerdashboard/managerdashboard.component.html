@@ -1,0 +1,290 @@
+<div class="container-fluid" [class.dark-theme]="isDarkMode">
+  <div class="row">
+    <nav class="col-md-2 bg-light sidebar">
+      <div class="sidebar-sticky">
+        <div class="d-flex align-items-center mb-4 px-3">
+          <img
+            src="https://e7.pngegg.com/pngimages/505/443/png-clipart-time-attendance-clocks-time-management-time-logo-time-thumbnail.png"
+            alt="ELAMS Logo"
+            style="width: 32px; height: 32px; margin-right: 8px"
+          />
+          <span class="font-weight-bold" style="font-size: 1.2em">ELAMS</span>
+        </div>
+        <h6
+          class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted"
+        >
+          <span
+            >{{
+              empRole?.toUpperCase() === "MANAGER" ? "Manager" : "Employee"
+            }}
+            Dashboard</span
+          >
+        </h6>
+        <ul class="nav flex-column">
+          <li class="nav-item">
+            <a class="nav-link active" routerLink="/home">
+              <i class="fas fa-home"></i> Home
+              <span class="sr-only">(current)</span>
+            </a>
+          </li>
+          <ng-container *ngIf="empRole?.toUpperCase() === 'EMPLOYEE'">
+            <li class="nav-item">
+              <a class="nav-link" routerLink="/attendance-employeedashboard">
+                <i class="fas fa-user-clock"></i> Attendance
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" routerLink="employee/leave">
+                <i class="far fa-calendar-times"></i> Leave
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" routerLink="/shift-service-employee">
+                <i class="fas fa-exchange-alt"></i> Shifts
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" routerLink="employee/reports">
+                <i class="fas fa-chart-bar"></i> Reports
+              </a>
+            </li>
+          </ng-container>
+          <ng-container *ngIf="empRole?.toUpperCase() === 'MANAGER'">
+            <li class="nav-item">
+              <a class="nav-link" routerLink="/attendance-managerdashboard">
+                <i class="fas fa-user-shield"></i> Manager Attendance
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" routerLink="/leaveservicemanager">
+                <i class="far fa-calendar-check"></i> Leave Management
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" routerLink="/shift-service-manager">
+                <i class="fas fa-calendar-alt"></i> Shift Management
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" routerLink="/manager-reports">
+                <i class="fas fa-file-alt"></i> Reports
+              </a>
+            </li>
+          </ng-container>
+          <li class="nav-item">
+            <a
+              class="nav-link"
+              (click)="authService.logOut()"
+              routerLink="/logout"
+            >
+              <i class="fas fa-sign-out-alt"></i> Logout
+            </a>
+          </li>
+        </ul>
+
+        <h6
+          class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted"
+        >
+          <span>Settings</span>
+        </h6>
+        <ul class="nav flex-column mb-2">
+          <li class="nav-item">
+            <div class="nav-link">
+              <i
+                class="fas fa-sun"
+                *ngIf="!isDarkMode"
+                (click)="toggleTheme()"
+                style="cursor: pointer"
+              ></i>
+              <i
+                class="fas fa-moon"
+                *ngIf="isDarkMode"
+                (click)="toggleTheme()"
+                style="cursor: pointer"
+              ></i>
+              <span
+                style="margin-left: 10px; cursor: pointer"
+                (click)="toggleTheme()"
+                >Dark Mode</span
+              >
+            </div>
+          </li>
+        </ul>
+      </div>
+    </nav>
+
+    <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
+      <div
+        class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom"
+      >
+        <!-- <div style="position: absolute; top: 15px; left: 15px; font-size: 2em; cursor: pointer; z-index: 10;"
+             routerLink="{{ empRole?.toUpperCase() === 'MANAGER' ? '/manager/attendance' : '/employee/attendance' }}"
+             title="Go to Attendance">
+          <i class="fas fa-user-clock"></i>
+        </div> -->
+        <h1 class="h2">Dashboard</h1>
+        <div class="btn-toolbar mb-2 mb-md-0">
+          <div class="btn-group mr-2">
+            <button type="button" class="btn btn-sm btn-outline-secondary">
+              Share
+            </button>
+            <button type="button" class="btn btn-sm btn-outline-secondary">
+              Export
+            </button>
+          </div>
+          <button
+            type="button"
+            class="btn btn-sm btn-outline-secondary dropdown-toggle"
+          >
+            <span data-feather="calendar"></span>
+            This week
+          </button>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-4">
+          <div class="card mb-4 shadow-sm">
+            <canvas id="attendanceChart"></canvas>
+            <div class="card-body">
+              <p class="card-text">
+                <strong>Attendance:</strong>
+                {{ attendanceData.present }} Present /
+                {{ attendanceData.total }} Total
+              </p>
+              <div class="d-flex justify-content-between align-items-center">
+                <div class="btn-group">
+                  <button
+                    type="button"
+                    class="btn btn-sm btn-outline-secondary"
+                    (click)="
+                      navigateTo(
+                        empRole?.toUpperCase() === 'MANAGER'
+                          ? '/attendance-managerdashboard'
+                          : '/attendance-employeedashboard'
+                      )
+                    "
+                  >
+                    View Details
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-4">
+          <div class="card mb-4 shadow-sm">
+            <canvas id="leaveRequestsChart"></canvas>
+            <div class="card-body">
+              <p class="card-text">
+                <strong>Leave Requests:</strong>
+                {{ leaveRequestsData.pending }} Pending,
+                {{ leaveRequestsData.approved }} Approved,
+                {{ leaveRequestsData.rejected }} Rejected
+              </p>
+              <div class="d-flex justify-content-between align-items-center">
+                <div class="btn-group">
+                  <button
+                    type="button"
+                    class="btn btn-sm btn-outline-secondary"
+                    (click)="
+                      navigateTo(
+                        empRole?.toUpperCase() === 'MANAGER'
+                          ? '/manager/leave'
+                          : '/employee/leave'
+                      )
+                    "
+                  >
+                    View Details
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-4">
+          <div class="card mb-4 shadow-sm">
+            <canvas id="leaveBalanceChart"></canvas>
+            <div class="card-body">
+              <p class="card-text">
+                <strong>Avg. Leave Balance:</strong>
+                {{ leaveBalanceData.averageBalance }} days
+              </p>
+              <div class="d-flex justify-content-between align-items-center">
+                <div class="btn-group">
+                  <button
+                    type="button"
+                    class="btn btn-sm btn-outline-secondary"
+                    (click)="navigateTo('/employee/leave-balance')"
+                  >
+                    View Details
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-4">
+          <div class="card mb-4 shadow-sm">
+            <canvas id="shiftChart"></canvas>
+            <div class="card-body">
+              <p class="card-text">
+                <strong>Shifts:</strong> {{ shiftData.totalShifts }} Total,
+                {{ shiftData.openShifts }} Open
+              </p>
+              <div class="d-flex justify-content-between align-items-center">
+                <div class="btn-group">
+                  <button
+                    type="button"
+                    class="btn btn-sm btn-outline-secondary"
+                    (click)="
+                      navigateTo(
+                        empRole?.toUpperCase() === 'MANAGER'
+                          ? '/shift-service-manager'
+                          : '/shift-service-employee'
+                      )
+                    "
+                  >
+                    View Details
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-4">
+          <div class="card mb-4 shadow-sm">
+            <canvas id="reportsChart"></canvas>
+            <div class="card-body">
+              <p class="card-text">
+                <strong>Reports:</strong>
+                {{ reportData.generatedReports }} Generated
+              </p>
+              <div class="d-flex justify-content-between align-items-center">
+                <div class="btn-group">
+                  <button
+                    type="button"
+                    class="btn btn-sm btn-outline-secondary"
+                    (click)="
+                      navigateTo(
+                        empRole?.toUpperCase() === 'MANAGER'
+                          ? '/manager-reports'
+                          : '/employee/reports'
+                      )
+                    "
+                  >
+                    View Details
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+</div>

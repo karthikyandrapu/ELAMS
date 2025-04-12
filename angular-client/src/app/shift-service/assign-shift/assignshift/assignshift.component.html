@@ -1,0 +1,96 @@
+<app-shiftmanagerhome></app-shiftmanagerhome>
+<div class="assign-shift-container">
+  <form [formGroup]="assignShiftForm" (ngSubmit)="assign()">
+    <div class="form-group">
+      <label for="employeeId">Employee ID</label>
+      <select
+        id="employeeId"
+        formControlName="employeeId"
+        class="form-control"
+        required
+      >
+        <option value="" disabled selected>Select an Employee</option>
+        <option *ngFor="let employee of employees" [value]="employee">
+          {{ employee }}
+        </option>
+      </select>
+      <div
+        *ngIf="
+          assignShiftForm.controls['employeeId'].invalid &&
+          (assignShiftForm.controls['employeeId'].dirty ||
+            assignShiftForm.controls['employeeId'].touched)
+        "
+        class="error"
+      >
+        <div *ngIf="assignShiftForm.controls['employeeId'].errors?.['required']">
+          Employee ID is required.
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="shiftDate">Shift Date</label>
+      <input
+        type="date"
+        id="shiftDate"
+        formControlName="shiftDate"
+        class="form-control"
+        required
+      />
+      <div
+        *ngIf="
+          assignShiftForm.controls['shiftDate'].invalid &&
+          (assignShiftForm.controls['shiftDate'].dirty ||
+            assignShiftForm.controls['shiftDate'].touched)
+        "
+        class="error"
+      >
+        <div *ngIf="assignShiftForm.controls['shiftDate'].errors?.['required']">
+          Shift Date is required.
+        </div>
+        <div *ngIf="assignShiftForm.controls['shiftDate'].errors?.['pattern']">
+          Invalid date format. Please use YYYY-MM-DD.
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="shiftTime">Shift Time</label>
+      <input
+        type="time"
+        step="1"
+        id="shiftTime"
+        formControlName="shiftTime"
+        class="form-control"
+        required
+      />
+      <div
+        *ngIf="
+          assignShiftForm.controls['shiftTime'].invalid &&
+          (assignShiftForm.controls['shiftTime'].dirty ||
+            assignShiftForm.controls['shiftTime'].touched)
+        "
+        class="error"
+      >
+        <div *ngIf="assignShiftForm.controls['shiftTime'].errors?.['required']">
+          Shift Time is required.
+        </div>
+        <div *ngIf="assignShiftForm.controls['shiftTime'].errors?.['pattern']">
+          Invalid time format. Please use HH:MM:SS (24-hour format).
+        </div>
+      </div>
+    </div>
+
+    <button
+      type="submit"
+      class="btn btn-primary"
+      [disabled]="assignShiftForm.invalid"
+    >
+      Assign Shift
+    </button>
+
+    <div *ngIf="errorMessage" class="error">
+      {{ errorMessage }}
+    </div>
+  </form>
+</div>
