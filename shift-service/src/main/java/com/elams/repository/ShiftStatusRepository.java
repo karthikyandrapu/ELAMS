@@ -4,6 +4,8 @@ import com.elams.entities.ShiftStatus;
 import com.elams.enums.ShiftStatusType;
 import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -51,4 +53,12 @@ public interface ShiftStatusRepository extends JpaRepository<ShiftStatus, Long> 
      * @return A list of {@link ShiftStatus} entities with any of the specified statuses.
      */
     List<ShiftStatus> findByStatusIn(List<ShiftStatusType> statuses);
+    
+    
+    
+    @Query("SELECT ss FROM ShiftStatus ss JOIN Shift s ON ss.shiftId = s.shiftId WHERE ss.status IN :statuses AND s.employeeId = :employeeId")
+    List<ShiftStatus> findByStatusInAndEmployeeId(@Param("statuses") List<ShiftStatusType> statuses, @Param("employeeId") Long employeeId);
+
+    @Query("SELECT ss FROM ShiftStatus ss JOIN Shift s ON ss.shiftId = s.shiftId WHERE ss.status = :status AND s.employeeId = :employeeId")
+    List<ShiftStatus> findByStatusAndEmployeeId(@Param("status") ShiftStatusType status, @Param("employeeId") Long employeeId);
 }

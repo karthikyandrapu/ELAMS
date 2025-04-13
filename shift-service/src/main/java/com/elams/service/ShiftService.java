@@ -117,4 +117,10 @@ public interface ShiftService {
      * @return A list of {@link ShiftDTO} representing the pending swap requests.
      */
 	List<ShiftDTO> getManagerSwapRequests(Long managerId);
+	
+	List<ShiftDTO> viewUpcomingEmployeeShifts(Long employeeId);
+	
+	List<ShiftDTO> viewEmployeeSwapRequests(Long employeeId);
+    List<ShiftDTO> viewEmployeeRejectedSwapRequests(Long employeeId);
+    List<ShiftDTO> viewEmployeeApprovedSwapRequests(Long employeeId);
 }

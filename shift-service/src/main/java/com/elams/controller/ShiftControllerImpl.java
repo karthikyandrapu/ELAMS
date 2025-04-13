@@ -289,4 +289,54 @@ public class ShiftControllerImpl implements ShiftController {
         List<ShiftDTO> requests = shiftService.getManagerSwapRequests(managerId);
         return ResponseEntity.ok(requests);
     }
+    /**
+     * Retrieves the list of upcoming shifts for a specific employee.
+     * <p>
+     * Endpoint: {@code GET /shifts/employee/{employeeId}/upcoming}.
+     *
+     * @param employeeId ID of the employee whose upcoming shifts are being retrieved.
+     * @return {@code HTTP 200 OK} with a List of {@link ShiftDTO} objects representing the employee's upcoming shifts.
+     */
+    @GetMapping("/employee/{employeeId}/upcoming")
+    public ResponseEntity<List<ShiftDTO>> getUpcomingEmployeeShifts(
+    		@PathVariable Long employeeId,
+    		@RequestHeader("role") EmployeeRole role) {
+        if (role != EmployeeRole.EMPLOYEE) {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
+        }
+        List<ShiftDTO> upcomingShifts = shiftService.viewUpcomingEmployeeShifts(employeeId);
+        return ResponseEntity.ok(upcomingShifts);
+    }
+    
+    @GetMapping("/employee/{employeeId}/swap/requests")
+    public ResponseEntity<List<ShiftDTO>> viewEmployeeSwapRequests(@PathVariable Long employeeId,
+    		@RequestHeader("role") EmployeeRole role) {
+    	 if (role != EmployeeRole.EMPLOYEE) {
+             return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
+         }
+        List<ShiftDTO> swapRequests = shiftService.viewEmployeeSwapRequests(employeeId);
+        return ResponseEntity.ok(swapRequests);
+    }
+
+    @GetMapping("/employee/{employeeId}/swap/rejected")
+    public ResponseEntity<List<ShiftDTO>> viewEmployeeRejectedSwapRequests(@PathVariable Long employeeId,
+    		@RequestHeader("role") EmployeeRole role) {
+    	 if (role != EmployeeRole.EMPLOYEE) {
+             return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
+         }
+        List<ShiftDTO> rejectedRequests = shiftService.viewEmployeeRejectedSwapRequests(employeeId);
+        return ResponseEntity.ok(rejectedRequests);
+    }
+
+    @GetMapping("/employee/{employeeId}/swap/approved")
+    public ResponseEntity<List<ShiftDTO>> viewEmployeeApprovedSwapRequests(@PathVariable Long employeeId,
+    		@RequestHeader("role") EmployeeRole role) {
+    	 if (role != EmployeeRole.EMPLOYEE) {
+             return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
+         }
+        List<ShiftDTO> approvedRequests = shiftService.viewEmployeeApprovedSwapRequests(employeeId);
+        return  ResponseEntity.ok(approvedRequests);
+    }
+    
+    
 }

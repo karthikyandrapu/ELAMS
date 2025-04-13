@@ -75,4 +75,7 @@ public interface ShiftRepository extends JpaRepository<Shift, Long> {
      * @return The {@link Shift} entity, or {@code null} if not found.
      */
     Shift findByEmployeeIdAndShiftDate(Long employeeId, LocalDate shiftDate);
+    
+    List<Shift> findByEmployeeIdAndShiftDateGreaterThanEqualOrderByShiftDateAscShiftTimeAsc(Long employeeId, LocalDate shiftDate);
+
 }

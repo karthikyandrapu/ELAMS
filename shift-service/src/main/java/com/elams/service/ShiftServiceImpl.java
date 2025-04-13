@@ -2,6 +2,7 @@ package com.elams.service;
 
 import java.time.DateTimeException;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
@@ -163,28 +164,49 @@ public class ShiftServiceImpl implements ShiftService {
         List<ShiftStatus> shiftsToComplete = shiftStatusRepository.findByStatusIn(
                 List.of(ShiftStatusType.SCHEDULED, ShiftStatusType.SWAP_REQUEST_REJECTED, ShiftStatusType.SWAP_REQUEST_APPROVED)
         );
+        ZonedDateTime now = ZonedDateTime.now(ZoneId.systemDefault());
+        // Using a proper logger (e.g., SLF4j) is recommended for production
+        // For this example, we'll use System.out.println
+        System.out.println("[COMPLETE_SHIFTS] Current Time (IST): " + now);
+
         for (ShiftStatus shiftStatus : shiftsToComplete) {
             Shift shift = shiftRepository.findById(shiftStatus.getShiftId()).orElse(null);
             if (shift != null) {
+                System.out.println("[COMPLETE_SHIFTS] Processing Shift ID: " + shift.getShiftId());
                 try {
-                    LocalTime endTime = shift.getShiftTime().plusHours(shiftDurationConfig.getDurationHours());
-                    ZonedDateTime shiftEndTime = ZonedDateTime.of(shift.getShiftDate(), endTime, ZoneId.systemDefault());
-                    ZonedDateTime now = ZonedDateTime.now(ZoneId.systemDefault());
+                    LocalDate startDate = shift.getShiftDate();
+                    LocalTime startTime = shift.getShiftTime();
+                    int durationHours = shiftDurationConfig.getDurationHours();
+
+                    LocalDateTime startDateTime = LocalDateTime.of(startDate, startTime);
+                    LocalDateTime endDateTime = startDateTime.plusHours(durationHours);
+                    ZonedDateTime shiftEndTime = ZonedDateTime.of(endDateTime, ZoneId.systemDefault());
+
+                    System.out.println("[COMPLETE_SHIFTS]   Shift Start Date: " + startDate);
+                    System.out.println("[COMPLETE_SHIFTS]   Shift Start Time: " + startTime);
+                    System.out.println("[COMPLETE_SHIFTS]   Shift Duration (Hours): " + durationHours);
+                    System.out.println("[COMPLETE_SHIFTS]   Calculated End DateTime (Local): " + endDateTime);
+                    System.out.println("[COMPLETE_SHIFTS]   Calculated End DateTime (Zoned, IST): " + shiftEndTime);
+
                     if (shiftEndTime.isBefore(now)) {
+                        System.out.println("[COMPLETE_SHIFTS]   Shift End Time is BEFORE Current Time. Marking as COMPLETED.");
                         shiftStatus.setStatus(ShiftStatusType.COMPLETED);
                         shiftStatusRepository.save(shiftStatus);
+                    } else {
+                        System.out.println("[COMPLETE_SHIFTS]   Shift End Time is NOT before Current Time.");
                     }
                 } catch (DateTimeException e) {
-                    throw new DateTimeException(
-                            "Error calculating shift end time for shift ID: " + shift.getShiftId() +
-                                    ". Please verify the shift date, time, and duration configurations.", e
+                    System.err.println(
+                            "[COMPLETE_SHIFTS] Error calculating shift end time for shift ID: " + shift.getShiftId() +
+                                    ". Please verify the shift date, time, and duration configurations. Error: " + e.getMessage()
                     );
-                } 
-                
+                }
+            } else {
+                System.out.println("[COMPLETE_SHIFTS] Shift not found for ShiftStatus ID: " + shiftStatus.getShiftId());
             }
+            System.out.println("[COMPLETE_SHIFTS] --------------------");
         }
     }
-
     /**
      * Retrieves the shifts of an employee's colleagues on a specific date.
      *
@@ -557,5 +579,93 @@ public class ShiftServiceImpl implements ShiftService {
             throw new EmployeeShiftsNotFoundException("No shifts found for employee ID: " + employeeId);
         }
         return processShifts(shifts);
+    }
+    
+    @Override
+    public List<ShiftDTO> viewUpcomingEmployeeShifts(Long employeeId) {
+        getEmployeeOrThrow(employeeId); // Ensure employee exists
+        List<Shift> upcomingShifts = shiftRepository.findByEmployeeIdAndShiftDateGreaterThanEqualOrderByShiftDateAscShiftTimeAsc(
+                employeeId, LocalDate.now(ZoneId.of("Asia/Kolkata")) // Using Mumbai timezone
+        );
+        return processShifts(upcomingShifts);
+    }
+    
+    
+    /**
+     * Retrieves all shift swap requests (both requested and approved) for a specific employee.
+     *
+     * @param employeeId The ID of the employee.
+     * @return A list of ShiftDTO representing the employee's swap requests.
+     */
+    @Override
+    public List<ShiftDTO> viewEmployeeSwapRequests(Long employeeId) {
+        List<ShiftStatus> swapStatuses = shiftStatusRepository.findByStatusInAndEmployeeId(
+                List.of(ShiftStatusType.SWAP_REQUESTED, ShiftStatusType.SWAP_REQUEST_APPROVED, ShiftStatusType.SWAP_REQUEST_REJECTED),
+                employeeId
+        );
+        return swapStatuses.stream()
+                .map(shiftStatus -> {
+                    Shift shift = shiftRepository.findById(shiftStatus.getShiftId()).orElse(null);
+                    if (shift != null) {
+                        ShiftDTO dto = shiftMapper.toDTO(shift);
+                        dto.setShiftStatus(shiftStatusMapper.toDTO(shiftStatus));
+                        return dto;
+                    }
+                    return null;
+                })
+                .filter(Objects::nonNull)
+                .toList();
+    }
+
+    /**
+     * Retrieves all rejected shift swap requests for a specific employee.
+     *
+     * @param employeeId The ID of the employee.
+     * @return A list of ShiftDTO representing the employee's rejected swap requests.
+     */
+    @Override
+    public List<ShiftDTO> viewEmployeeRejectedSwapRequests(Long employeeId) {
+        List<ShiftStatus> rejectedSwaps = shiftStatusRepository.findByStatusAndEmployeeId(
+                ShiftStatusType.SWAP_REQUEST_REJECTED,
+                employeeId
+        );
+        return rejectedSwaps.stream()
+                .map(shiftStatus -> {
+                    Shift shift = shiftRepository.findById(shiftStatus.getShiftId()).orElse(null);
+                    if (shift != null) {
+                        ShiftDTO dto = shiftMapper.toDTO(shift);
+                        dto.setShiftStatus(shiftStatusMapper.toDTO(shiftStatus));
+                        return dto;
+                    }
+                    return null;
+                })
+                .filter(Objects::nonNull)
+                .toList();
+    }
+
+    /**
+     * Retrieves all approved shift swap requests for a specific employee.
+     *
+     * @param employeeId The ID of the employee.
+     * @return A list of ShiftDTO representing the employee's approved swap requests.
+     */
+    @Override
+    public List<ShiftDTO> viewEmployeeApprovedSwapRequests(Long employeeId) {
+        List<ShiftStatus> approvedSwaps = shiftStatusRepository.findByStatusAndEmployeeId(
+                ShiftStatusType.SWAP_REQUEST_APPROVED,
+                employeeId
+        );
+        return approvedSwaps.stream()
+                .map(shiftStatus -> {
+                    Shift shift = shiftRepository.findById(shiftStatus.getShiftId()).orElse(null);
+                    if (shift != null) {
+                        ShiftDTO dto = shiftMapper.toDTO(shift);
+                        dto.setShiftStatus(shiftStatusMapper.toDTO(shiftStatus));
+                        return dto;
+                    }
+                    return null;
+                })
+                .filter(Objects::nonNull)
+                .toList();
     }
 }

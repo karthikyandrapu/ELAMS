@@ -2,6 +2,8 @@ package com.elams.controller;
 
 import java.time.LocalDate;
 import java.util.List;
+
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -224,4 +226,25 @@ public interface ShiftController {
     ResponseEntity<List<ShiftDTO>> getManagerSwapRequests(
             @Parameter(description = "Manager ID", required = true) @PathVariable Long managerId,
             @Parameter(description = "Employee Role", required = true) @RequestHeader("role") EmployeeRole role);
+    
+    @GetMapping("/employee/{employeeId}/upcoming")
+    ResponseEntity<List<ShiftDTO>> getUpcomingEmployeeShifts(@PathVariable Long employeeId,
+    		@RequestHeader("role") EmployeeRole role);
+    
+    
+    
+    @GetMapping("/employee/{employeeId}/swap/requests")
+    ResponseEntity<List<ShiftDTO>> viewEmployeeSwapRequests(@PathVariable Long employeeId,
+    		@RequestHeader("role") EmployeeRole role);
+
+    @GetMapping("/employee/{employeeId}/swap/rejected")
+    ResponseEntity<List<ShiftDTO>> viewEmployeeRejectedSwapRequests(@PathVariable Long employeeId,
+    		@RequestHeader("role") EmployeeRole role);
+
+    @GetMapping("/employee/{employeeId}/swap/approved")
+    ResponseEntity<List<ShiftDTO>> viewEmployeeApprovedSwapRequests(@PathVariable Long employeeId,
+    		@RequestHeader("role") EmployeeRole role);
+    
+    
+    
 }
