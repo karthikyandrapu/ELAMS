@@ -56,14 +56,17 @@
 
     <div class="form-group">
       <label for="shiftTime">Shift Time</label>
-      <input
-        type="time"
-        step="1"
+      <select
         id="shiftTime"
         formControlName="shiftTime"
         class="form-control"
         required
-      />
+      >
+        <option value="" disabled selected>Select Shift Time</option>
+        <option *ngFor="let timeOption of shiftTimeOptions" [value]="timeOption.value">
+          {{ timeOption.display }}
+        </option>
+      </select>
       <div
         *ngIf="
           assignShiftForm.controls['shiftTime'].invalid &&
@@ -74,9 +77,6 @@
       >
         <div *ngIf="assignShiftForm.controls['shiftTime'].errors?.['required']">
           Shift Time is required.
-        </div>
-        <div *ngIf="assignShiftForm.controls['shiftTime'].errors?.['pattern']">
-          Invalid time format. Please use HH:MM:SS (24-hour format).
         </div>
       </div>
     </div>
@@ -91,6 +91,10 @@
 
     <div *ngIf="errorMessage" class="error">
       {{ errorMessage }}
+    </div>
+
+    <div *ngIf="successMessage" class="success-message">
+      {{ successMessage }}
     </div>
   </form>
 </div>

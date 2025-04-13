@@ -1,0 +1,25 @@
+<h2>Approved Swap Requests</h2>
+
+<div *ngIf="errorMessage" class="error-message">
+  {{ errorMessage }}
+</div>
+
+<div *ngIf="noRecordFound && !errorMessage">No approved swap requests found.</div>
+<table class="table table-bordered" *ngIf="approvedSwaps.length > 0">
+  <thead>
+    <tr>
+      <th>Shift ID</th>
+      <th>Shift Date</th>
+      <th>Shift Time</th>
+      <th>Shift Status</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let swap of approvedSwaps">
+      <td>{{ swap.shiftId }}</td>
+      <td>{{ swap.shiftDate }}</td>
+      <td>{{ swap.shiftTime }}</td>
+      <td>{{ swap.shiftStatus.status }}</td>
+    </tr>
+  </tbody>
+</table>

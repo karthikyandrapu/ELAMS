@@ -5,7 +5,7 @@ import { ShiftserviceService } from 'src/app/service/shift-service/shift.service
 
 @Component({
   selector: 'app-getemployeeshifts',
-  standalone:false,
+  standalone: false,
   templateUrl: './getemployeeshifts.component.html',
   styleUrls: ['./getemployeeshifts.component.css'],
 })

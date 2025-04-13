@@ -1,0 +1,43 @@
+<h2>Upcoming Shifts</h2>
+
+<div *ngIf="errorMessage" class="error-message">
+  {{ errorMessage }}
+</div>
+
+<div *ngIf="noRecordFound && !errorMessage">No upcoming shifts found.</div>
+<table class="table table-bordered" *ngIf="upcomingShifts.length > 0">
+  <thead>
+    <tr>
+      <th>Shift ID</th>
+      <th>Shift Date</th>
+      <th>Shift Time</th>
+      <th>Shift Status</th>
+      <th>Request Swap with</th>
+      <th>Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let shift of upcomingShifts">
+      <td>{{ shift.shiftId }}</td>
+      <td>{{ shift.shiftDate }}</td>
+      <td>{{ shift.shiftTime }}</td>
+      <td>{{ shift.shiftStatus.status }}</td>
+      <td style="text-align: center">
+        {{
+          shift.shiftStatus.requestedSwapEmployeeId
+            ? shift.shiftStatus.requestedSwapEmployeeId
+            : "――"
+        }}
+      </td>
+      <td>
+        <button
+          class="btn btn-primary btn-sm"
+          (click)="navigateToColleagues(shift)"
+          [disabled]="shift.shiftStatus.status === 'SWAP_REQUESTED'"
+        >
+          Request Swap
+        </button>
+      </td>
+    </tr>
+  </tbody>
+</table>

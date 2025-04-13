@@ -23,11 +23,15 @@ export class ShiftserviceService {
   public requestSwapShiftUrl = this.apiURL + '/swap/request';
   public approveSwapShiftUrl = this.apiURL + '/swap';
   public rejectSwapShiftUrl = this.apiURL + '/swap';
-  public updateShiftUrl = this.apiURL + '/';
-  public deleteShiftUrl = this.apiURL + '/';
+  public updateShiftUrl = this.apiURL;
+  public deleteShiftUrl = this.apiURL;
   public getColleaguesUrl = this.apiURL + '/colleagues';
   public viewManagerEmployeeShiftsUrl = this.apiURL + '/manager';
   public getManagerSwapRequestsUrl = this.apiURL + '/manager';
+  public getUpcomingEmployeeShiftsUrl = this.apiURL + '/employee'; // Define URL for upcoming shifts
+  public getEmployeeSwapRequestsUrl = this.apiURL + '/employee';
+  public getEmployeeRejectedSwapRequestsUrl = this.apiURL + '/employee';
+  public getEmployeeApprovedSwapRequestsUrl = this.apiURL + '/employee';
 
   public assignShift(shift: Shift, managerId: number): Observable<Shift> {
     const params = new HttpParams().set('managerId', managerId.toString());
@@ -39,10 +43,9 @@ export class ShiftserviceService {
   }
 
   public getEmployeeShifts(employeeId: number): Observable<Shift[]> {
-    const params = new HttpParams().set('employeeId', employeeId.toString());
     return this.http.get<Shift[]>(
       `${this.getEmployeeShiftsUrl}/${employeeId}`,
-      { ...httpOptions, params }
+      httpOptions
     );
   }
 
@@ -160,6 +163,40 @@ export class ShiftserviceService {
     const headers = httpOptions.headers.set('role', 'MANAGER');
     return this.http.get<Shift[]>(
       `${this.getManagerSwapRequestsUrl}/${managerId}/swap-requests`,
+      { headers }
+    );
+  }
+
+  // New method to get upcoming shifts for an employee
+  public getUpcomingEmployeeShifts(employeeId: number): Observable<Shift[]> {
+    const headers = httpOptions.headers.set('role', 'EMPLOYEE');
+    return this.http.get<Shift[]>(
+      `${this.getUpcomingEmployeeShiftsUrl}/${employeeId}/upcoming`,
+      { headers }
+    );
+  }
+
+  // New methods for employee swap requests
+  public viewEmployeeSwapRequests(employeeId: number): Observable<Shift[]> {
+    const headers = httpOptions.headers.set('role', 'EMPLOYEE');
+    return this.http.get<Shift[]>(
+      `${this.getEmployeeSwapRequestsUrl}/${employeeId}/swap/requests`,
+      { headers }
+    );
+  }
+
+  public viewEmployeeRejectedSwapRequests(employeeId: number): Observable<Shift[]> {
+    const headers = httpOptions.headers.set('role', 'EMPLOYEE');
+    return this.http.get<Shift[]>(
+      `${this.getEmployeeRejectedSwapRequestsUrl}/${employeeId}/swap/rejected`,
+      { headers }
+    );
+  }
+
+  public viewEmployeeApprovedSwapRequests(employeeId: number): Observable<Shift[]> {
+    const headers = httpOptions.headers.set('role', 'EMPLOYEE');
+    return this.http.get<Shift[]>(
+      `${this.getEmployeeApprovedSwapRequestsUrl}/${employeeId}/swap/approved`,
       { headers }
     );
   }

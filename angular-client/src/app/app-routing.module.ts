@@ -39,6 +39,11 @@ import { ReviewLeaveComponent } from './leave-balance-service/review-leave/revie
 import { AllLeaveRequestsComponent } from './leave-balance-service/all-leave-requests/all-leave-requests.component';
 import { GetLeaveRequestByEmployeeidComponent } from './leave-balance-service/get-leave-request-by-employeeid/get-leave-request-by-employeeid.component';
 import { GetLeaveRequestByManageridComponent } from './leave-balance-service/get-leave-request-by-managerid/get-leave-request-by-managerid.component';
+import { SwaprequestedComponent } from './shift-service/swap-requested/swaprequested/swaprequested.component';
+import { SwaprejectedComponent } from './shift-service/swap-rejected/swaprejected/swaprejected.component';
+import { SwapapprovedComponent } from './shift-service/swap-approved/swapapproved/swapapproved.component';
+import { GetemplyeeshiftsbyidComponent } from './shift-service/get-employee-shifts-by-id/getemplyeeshiftsbyid/getemplyeeshiftsbyid.component';
+import { ViewmanagerswaprequestsComponent } from './shift-service/view-manager-swap-requests/viewmanagerswaprequests/viewmanagerswaprequests.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -118,42 +123,69 @@ const routes: Routes = [
     component: ShiftServiceManagerComponent,
   },
   {
-    path:'attendance-employeedashboard',component:AttendanceEmployeedashboardComponent
+    path: 'getcolleagueshifts',
+    component: GetcolleagueshiftsComponent,
+  },
+  { path: 'shift-swap-request', component: SwaprequestedComponent },
+  { path: 'shift-swap-reject', component: SwaprejectedComponent },
+  { path: 'shift-swap-approved', component: SwapapprovedComponent },
+  {path:'view-employee-shifts',component:GetemplyeeshiftsbyidComponent},
+  {path:'view-manager-swap-requests',component:ViewmanagerswaprequestsComponent},
+  {
+    path: 'attendance-employeedashboard',
+    component: AttendanceEmployeedashboardComponent,
   },
   {
-    path:'attendance-managerdashboard',component:AttendanceManagerdashboardComponent
+    path: 'attendance-managerdashboard',
+    component: AttendanceManagerdashboardComponent,
   },
 
   { path: 'attendance-reports', component: AttendanceReportComponent },
-  { path: 'fetch-reports-by-employee-id', component: FetchReportsByEmployeeIdComponent },
-  { path: 'delete-all-reports-by-employee-id', component: DeleteAllReportsByEmployeeIdComponent },
-  { path: 'calculate-report', component: CalculateReportComponent },
-  { path: 'fetch-attendance-trends', component: FetchAttendanceTrendsComponent },
-  { path: 'fetch-employees-by-attendance-trend', component: FetchEmployeesByAttendanceTrendComponent },
-  {path:'manager-reports',component:ManagerReportsComponent},
-  { path: 'all-reports', component: FetchAllReportsComponent },
-  { path: 'attendancehome', component:AttendancemanagerhomeComponent },
   {
-    path: 'leaveservicemanager', component: LeaveManagerDashboardComponent
+    path: 'fetch-reports-by-employee-id',
+    component: FetchReportsByEmployeeIdComponent,
   },
   {
-    path:'leaveserviceemployee', component: LeaveEmployeeDashboardComponent
+    path: 'delete-all-reports-by-employee-id',
+    component: DeleteAllReportsByEmployeeIdComponent,
+  },
+  { path: 'calculate-report', component: CalculateReportComponent },
+  {
+    path: 'fetch-attendance-trends',
+    component: FetchAttendanceTrendsComponent,
+  },
+  {
+    path: 'fetch-employees-by-attendance-trend',
+    component: FetchEmployeesByAttendanceTrendComponent,
+  },
+  { path: 'manager-reports', component: ManagerReportsComponent },
+  { path: 'all-reports', component: FetchAllReportsComponent },
+  { path: 'attendancehome', component: AttendancemanagerhomeComponent },
+  {
+    path: 'leaveservicemanager',
+    component: LeaveManagerDashboardComponent,
+  },
+  {
+    path: 'leaveserviceemployee',
+    component: LeaveEmployeeDashboardComponent,
   },
   { path: 'request-leave', component: RequestLeaveComponent },
 
   { path: 'leave-status', component: LeaveStatusComponent },
 
-  { path: 'review-leave', component: ReviewLeaveComponent},
+  { path: 'review-leave', component: ReviewLeaveComponent },
 
-  { path: 'all-leave-requests', component: AllLeaveRequestsComponent},
+  { path: 'all-leave-requests', component: AllLeaveRequestsComponent },
 
-  { path: 'get-leave-request-by-employeeid', component: GetLeaveRequestByEmployeeidComponent},
+  {
+    path: 'get-leave-request-by-employeeid',
+    component: GetLeaveRequestByEmployeeidComponent,
+  },
 
-  { path: 'get-leave-request-by-managerid', component: GetLeaveRequestByManageridComponent},
-  
-  
-
-
+  {
+    path: 'get-leave-request-by-managerid',
+    component: GetLeaveRequestByManageridComponent,
+  },
 ];
 
 @NgModule({

@@ -92,3 +92,9 @@ body {
     margin-left: 250px; /* Adjust content margin */
   }
 }
+
+
+.arrow {
+  float: right;
+  transition: transform 0.2s ease-in-out;
+}

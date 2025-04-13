@@ -13,22 +13,39 @@
         class="list-group-item list-group-item-action text-white"
         >View My Shifts</a
       >
-      <a
-        routerLink="/request-shift"
+      <div
         class="list-group-item list-group-item-action text-white"
-        >Request Shift Swap</a
+        (click)="toggleShiftSwapTracker()"
+        id="shiftSwapTracker"
       >
-      <a
-        routerLink="/get-colleague-shifts"
-        class="list-group-item list-group-item-action text-white"
-        >View Colleague Shifts</a
-      >
+        Shift Swap Request Tracker
+        <span class="arrow" [innerHTML]="arrowIcon"></span>
+      </div>
+      <div class="list-group" *ngIf="isShiftSwapTrackerOpen" id="shiftSwapOptions">
+        <a
+          routerLink="/shift-swap-request"
+          class="list-group-item list-group-item-action text-white pl-4"
+          >Shift Swap Request</a
+        >
+        <a
+          routerLink="/shift-swap-reject"
+          class="list-group-item list-group-item-action text-white pl-4"
+          >Shift Swap Reject</a
+        >
+        <a
+          routerLink="/shift-swap-approved"
+          class="list-group-item list-group-item-action text-white pl-4"
+          >Shift Swap Approved</a
+        >
+      </div>
     </div>
-  </div>
   <div id="page-content-wrapper">
     <div class="container-fluid">
       <h1>Employee Shift Service</h1>
+      <app-upcomingshifts></app-upcomingshifts>
       <router-outlet></router-outlet>
     </div>
   </div>
 </div>
+
+

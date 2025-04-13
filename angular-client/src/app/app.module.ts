@@ -69,12 +69,19 @@ import { LeavemanagerhomeComponent } from './leave-balance-service/home/leaveman
 import { LeaveemployeehomeComponent } from './leave-balance-service/home/leaveemployeehome/leaveemployeehome.component';
 import { LeaveStatusComponent } from './leave-balance-service/leave-status/leave-status.component';
 import { ReviewLeaveComponent } from './leave-balance-service/review-leave/review-leave.component';
+import { UpcomingshiftsComponent } from './shift-service/upcoming-shifts/upcomingshifts/upcomingshifts.component';
+import { SwapapprovedComponent } from './shift-service/swap-approved/swapapproved/swapapproved.component';
+import { SwaprejectedComponent } from './shift-service/swap-rejected/swaprejected/swaprejected.component';
+import { SwaprequestedComponent } from './shift-service/swap-requested/swaprequested/swaprequested.component';
+import { GetemplyeeshiftsbyidComponent } from './shift-service/get-employee-shifts-by-id/getemplyeeshiftsbyid/getemplyeeshiftsbyid.component';
+import { ViewmanagerswaprequestsComponent } from './shift-service/view-manager-swap-requests/viewmanagerswaprequests/viewmanagerswaprequests.component';
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     SignupComponent,
     AssignshiftComponent,
+    UpcomingshiftsComponent,
     GetemployeeshiftsComponent,
     ViewmanagershiftsComponent,
     ViewmanagerownshiftsComponent,
@@ -84,6 +91,11 @@ import { ReviewLeaveComponent } from './leave-balance-service/review-leave/revie
     UpdateshiftComponent,
     DeleteshiftComponent,
     GetcolleagueshiftsComponent,
+    SwapapprovedComponent,
+    SwaprejectedComponent,
+    SwaprequestedComponent,
+    GetemplyeeshiftsbyidComponent,
+    ViewmanagerswaprequestsComponent,
     LogoutComponent,
     ShiftServiceEmployeeComponent,
     ShiftServiceManagerComponent,

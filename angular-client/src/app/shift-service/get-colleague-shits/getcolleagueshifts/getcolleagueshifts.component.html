@@ -1,51 +1,32 @@
-<app-shiftemployeehome></app-shiftemployeehome>
-<div class="get-colleague-shifts-container">
-  <h2>Get Colleague Shifts</h2>
+<h2>Colleague Shifts for {{ shiftDate }}</h2>
 
-  <div *ngIf="errorMessage" class="alert alert-danger">
-    {{ errorMessage }}
-  </div>
-
-  <div *ngIf="noRecordFound" class="alert alert-warning">
-    No shifts found for the given date.
-  </div>
-
-  <form (ngSubmit)="getColleagueShifts()">
-    <div class="form-group">
-      <label for="shiftDate">Shift Date</label>
-      <input
-        type="date"
-        id="shiftDate"
-        [(ngModel)]="shiftDate"
-        name="shiftDate"
-        class="form-control"
-        placeholder="Enter date in YYYY-MM-DD format"
-        required
-      />
-    </div>
-
-    <button type="submit" class="btn btn-primary" [disabled]="!shiftDate">
-      Get Shifts
-    </button>
-  </form>
-
-  <div *ngIf="shifts.length > 0">
-    <h3>Shifts for the selected date</h3>
-    <table class="table table-bordered">
-      <thead>
-        <tr>
-          <th>Shift ID</th>
-          <th>Shift Date</th>
-          <th>Shift Time</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let shift of shifts">
-          <td>{{ shift.shiftId }}</td>
-          <td>{{ shift.shiftDate }}</td>
-          <td>{{ shift.shiftTime }}</td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
+<div *ngIf="errorMessage" class="error-message">
+  {{ errorMessage }}
 </div>
+
+<div *ngIf="noRecordFound && !errorMessage">
+  No colleague shifts found for the selected date.
+</div>
+
+<table class="table table-bordered" *ngIf="shifts.length > 0">
+  <thead>
+    <tr>
+      <th>Employee ID</th>
+      <th>Shift Date</th>
+      <th>Shift Time</th>
+      <th>Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let colleagueShift of shifts">
+      <td>{{ colleagueShift.employeeId }}</td>
+      <td>{{ colleagueShift.shiftDate }}</td>
+      <td>{{ colleagueShift.shiftTime }}</td>
+      
+      
+      <td>
+        <button class="btn btn-success btn-sm" (click)="requestSwap(colleagueShift.employeeId)">Request Swap</button>
+      </td>
+    </tr>
+  </tbody>
+</table>

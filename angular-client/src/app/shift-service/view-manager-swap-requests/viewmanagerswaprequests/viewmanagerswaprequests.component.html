@@ -1,0 +1,64 @@
+<app-shiftmanagerhome></app-shiftmanagerhome>
+<div class="view-manager-swap-requests-container">
+  <h2>Manager Swap Requests</h2>
+
+  <div *ngIf="noRecordFound" class="alert alert-warning">
+    No swap requests found.
+  </div>
+
+  <div *ngIf="errorMessage" class="alert alert-danger">
+    {{ errorMessage }}
+  </div>
+
+  <div *ngIf="approveSuccessMessage" class="alert alert-success">
+    {{ approveSuccessMessage }}
+  </div>
+
+  <div *ngIf="approveErrorMessage" class="alert alert-danger">
+    {{ approveErrorMessage }}
+  </div>
+
+  <div *ngIf="rejectSuccessMessage" class="alert alert-success">
+    {{ rejectSuccessMessage }}
+  </div>
+
+  <div *ngIf="rejectErrorMessage" class="alert alert-danger">
+    {{ rejectErrorMessage }}
+  </div>
+
+  <div *ngIf="swapRequests.length > 0">
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th>Shift ID</th>
+          <th>Employee ID</th>
+          <th>Shift Date</th>
+          <th>Shift Time</th>
+          <th>Requested Swap With</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let request of swapRequests">
+          <td>{{ request.shiftId }}</td>
+          <td>{{ request.employeeId }}</td>
+          <td>{{ request.shiftDate }}</td>
+          <td>{{ request.shiftTime }}</td>
+          <td>{{ request.shiftStatus.requestedSwapEmployeeId }}</td>
+          <td>
+            <button
+              class="btn btn-sm btn-success"
+              (click)="approveSwapRequest(request.shiftId, request.shiftStatus.requestedSwapEmployeeId!)"
+              [disabled]="!request.shiftStatus.requestedSwapEmployeeId"
+            >
+              Approve
+            </button>
+            <button class="btn btn-sm btn-danger ml-2" (click)="rejectSwapRequest(request.shiftId)">
+              Reject
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

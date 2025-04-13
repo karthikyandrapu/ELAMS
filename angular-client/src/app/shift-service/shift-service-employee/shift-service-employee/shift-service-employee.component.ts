@@ -7,5 +7,14 @@ import { Component } from '@angular/core';
   styleUrls: ['./shift-service-employee.component.css']
 })
 export class ShiftServiceEmployeeComponent {
+  isShiftSwapTrackerOpen = false;
 
+  toggleShiftSwapTracker() {
+    this.isShiftSwapTrackerOpen = !this.isShiftSwapTrackerOpen;
+  }
+
+  get arrowIcon(): string {
+    return this.isShiftSwapTrackerOpen ? '&#9650;' : '&#9660;';
+  }
+  
 }

@@ -10,6 +10,14 @@
     {{ errorMessage }}
   </div>
 
+  <div *ngIf="deleteSuccessMessage" class="alert alert-success">
+    {{ deleteSuccessMessage }}
+  </div>
+
+  <div *ngIf="deleteErrorMessage" class="alert alert-danger">
+    {{ deleteErrorMessage }}
+  </div>
+
   <div *ngIf="shifts.length > 0">
     <h3>Shifts for Manager ID: {{ managerId }}</h3>
     <table class="table table-bordered">
@@ -21,6 +29,7 @@
           <th>Shift Time</th>
           <th>Shift Status</th>
           <th>Request Swap with</th>
+          <th>Actions</th>
         </tr>
       </thead>
       <tbody>
@@ -36,6 +45,10 @@
                 ? shift.shiftStatus.requestedSwapEmployeeId
                 : "――"
             }}
+          </td>
+          <td>
+            <button class="btn btn-sm btn-danger" (click)="deleteShift(shift.shiftId)">Delete</button>
+            <button class="btn btn-sm btn-primary ml-2" (click)="updateShift(shift)">Update</button>
           </td>
         </tr>
       </tbody>

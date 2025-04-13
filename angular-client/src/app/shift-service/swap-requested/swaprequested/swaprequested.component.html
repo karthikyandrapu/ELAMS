@@ -1,0 +1,29 @@
+<h2>My Swap Requests</h2>
+
+<div *ngIf="errorMessage" class="error-message">
+  {{ errorMessage }}
+</div>
+
+<div *ngIf="noRecordFound && !errorMessage">No swap requests found.</div>
+<table class="table table-bordered" *ngIf="requestedSwaps.length > 0">
+  <thead>
+    <tr>
+      <th>Shift ID</th>
+      <th>Shift Date</th>
+      <th>Shift Time</th>
+      <th>Shift Status</th>
+      <th>Requested Swap With</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let swap of requestedSwaps">
+      <td>{{ swap.shiftId }}</td>
+      <td>{{ swap.shiftDate }}</td>
+      <td>{{ swap.shiftTime }}</td>
+      <td>{{ swap.shiftStatus.status }}</td>
+      <td style="text-align: center">
+        {{ swap.shiftStatus.requestedSwapEmployeeId ? swap.shiftStatus.requestedSwapEmployeeId : '――' }}
+      </td>
+    </tr>
+  </tbody>
+</table>

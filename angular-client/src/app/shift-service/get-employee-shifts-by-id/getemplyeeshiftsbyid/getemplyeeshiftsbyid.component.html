@@ -1,0 +1,62 @@
+<h2>View Employee Shifts</h2>
+
+<div *ngIf="errorMessage" class="error-message">
+  {{ errorMessage }}
+</div>
+
+<form [formGroup]="viewEmployeeShiftsForm" (ngSubmit)="viewShiftsForEmployee()">
+  <div class="form-group">
+    <label for="employeeId">Select Employee:</label>
+    <select formControlName="employeeId" id="employeeId" class="form-control" required>
+      <option value="" disabled selected>Select an Employee</option>
+      <option *ngFor="let employeeId of employeesUnderManager" [value]="employeeId">
+        {{ employeeId }}
+      </option>
+    </select>
+    <div *ngIf="viewEmployeeShiftsForm.controls['employeeId'].invalid && (viewEmployeeShiftsForm.controls['employeeId'].dirty || viewEmployeeShiftsForm.controls['employeeId'].touched)" class="error">
+      Employee is required.
+    </div>
+  </div>
+  <button type="submit" class="btn btn-primary">View Shifts</button>
+</form>
+
+<div *ngIf="deleteSuccessMessage" class="alert alert-success">
+  {{ deleteSuccessMessage }}
+</div>
+
+<div *ngIf="deleteErrorMessage" class="alert alert-danger">
+  {{ deleteErrorMessage }}
+</div>
+
+<div *ngIf="showEmployeeShiftsTable && employeeShifts && employeeShifts.length > 0">
+  <h3>Shifts for Employee ID: {{ selectedEmployeeId }}</h3>
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th>Shift ID</th>
+        <th>Shift Date</th>
+        <th>Shift Time</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let shift of employeeShifts">
+        <td>{{ shift.shiftId }}</td>
+        <td>{{ shift.shiftDate }}</td>
+        <td>{{ shift.shiftTime }}</td>
+        <td>
+          <button class="btn btn-sm btn-danger" (click)="deleteShift(shift.shiftId)">Delete</button>
+          <button class="btn btn-sm btn-primary ml-2" (click)="updateShift(shift)">Update</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<div *ngIf="showEmployeeShiftsTable && employeeShifts && employeeShifts.length === 0 && !errorMessage">
+  No shifts found for the selected employee.
+</div>
+
+<div *ngIf="showEmployeeShiftsTable && !employeeShifts && !errorMessage">
+  Loading employee shifts...
+</div>
