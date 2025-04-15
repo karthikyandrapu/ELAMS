@@ -1,13 +1,77 @@
-
-.head-container-header {
-  font-size: 24px;
-  position: relative; /* Ensure it is positioned relative to its parent */
-  z-index: 1; /* Keeps it above other elements if needed */
+/* Ensure the dashboard container fits within the viewport */
+.dashboard-container {
+  margin-left: 250px; /* Add margin to account for the sidebar width */
+  margin-top: 60px; /* Adjust this value based on the height of your app-layout header */
+  padding: 20px;
+  width: calc(100% - 250px); /* Adjust width to exclude the sidebar */
+  box-sizing: border-box; /* Ensure padding is included in the width/height */
+  background-color: #f8f9fa; /* Optional: Add a light background color */
+  overflow: hidden; /* Prevent scrolling */
 }
 
-.dashboard-container {
-  display: flex; /* Use flexbox for alignment */
-  flex-direction: column; /* Stack children vertically */
-  position: relative; 
-   /* Add spacing if needed */
+.dashboard-container h1 {
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.main-content {
+  display: flex;
+  flex-direction: row; /* Align navigation and content side by side */
+  gap: 20px; /* Add spacing between navigation and content */
+  width: 100%;
+  height: 100%; /* Ensure it takes the full height of the container */
+}
+
+.navigation {
+  width: 250px; /* Fixed width for the navigation */
+  background-color: #f8f9fa;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  height: 100%; /* Ensure it takes the full height of the container */
+  overflow-y: auto; /* Allow scrolling only for the navigation if needed */
+}
+
+.navigation ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.navigation ul li {
+  margin-bottom: 10px;
+}
+
+.navigation ul li button {
+  display: block;
+  width: 100%;
+  padding: 10px 15px;
+  text-align: left;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  border-radius: 4px;
+}
+
+.navigation ul li button:hover {
+  background-color: #e9ecef;
+}
+
+/* Active button state */
+.navigation ul li button.active {
+  background-color: #007bff;
+  color: white;
+}
+
+.content-area {
+  flex-grow: 1; /* Take up the remaining space */
+  padding: 20px;
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  overflow: hidden; /* Prevent scrolling in the content area */
+  height: 100%; /* Ensure it takes the full height of the container */
 }

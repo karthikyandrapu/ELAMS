@@ -18,7 +18,8 @@ export class ClockoutComponent implements OnInit{
   attendanceRecordBody: any = [];
 
   showClockOutMessage: boolean = false;
-  
+  showErrorMessage: boolean = false;
+
   constructor(
     private authService: AuthenticationService,
     private attendanceService: AttendanceService
@@ -35,17 +36,17 @@ export class ClockoutComponent implements OnInit{
     if (this.userId) {
       this.attendanceService.clockOut(this.userId).subscribe({
         next: (message) => {
-          this.clockOutMessage = JSON.parse(message).message;;
-          
-          
+          this.clockOutMessage = JSON.parse(message).message;
           this.clockInMessage = '';
           this.errorMessage = '';
+          this.showClockOutMessage = true;
           this.loadOwnAttendance(); // Refresh attendance records
         },
         error: (error) => {
           console.error('Clock out failed:', error);
           this.clockInMessage = '';
           this.clockOutMessage = '';
+          this.showErrorMessage = true;
           this.errorMessage = 'Failed to clock out: ' + (error.error?.message || error.message || 'An unexpected error occurred.');
           // Handle specific clock-out errors if needed
         }

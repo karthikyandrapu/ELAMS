@@ -5,8 +5,14 @@
   >
     <div class="container-fluid mt-3 align-items-center d-flex flex-column">
       <h1 class="ml-3">Employee Shift Service</h1>
-      <div class="d-flex align-items-center position-relative">
-        <div class="mt-2 ml-2">
+      <div class="d-flex align-items-center justify-content-end w-100 button-container">
+        <button
+          class="btn btn-primary text-white bg blue ml-3"
+          routerLink="/get-employee-shifts"
+        >
+          View Shifts
+        </button>
+        <div class="dropdown-container">
           <button
             class="btn btn-primary text-white"
             (click)="toggleShiftSwapTracker()"
@@ -15,30 +21,21 @@
             Shift Swap Request Tracker
             <span [innerHTML]="arrowIcon"></span>
           </button>
-          <!-- Dropdown Content -->
-          
-          <div
-            *ngIf="isShiftSwapTrackerOpen"
-            class="dropdown-content position-absolute bg-white shadow p-3"
-          >
-            <button
-              routerLink="/shift-swap-request"
-              class="btn btn-sm dropdown-item"
+          <div class="dropdown-content">
+            <div
+              *ngIf="isShiftSwapTrackerOpen"
+              class="dropdown-content position-absolute p-3"
             >
-              Shift Swap Request
-            </button>
-            <button
-              routerLink="/shift-swap-reject"
-              class="btn btn-sm dropdown-item"
-            >
-              Shift Swap Reject
-            </button>
-            <button
-              routerLink="/shift-swap-approved"
-              class="btn btn-sm dropdown-item"
-            >
-              Shift Swap Approved
-            </button>
+              <button routerLink="/shift-swap-request" class="dropdown-item">
+                Shift Swap Request
+              </button>
+              <button routerLink="/shift-swap-reject" class="dropdown-item">
+                Shift Swap Reject
+              </button>
+              <button routerLink="/shift-swap-approved" class="dropdown-item">
+                Shift Swap Approved
+              </button>
+            </div>
           </div>
         </div>
       </div>

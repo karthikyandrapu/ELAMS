@@ -13,6 +13,7 @@ import { Attendance } from 'src/app/model/attendance-model/Attendance';
 })
 export class AttendanceService {
   private attendanceApiUrl = `${environment.attendanceApiUrl}/attendance`; // Correct path based on backend @RequestMapping
+  private currentAttendanceRecord!:any;
 
   constructor(private http: HttpClient) { }
 
@@ -62,5 +63,13 @@ export class AttendanceService {
       .set('startDate', startDate)
       .set('endDate', endDate);
     return this.http.get<number>(`${this.attendanceApiUrl}/count?employeeId=${employeeId}`, { params });
+  }
+
+  setCurrentAttendance(attendanceBody:any){
+    this.currentAttendanceRecord = attendanceBody;
+  }
+
+  getCurrentAttendance(){
+    return this.currentAttendanceRecord;
   }
 }

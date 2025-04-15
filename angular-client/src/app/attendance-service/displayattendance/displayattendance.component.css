@@ -1,10 +1,32 @@
+/* displayattendance.component.css */
+.container-fluid {
+  padding: 20px;
+}
+
 h3 {
-    border-bottom: 2px solid transparent; /* Initially transparent border */
-    transition: border-bottom 0.3s ease-in-out; /* Smooth transition */
-    padding-bottom: 3px; /* Optional: Add some space for the border */
-    display: inline;
-  }
-  
-  h3:hover {
-    border-bottom: 2px solid currentColor; /* Border color matches text color */
-  }
+  border-bottom: 2px solid transparent;
+  transition: border-bottom 0.3s ease-in-out;
+  padding-bottom: 3px;
+  display: inline;
+}
+
+h3:hover {
+  border-bottom: 2px solid currentColor;
+}
+
+/* Style for the view mode buttons */
+.btn-outline-primary {
+  margin-bottom: 10px;
+}
+
+.btn-outline-primary.active {
+  background-color: #007bff;
+  color: white;
+  border-color: #007bff;
+}
+
+/* Style for the chart canvas */
+canvas {
+  width: 100%; /* Make the chart responsive */
+  max-height: 400px; /* Adjust as needed */
+}

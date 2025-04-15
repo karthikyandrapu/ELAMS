@@ -75,6 +75,7 @@ import { GetemplyeeshiftsbyidComponent } from './shift-service/get-employee-shif
 import { ViewmanagerswaprequestsComponent } from './shift-service/view-manager-swap-requests/viewmanagerswaprequests/viewmanagerswaprequests.component';
 import { SidenavbarComponent } from './navbar/sidenavbar/sidenavbar.component';
 import { LayoutComponent } from './layouts/layout/layout.component';
+import { ViewyourattedancebydateComponent } from './attendance-service/viewyourattedancebydate/viewyourattedancebydate.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -132,6 +133,8 @@ import { LayoutComponent } from './layouts/layout/layout.component';
     ReviewLeaveComponent,
     SidenavbarComponent,
     LayoutComponent,
+    GetattendanceforemployeeanddateComponent,
+    ViewyourattedancebydateComponent
   ],
   imports: [
     BrowserModule,

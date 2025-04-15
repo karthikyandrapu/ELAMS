@@ -5,7 +5,6 @@ import { AttendanceService } from 'src/app/service/attendance-service/attendance
 
 @Component({
   selector: 'app-clockin',
-  
   templateUrl: './clockin.component.html',
   styleUrls: ['./clockin.component.css'],
   standalone: false
