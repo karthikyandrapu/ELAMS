@@ -1,26 +1,186 @@
-/* app-sidenavbar.component.css */
-.sidenav-content {
-  display: flex;
-  flex-direction: column; /* To stack app-column and the text vertically */
-  align-items: center;      /* To center horizontally */
-  justify-content: center; /* To center vertically */
-  height: 100%;           /* Make it take the full height of the sidenavbar */
-  /* You might need to adjust width as well */
-}
+/* styles.css or your component's CSS file */
 
-/* styles.css or app.component.css */
-
-/* Apply white background to the main content wrapper */
-#page-content-wrapper {
-  background-color: white;
-}
-
-/* You might also want to ensure the container-fluid within it has a white background */
-.container-fluid {
-  background-color: white;
-}
-
-/* If you want the entire viewport to be white, you can target the body */
+/* General styles for the page */
 body {
   background-color: white;
+  font-family: sans-serif; /* Or your preferred font */
+  margin: 0;
+  padding: 0;
+}
+
+.d-flex {
+  display: flex;
+}
+
+.flex-column {
+  flex-direction: column;
+}
+
+.align-items-center {
+  align-items: center;
+}
+
+.justify-content-center {
+  justify-content: center;
+}
+
+.justify-content-start {
+  justify-content: flex-start;
+}
+
+.justify-content-between {
+  justify-content: space-between;
+}
+
+.flex-grow-1 {
+  flex-grow: 1;
+}
+
+.overflow-auto {
+  overflow: auto;
+}
+
+.mt-3 {
+  margin-top: 1rem;
+}
+
+.ml-2 {
+  margin-left: 0.5rem;
+}
+
+.ml-3 {
+  margin-left: 1rem;
+}
+
+.mt-2 {
+  margin-top: 0.5rem;
+}
+
+/* Styles for the main content wrapper */
+#page-content-wrapper {
+  background-color: white;
+  padding: 20px; /* Add some padding around the content area */
+}
+
+/* Styles for the container fluid */
+.container-fluid {
+  background-color: white;
+  padding: 15px; /* Add some padding inside the container */
+}
+.container-fluid button {
+  background-color: white;
+  margin-left: 750px;
+  padding: 15px; /* Add some padding inside the container */
+}
+
+/* Styles for the app-sidenavbar component (if needed in global styles) */
+
+/* Styles for the "Employee Shift Service" heading */
+h1 {
+  font-size: 2em;
+  color: #333;
+  margin-bottom: 15px;
+}
+
+/* Styles for the "View My Shifts" button */
+.btn-primary {
+  background-color: #007bff;
+  border-color: #007bff;
+  color: white;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 1rem;
+}
+
+.btn-primary:hover {
+  background-color: #0056b3;
+  border-color: #0056b3;
+}
+
+/* Styles for the "Shift Swap Request Tracker" button and dropdown */
+#shiftSwapTracker {
+  background-color: #007bff;
+  border-color: #007bff;
+  color: white;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 1rem;
+}
+
+#shiftSwapTracker:hover {
+  background-color: #0056b3;
+  border-color: #0056b3;
+}
+
+.mt-2 {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.mt-2 > div.mt-2 { /* Style the dropdown container */
+  margin-top: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.mt-2 > div.mt-2 > button { /* Style the buttons inside the dropdown */
+  margin-top: 5px;
+  margin-left: 0;
+  background-color: #007bff;
+  color: white;
+  border: 1px solid #007bff;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  text-decoration: none;
+  display: block; /* Make them stack vertically in the dropdown */
+  font-size: 1rem;
+  text-align: left; /* Align text to the left within the dropdown buttons */
+  width: 100%; /* Make dropdown buttons full width of the container */
+}
+
+.mt-2 > div.mt-2 > button:hover {
+  background-color: #0056b3;
+  border-color: #0056b3;
+}
+
+.btn-outline-primary {
+  background-color: transparent;
+  color: white;
+  border-color: #007bff;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  text-decoration: none;
+  display: block;
+  font-size: 1rem;
+  text-align: left;
+  width: 100%;
+  margin-top: 5px;
+  margin-left: 0;
+}
+
+.btn-outline-primary:hover {
+  background-color: #0056b3;
+  border-color: #0056b3;
+}
+
+.btn-sm {
+  padding: 5px 10px;
+  font-size: 0.875rem;
+}
+
+
+/* Styles for the arrow icon (you might need to adjust based on your implementation) */
+.arrow {
+  display: inline-block;
+  margin-left: 5px;
 }
