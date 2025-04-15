@@ -354,35 +354,59 @@ public class ShiftServiceImpl implements ShiftService {
     @Override
     @Transactional
     public ShiftDTO approveShiftSwap(Long managerId, Long shiftId, Long newEmployeeId) {
-        Shift shift = shiftRepository.findById(shiftId).orElse(null);
-        if (shift == null) throw new ShiftNotFoundException(SHIFT_NOT_FOUND_MESSAGE);
-        EmployeeDTO employee = getEmployeeOrThrow(shift.getEmployeeId());
-        if (employee == null || !employee.getManagerId().equals(managerId))
+        Shift originalShift = shiftRepository.findById(shiftId).orElse(null);
+        if (originalShift == null) throw new ShiftNotFoundException(SHIFT_NOT_FOUND_MESSAGE);
+        EmployeeDTO originalEmployee = getEmployeeOrThrow(originalShift.getEmployeeId());
+        if (originalEmployee == null || !originalEmployee.getManagerId().equals(managerId))
             throw new EmployeeNotFoundException(EMPLOYEE_NOT_FOUND_OR_UNAUTHORIZED_MESSAGE);
         ShiftStatus shiftStatus = shiftStatusRepository.findByShiftId(shiftId);
         if (shiftStatus == null || shiftStatus.getRequestedSwapEmployeeId() == null) {
             throw new SwapRequestNotFoundException("Swap request not found.");
         }
-        Long originalEmployeeId = shift.getEmployeeId();
+        Long originalEmployeeId = originalShift.getEmployeeId();
         Long requestedSwapEmployeeId = shiftStatus.getRequestedSwapEmployeeId();
         if (!requestedSwapEmployeeId.equals(newEmployeeId)) {
             throw new InvalidSwapEmployeeException("Requested swap employee id does not match");
         }
-        Shift swapShift = shiftRepository.findByEmployeeIdAndShiftDate(newEmployeeId, shift.getShiftDate());
+
+        // Fetch the original shift's date and time
+        LocalDate originalShiftDate = originalShift.getShiftDate();
+        LocalTime originalShiftTime = originalShift.getShiftTime();
+
+        // Find the shift for the new employee on the same date
+        Shift swapShift = shiftRepository.findByEmployeeIdAndShiftDate(newEmployeeId, originalShiftDate);
         if (swapShift == null) {
-            throw new SwapShiftNotFoundException("Swap shift not found for the requested employee, date, and time.");
+            throw new SwapShiftNotFoundException("No shift found for the requested employee on the same date.");
         }
-        if (shiftRepository.existsByEmployeeIdAndShiftDateAndShiftTime(originalEmployeeId, swapShift.getShiftDate(), swapShift.getShiftTime())) {
+
+        // Fetch the swap shift's date and time
+        LocalDate swapShiftDate = swapShift.getShiftDate();
+        LocalTime swapShiftTime = swapShift.getShiftTime();
+
+        // Check for conflicts: original employee at the swap time
+        if (shiftRepository.existsByEmployeeIdAndShiftDateAndShiftTime(originalEmployeeId, swapShiftDate, swapShiftTime)) {
             throw new SwapConflictException("Original employee already has a shift at the swap time.");
         }
-        shift.setEmployeeId(newEmployeeId);
-        shiftRepository.save(shift);
-        swapShift.setEmployeeId(originalEmployeeId);
+
+        // Check for conflicts: swapping employee at the original time
+        if (shiftRepository.existsByEmployeeIdAndShiftDateAndShiftTime(requestedSwapEmployeeId, originalShiftDate, originalShiftTime)) {
+            throw new SwapConflictException("Swapping employee already has a shift at the original shift's time.");
+        }
+
+        // Perform the swap of date and time
+        originalShift.setShiftDate(swapShiftDate);
+        originalShift.setShiftTime(swapShiftTime);
+        shiftRepository.save(originalShift);
+
+        swapShift.setShiftDate(originalShiftDate);
+        swapShift.setShiftTime(originalShiftTime);
         shiftRepository.save(swapShift);
+
         shiftStatus.setRequestedSwapEmployeeId(null);
         shiftStatus.setStatus(ShiftStatusType.SWAP_REQUEST_APPROVED);
         shiftStatusRepository.save(shiftStatus);
-        ShiftDTO resultDto = shiftMapper.toDTO(shift);
+
+        ShiftDTO resultDto = shiftMapper.toDTO(originalShift);
         resultDto.setShiftStatus(shiftStatusMapper.toDTO(shiftStatus));
         return resultDto;
     }
