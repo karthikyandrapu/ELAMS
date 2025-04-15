@@ -1,0 +1,13 @@
+.centered-table {
+    max-width: 800px; /* Adjust as needed */
+    margin: 150px auto 0 auto; /* Center horizontally with top margin */
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+  }
+
+  .table th,
+  .table td {
+    text-align: center; /* Center text within table cells */
+  }

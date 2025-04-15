@@ -75,6 +75,7 @@ import { SwaprejectedComponent } from './shift-service/swap-rejected/swaprejecte
 import { SwaprequestedComponent } from './shift-service/swap-requested/swaprequested/swaprequested.component';
 import { GetemplyeeshiftsbyidComponent } from './shift-service/get-employee-shifts-by-id/getemplyeeshiftsbyid/getemplyeeshiftsbyid.component';
 import { ViewmanagerswaprequestsComponent } from './shift-service/view-manager-swap-requests/viewmanagerswaprequests/viewmanagerswaprequests.component';
+import { SidenavbarComponent } from './navbar/sidenavbar/sidenavbar.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -132,7 +133,7 @@ import { ViewmanagerswaprequestsComponent } from './shift-service/view-manager-s
     LeaveStatusComponent,
     RequestLeaveComponent,
     ReviewLeaveComponent,
-    
+    SidenavbarComponent,
   ],
   imports: [
     BrowserModule,

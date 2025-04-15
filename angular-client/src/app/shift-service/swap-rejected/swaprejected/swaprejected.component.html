@@ -1,25 +1,29 @@
-<h2>Rejected Swap Requests</h2>
+<div class="d-flex flex-column align-items-center">
+  <app-shiftemployeehome></app-shiftemployeehome>
+  <div class="rejected-swaps-container">
+    <div *ngIf="errorMessage" class="error-message">
+      {{ errorMessage }}
+    </div>
 
-<div *ngIf="errorMessage" class="error-message">
-  {{ errorMessage }}
+    <div *ngIf="noRecordFound && !errorMessage">No rejected swap requests found.</div>
+    <table class="table table-bordered" *ngIf="rejectedSwaps.length > 0">
+      <thead>
+        <tr>
+          <th>Shift ID</th>
+          <th>Shift Date</th>
+          <th>Shift Time</th>
+          <th>Shift Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let swap of rejectedSwaps">
+          <td>{{ swap.shiftId }}</td>
+          <td>{{ swap.shiftDate }}</td>
+          <td>{{ swap.shiftTime }}</td>
+          <td>{{ swap.shiftStatus.status }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 </div>
 
-<div *ngIf="noRecordFound && !errorMessage">No rejected swap requests found.</div>
-<table class="table table-bordered" *ngIf="rejectedSwaps.length > 0">
-  <thead>
-    <tr>
-      <th>Shift ID</th>
-      <th>Shift Date</th>
-      <th>Shift Time</th>
-      <th>Shift Status</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let swap of rejectedSwaps">
-      <td>{{ swap.shiftId }}</td>
-      <td>{{ swap.shiftDate }}</td>
-      <td>{{ swap.shiftTime }}</td>
-      <td>{{ swap.shiftStatus.status }}</td>
-    </tr>
-  </tbody>
-</table>

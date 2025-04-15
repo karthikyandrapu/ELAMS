@@ -1,0 +1,31 @@
+
+  .approved-swaps-container {
+    max-width: 600px; /* Adjust as needed */
+    margin-top: 50px; /* Add some top margin */
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+  }
+
+  .table {
+    width: 100%; /* Make the table take the full width of its container */
+    margin-bottom: 0; /* Remove default bottom margin of table */
+  }
+
+  .table th,
+  .table td {
+    text-align: center;
+  }
+
+  .d-flex {
+    display: flex;
+  }
+
+  .flex-column {
+    flex-direction: column;
+  }
+
+  .align-items-center {
+    align-items: center; /* Center items horizontally */
+  }

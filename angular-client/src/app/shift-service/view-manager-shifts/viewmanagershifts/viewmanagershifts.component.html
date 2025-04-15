@@ -1,57 +1,69 @@
-<app-shiftmanagerhome></app-shiftmanagerhome>
-<div class="view-manager-shifts-container">
-  <h2>View Employee Shifts</h2>
+<div class="d-flex flex-column align-items-center">
+  <app-shiftmanagerhome></app-shiftmanagerhome>
+  <div class="view-manager-shifts-container">
+    <h2>View Employee Shifts</h2>
 
-  <div *ngIf="noRecordFound" class="alert alert-warning">
-    No shifts found for the given Manager ID.
-  </div>
+    <div *ngIf="noRecordFound" class="alert alert-warning">
+      No shifts found for the given Manager ID.
+    </div>
 
-  <div *ngIf="errorMessage" class="alert alert-danger">
-    {{ errorMessage }}
-  </div>
+    <div *ngIf="errorMessage" class="alert alert-danger">
+      {{ errorMessage }}
+    </div>
 
-  <div *ngIf="deleteSuccessMessage" class="alert alert-success">
-    {{ deleteSuccessMessage }}
-  </div>
+    <div *ngIf="deleteSuccessMessage" class="alert alert-success">
+      {{ deleteSuccessMessage }}
+    </div>
 
-  <div *ngIf="deleteErrorMessage" class="alert alert-danger">
-    {{ deleteErrorMessage }}
-  </div>
+    <div *ngIf="deleteErrorMessage" class="alert alert-danger">
+      {{ deleteErrorMessage }}
+    </div>
 
-  <div *ngIf="shifts.length > 0">
-    <h3>Shifts for Manager ID: {{ managerId }}</h3>
-    <table class="table table-bordered">
-      <thead>
-        <tr>
-          <th>Shift ID</th>
-          <th>Employee ID</th>
-          <th>Shift Date</th>
-          <th>Shift Time</th>
-          <th>Shift Status</th>
-          <th>Request Swap with</th>
-          <th>Actions</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let shift of shifts">
-          <td>{{ shift.shiftId }}</td>
-          <td>{{ shift.employeeId }}</td>
-          <td>{{ shift.shiftDate }}</td>
-          <td>{{ shift.shiftTime }}</td>
-          <td>{{ shift.shiftStatus.status }}</td>
-          <td style="text-align: center">
-            {{
-              shift.shiftStatus.requestedSwapEmployeeId
-                ? shift.shiftStatus.requestedSwapEmployeeId
-                : "――"
-            }}
-          </td>
-          <td>
-            <button class="btn btn-sm btn-danger" (click)="deleteShift(shift.shiftId)">Delete</button>
-            <button class="btn btn-sm btn-primary ml-2" (click)="updateShift(shift)">Update</button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+    <div *ngIf="shifts.length > 0">
+      <h3>Shifts for Manager ID: {{ managerId }}</h3>
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th>Shift ID</th>
+            <th>Employee ID</th>
+            <th>Shift Date</th>
+            <th>Shift Time</th>
+            <th>Shift Status</th>
+            <th>Request Swap with</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let shift of shifts">
+            <td>{{ shift.shiftId }}</td>
+            <td>{{ shift.employeeId }}</td>
+            <td>{{ shift.shiftDate }}</td>
+            <td>{{ shift.shiftTime }}</td>
+            <td>{{ shift.shiftStatus.status }}</td>
+            <td style="text-align: center">
+              {{
+                shift.shiftStatus.requestedSwapEmployeeId
+                  ? shift.shiftStatus.requestedSwapEmployeeId
+                  : "――"
+              }}
+            </td>
+            <td class="d-flex justify-content-center">
+              <button
+                class="btn btn-sm btn-primary ml-2"
+                (click)="updateShift(shift)"
+              >
+                Update
+              </button>
+              <button
+                class="btn btn-sm btn-danger ml-2"
+                (click)="deleteShift(shift.shiftId)"
+              >
+                Delete
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
 </div>

@@ -1,5 +1,6 @@
 <app-shiftmanagerhome></app-shiftmanagerhome>
-<div class="view-manager-swap-requests-container">
+
+<div class="view-manager-swap-requests-container centered-table">
   <h2>Manager Swap Requests</h2>
 
   <div *ngIf="noRecordFound" class="alert alert-warning">
@@ -45,7 +46,7 @@
           <td>{{ request.shiftDate }}</td>
           <td>{{ request.shiftTime }}</td>
           <td>{{ request.shiftStatus.requestedSwapEmployeeId }}</td>
-          <td>
+          <td class="text-center">
             <button
               class="btn btn-sm btn-success"
               (click)="approveSwapRequest(request.shiftId, request.shiftStatus.requestedSwapEmployeeId!)"

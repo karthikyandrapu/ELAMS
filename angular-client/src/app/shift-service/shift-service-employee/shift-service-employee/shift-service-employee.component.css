@@ -1,102 +1,26 @@
-body {
-  font-family: "roboto", sans-serif;
-  background-color: #f8f9fa;
-  margin: 0;
-  padding: 0;
-}
-
-#wrapper {
+/* app-sidenavbar.component.css */
+.sidenav-content {
   display: flex;
-  align-items: stretch;
-  overflow-x: hidden; /* Prevent horizontal scrollbar */
+  flex-direction: column; /* To stack app-column and the text vertically */
+  align-items: center;      /* To center horizontally */
+  justify-content: center; /* To center vertically */
+  height: 100%;           /* Make it take the full height of the sidenavbar */
+  /* You might need to adjust width as well */
 }
 
-#sidebar-wrapper {
-  width: 250px;
-  background-color: #343a40;
-  color: #fff;
-  position: fixed;
-  top: 2.7em; /* Adjusted to be fixed from the top */
-  bottom: 0;
-  left: 0;
-  z-index: 1000;
-  transition: all 0.3s;
-}
+/* styles.css or app.component.css */
 
-#sidebar-wrapper .sidebar-heading {
-  padding: 1rem;
-  font-size: 1.5rem;
-  background-color: #343a40;
-  color: #fff;
-}
-
-.list-group-item {
-  background-color: #343a40;
-  color: #fff;
-  border: none;
-}
-
-.list-group-item:hover {
-  background-color: #495057;
-}
-
+/* Apply white background to the main content wrapper */
 #page-content-wrapper {
-  flex: 1;
-  padding: 2rem;
-  margin-left: 250px; /* Adjust margin to account for sidebar */
-  transition: all 0.3s;
-  /* Removed top margin adjustment by JavaScript */
+  background-color: white;
 }
 
+/* You might also want to ensure the container-fluid within it has a white background */
 .container-fluid {
-  padding: 2rem;
-  max-width: 1000px; /* Limit the width of the content */
-  margin: auto; /* Center the content */
+  background-color: white;
 }
 
-/* Toggle Button */
-#menu-toggle {
-  display: none !important; /* Completely remove the toggle button */
+/* If you want the entire viewport to be white, you can target the body */
+body {
+  background-color: white;
 }
-
-/* Responsive Styles - Make Sidebar Always Visible */
-@media (max-width: 768px) {
-  #sidebar-wrapper {
-    /* Make it slide in from the left */
-    margin-left: 0; /* Initially show on smaller screens */
-    position: relative;
-    top: 2.7em;
-    height: 100%;
-    overflow-y: auto; /* Enable scrolling if content overflows */
-    z-index: 1001; /* Ensure it's above the content */
-    background-color: #343a40; /* Ensure background color */
-  }
-
-  #wrapper.toggled #sidebar-wrapper {
-    margin-left: 0; /* Keep it visible */
-  }
-
-  #page-content-wrapper {
-    margin-left: 0; /* Content takes full width */
-    transition: all 0.3s; /* Add transition for smooth animation */
-    padding-left: 250px; /* Adjust padding to accommodate the visible sidebar */
-  }
-}
-
-/* Styles for larger screens (sidebar always visible) */
-@media (min-width: 769px) {
-  #sidebar-wrapper {
-    margin-left: 0; /* Sidebar is always visible */
-  }
-
-  #page-content-wrapper {
-    margin-left: 250px; /* Adjust content margin */
-  }
-}
-
-
-.arrow {
-  float: right;
-  transition: transform 0.2s ease-in-out;
-}
-

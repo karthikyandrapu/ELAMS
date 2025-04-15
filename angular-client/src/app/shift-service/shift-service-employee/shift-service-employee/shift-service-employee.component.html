@@ -1,51 +1,24 @@
-<app-header></app-header>
-<div class="d-flex" id="wrapper">
-  <div class="bg-dark border-right" id="sidebar-wrapper">
-    <div class="sidebar-heading text-white">Shift Management</div>
-    <div class="list-group list-group-flush">
-      <a
-        routerLink="/shiftserviceemployee"
-        class="list-group-item list-group-item-action text-white"
-        >Home</a
-      >
-      <a
-        routerLink="/get-employee-shifts"
-        class="list-group-item list-group-item-action text-white"
-        >View My Shifts</a
-      >
-      <div
-        class="list-group-item list-group-item-action text-white"
-        (click)="toggleShiftSwapTracker()"
-        id="shiftSwapTracker"
-      >
-        Shift Swap Request Tracker
-        <span class="arrow" [innerHTML]="arrowIcon"></span>
+<div class="d-flex">
+  <app-sidenavbar
+    class="d-flex flex-column align-items-center justify-content-center border-right"
+  >
+  </app-sidenavbar>
+  <div
+    id="page-content-wrapper"
+    class="d-flex flex-column align-items-center justify-content-start flex-grow-1 overflow-auto"
+  >
+    <div class="container-fluid mt-3 align-items-center d-flex flex-column">
+      <div>
+        <h1>Employee Shift Service</h1>
       </div>
-      <div class="list-group" *ngIf="isShiftSwapTrackerOpen" id="shiftSwapOptions">
-        <a
-          routerLink="/shift-swap-request"
-          class="list-group-item list-group-item-action text-white pl-4"
-          >Shift Swap Request</a
-        >
-        <a
-          routerLink="/shift-swap-reject"
-          class="list-group-item list-group-item-action text-white pl-4"
-          >Shift Swap Reject</a
-        >
-        <a
-          routerLink="/shift-swap-approved"
-          class="list-group-item list-group-item-action text-white pl-4"
-          >Shift Swap Approved</a
-        >
-      </div>
-    </div>
-  <div id="page-content-wrapper">
-    <div class="container-fluid">
-      <h1>Employee Shift Service</h1>
-      <app-upcomingshifts></app-upcomingshifts>
       <router-outlet></router-outlet>
     </div>
+    <app-upcomingshifts
+      class="mt-3 align-items-center d-flex flex-column"
+    ></app-upcomingshifts>
+    <div></div>
   </div>
 </div>
-
-
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
