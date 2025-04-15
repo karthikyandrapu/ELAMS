@@ -184,3 +184,28 @@ h1 {
   display: inline-block;
   margin-left: 5px;
 }
+
+
+.dropdown-content {
+  background-color: #007bff; /* Blue background */
+  color: white; /* White text */
+  border-radius: 5px; /* Rounded corners */
+  padding: 10px; /* Add padding inside the dropdown */
+  z-index: 1000; /* Ensure it appears above other elements */
+  top: 100%; /* Position it below the button */
+  left: 0; /* Align it to the left of the button */
+  min-width: 200px; /* Set a minimum width for the dropdown */
+}
+
+.dropdown-content .dropdown-item {
+  background-color: transparent; /* Transparent background for buttons */
+  color: white; /* White text for buttons */
+  border: none; /* Remove button borders */
+  text-align: left; /* Align text to the left */
+  width: 100%; /* Make buttons take full width */
+}
+
+.dropdown-content .dropdown-item:hover {
+  background-color: #0056b3; /* Darker blue on hover */
+  color: white; /* Keep text white */
+}

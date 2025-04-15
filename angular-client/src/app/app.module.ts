@@ -25,8 +25,6 @@ import { ShiftServiceManagerComponent } from './shift-service/shift-service-mana
 import { HeaderComponent } from './header/header.component';
 import { ManagerdashboardComponent } from './home/manager-ui/managerdashboard/managerdashboard.component';
 import { EmployeedashboardComponent } from './home/employee-ui/employeedashboard/employeedashboard.component';
-import { ShiftmanagerhomeComponent } from './shift-service/home/shift-managerhome/shiftmanagerhome/shiftmanagerhome.component';
-import { ShiftemployeehomeComponent } from './shift-service/home/shift-employeehome/shiftemployeehome/shiftemployeehome.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ClockinComponent } from './attendance-service/clockin/clockin.component';
 import { ClockoutComponent } from './attendance-service/clockout/clockout.component';
@@ -76,6 +74,7 @@ import { SwaprequestedComponent } from './shift-service/swap-requested/swapreque
 import { GetemplyeeshiftsbyidComponent } from './shift-service/get-employee-shifts-by-id/getemplyeeshiftsbyid/getemplyeeshiftsbyid.component';
 import { ViewmanagerswaprequestsComponent } from './shift-service/view-manager-swap-requests/viewmanagerswaprequests/viewmanagerswaprequests.component';
 import { SidenavbarComponent } from './navbar/sidenavbar/sidenavbar.component';
+import { LayoutComponent } from './layouts/layout/layout.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -103,8 +102,6 @@ import { SidenavbarComponent } from './navbar/sidenavbar/sidenavbar.component';
     HeaderComponent,
     ManagerdashboardComponent,
     EmployeedashboardComponent,
-    ShiftmanagerhomeComponent,
-    ShiftemployeehomeComponent,
     ClockinComponent,
     ClockoutComponent,
     CountattendanceComponent,
@@ -134,6 +131,7 @@ import { SidenavbarComponent } from './navbar/sidenavbar/sidenavbar.component';
     RequestLeaveComponent,
     ReviewLeaveComponent,
     SidenavbarComponent,
+    LayoutComponent,
   ],
   imports: [
     BrowserModule,

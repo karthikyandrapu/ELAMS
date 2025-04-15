@@ -18,8 +18,6 @@ import { ShiftServiceManagerComponent } from './shift-service/shift-service-mana
 import { HeaderComponent } from './header/header.component';
 import { ManagerdashboardComponent } from './home/manager-ui/managerdashboard/managerdashboard.component';
 import { EmployeedashboardComponent } from './home/employee-ui/employeedashboard/employeedashboard.component';
-import { ShiftmanagerhomeComponent } from './shift-service/home/shift-managerhome/shiftmanagerhome/shiftmanagerhome.component';
-import { ShiftemployeehomeComponent } from './shift-service/home/shift-employeehome/shiftemployeehome/shiftemployeehome.component';
 import { AttendanceEmployeedashboardComponent } from './attendance-service/attendance-employeedashboard/attendance-employeedashboard.component';
 import { AttendanceManagerdashboardComponent } from './attendance-service/attendance-managerdashboard/attendance-managerdashboard.component';
 import { AttendanceReportComponent } from './Attendance-reports/attendance-report/attendance-report.component';

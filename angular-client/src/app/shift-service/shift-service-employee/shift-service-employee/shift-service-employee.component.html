@@ -1,17 +1,12 @@
 <div class="d-flex">
-  <app-sidenavbar
-    class="d-flex flex-column align-items-center justify-content-center border-right"
-  >
-  </app-sidenavbar>
   <div
     id="page-content-wrapper"
     class="d-flex flex-column align-items-center justify-content-start flex-grow-1 overflow-auto"
   >
     <div class="container-fluid mt-3 align-items-center d-flex flex-column">
       <h1 class="ml-3">Employee Shift Service</h1>
-      <div class="d-flex align-items-center">
-        
-        <div class="mt-2 ml-2 ">
+      <div class="d-flex align-items-center position-relative">
+        <div class="mt-2 ml-2">
           <button
             class="btn btn-primary text-white"
             (click)="toggleShiftSwapTracker()"
@@ -20,38 +15,36 @@
             Shift Swap Request Tracker
             <span [innerHTML]="arrowIcon"></span>
           </button>
-          <div *ngIf="isShiftSwapTrackerOpen" class="mt-2">
+          <!-- Dropdown Content -->
+          
+          <div
+            *ngIf="isShiftSwapTrackerOpen"
+            class="dropdown-content position-absolute bg-white shadow p-3"
+          >
             <button
               routerLink="/shift-swap-request"
-              class="btn btn-outline-primary text-white btn-sm ml-2"
+              class="btn btn-sm dropdown-item"
             >
               Shift Swap Request
             </button>
             <button
               routerLink="/shift-swap-reject"
-              class="btn btn-outline-primary text-white btn-sm ml-2"
+              class="btn btn-sm dropdown-item"
             >
               Shift Swap Reject
             </button>
             <button
               routerLink="/shift-swap-approved"
-              class="btn btn-outline-primary text-white btn-sm ml-2"
+              class="btn btn-sm dropdown-item"
             >
               Shift Swap Approved
             </button>
           </div>
         </div>
-
       </div>
-      <router-outlet></router-outlet>
+      <app-upcomingshifts
+        class="mt-3 align-items-center d-flex flex-column"
+      ></app-upcomingshifts>
     </div>
-    <app-upcomingshifts
-      class="mt-3 align-items-center d-flex flex-column"
-    >
-  </app-upcomingshifts>
-    <div></div>
   </div>
 </div>
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>

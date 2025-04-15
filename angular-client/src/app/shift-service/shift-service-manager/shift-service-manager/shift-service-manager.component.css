@@ -1,95 +1,57 @@
-body {
-  font-family: "roboto", sans-serif;
-  background-color: #f8f9fa;
-  margin: 0;
-  padding: 0;
+.heading{
+  font-size: 2.2rem;
+  font-weight: 500;
+  color: #000000;
+  margin-bottom: 1.5rem;
+  text-align: center;}
+.card {
+  margin-bottom: 1.5rem;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
 }
 
-#wrapper {
-  display: flex;
-  align-items: stretch;
-  overflow-x: hidden; /* Prevent horizontal scrollbar */
+.card:hover {
+  cursor: pointer;
+  transform: translateY(5px) scale(1.05);
+  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
 }
 
-#sidebar-wrapper {
-  width: 250px;
-  background-color: #343a40;
-  color: #fff;
-  position: fixed;
-  top: 2.7em; /* Adjusted to be fixed from the top */
-  bottom: 0;
-  left: 0;
-  z-index: 1000;
-  transition: all 0.3s;
+.card .card-body {
+  padding: 1.25rem;
 }
 
-#sidebar-wrapper .sidebar-heading {
-  padding: 1rem;
-  font-size: 1.5rem;
-  background-color: #343a40;
-  color: #fff;
+.card .card-body .card-title {
+  font-size: 1.25rem;
+  font-weight: bold;
+  margin-bottom: 0.75rem;
+  color: #333;
 }
 
-.list-group-item {
-  background-color: #343a40;
+.card .card-body .card-text {
+  font-size: 0.875rem;
+  color: #555;
+  margin-bottom: 0.5rem;
+}
+
+.card .card-body .card-text strong {
+  font-weight: 600;
+  color: #000;
+}
+
+.card .card-body .btn {
+  font-size: 0.875rem;
+  font-weight: 500;
+  padding: 0.5rem 1rem;
+  background-color: #737373;
   color: #fff;
   border: none;
+  border-radius: 0.25rem;
+  text-decoration: none;
 }
 
-.list-group-item:hover {
-  background-color: #495057;
-}
-
-#page-content-wrapper {
-  flex: 1;
-  padding: 2rem;
-  margin-left: 250px; /* Adjust margin to account for sidebar */
-  transition: all 0.3s;
-  /* Removed top margin adjustment by JavaScript */
-}
-
-.container-fluid {
-  padding: 2rem;
-  max-width: 1000px; /* Limit the width of the content */
-  margin: auto; /* Center the content */
-}
-
-/* Toggle Button */
-#menu-toggle {
-  display: none !important; /* Completely remove the toggle button */
-}
-
-/* Responsive Styles - Make Sidebar Always Visible */
-@media (max-width: 768px) {
-  #sidebar-wrapper {
-    /* Make it slide in from the left */
-    margin-left: 0; /* Initially show on smaller screens */
-    position: relative;
-    top: 2.7em;
-    height: 100%;
-    overflow-y: auto; /* Enable scrolling if content overflows */
-    z-index: 1001; /* Ensure it's above the content */
-    background-color: #343a40; /* Ensure background color */
-  }
-
-  #wrapper.toggled #sidebar-wrapper {
-    margin-left: 0; /* Keep it visible */
-  }
-
-  #page-content-wrapper {
-    margin-left: 0; /* Content takes full width */
-    transition: all 0.3s; /* Add transition for smooth animation */
-    padding-left: 250px; /* Adjust padding to accommodate the visible sidebar */
-  }
-}
-
-/* Styles for larger screens (sidebar always visible) */
-@media (min-width: 769px) {
-  #sidebar-wrapper {
-    margin-left: 0; /* Sidebar is always visible */
-  }
-
-  #page-content-wrapper {
-    margin-left: 250px; /* Adjust content margin */
-  }
+.card .card-body .btn:hover {
+  background-color: #0056b3;
+  color: #fff;
 }
