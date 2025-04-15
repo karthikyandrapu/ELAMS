@@ -1,14 +1,13 @@
 import { HttpClient } from '@angular/common/http';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { AuthenticationService } from 'src/app/service/auth/auth.service';
-
 @Component({
-  selector: 'app-leaveemployeehome',
+  selector: 'app-leave-home',
   standalone:false,
-  templateUrl: './leaveemployeehome.component.html',
-  styleUrls: ['./leaveemployeehome.component.css']
+  templateUrl: './leave-home.component.html',
+  styleUrls: ['./leave-home.component.css']
 })
-export class LeaveemployeehomeComponent {
+export class LeaveHomeComponent implements OnInit {
   employeeId: number | null = null;
     leaveRequests: any[] = [];
     errorMessage: string = '';
@@ -53,5 +52,4 @@ export class LeaveemployeehomeComponent {
       this.days = Math.ceil(timeDiff / (1000 * 3600 * 24)) + 1; // +1 to include both start and end dates
       return this.days;
     }
-  
 }

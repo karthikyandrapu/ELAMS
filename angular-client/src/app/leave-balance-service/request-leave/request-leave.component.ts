@@ -55,14 +55,16 @@ export class RequestLeaveComponent implements OnInit {
 
   getManagerId() {
     this.http
-      .get<any>(`http://localhost:8083/employees/${this.leaveRequest.id}`)
+      .get<any>(`http://localhost:8086/employees/${this.leaveRequest.id}`)
       .subscribe(
         (data: any) => {
           console.log('Employee data:', data);
+          
           this.employee = data;
           console.log('Employee data fetched successfully:', this.employee);
           this.errorMessage = '';
           this.leaveRequest.managerId = this.employee.managerId;
+          console.log('Manager ID:', this.leaveRequest.managerId);
         },
         (error: any) => {
           this.employee = null;

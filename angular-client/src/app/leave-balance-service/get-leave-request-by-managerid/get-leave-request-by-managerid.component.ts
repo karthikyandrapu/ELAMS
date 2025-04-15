@@ -10,7 +10,6 @@ interface LeaveBalanceUpdateDTO {
 
 @Component({
   selector: 'app-get-leave-request-by-managerid',
-  standalone:false,
   templateUrl: './get-leave-request-by-managerid.component.html',
   styleUrls: ['./get-leave-request-by-managerid.component.css']
 })
