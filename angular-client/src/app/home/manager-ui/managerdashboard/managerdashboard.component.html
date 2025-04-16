@@ -81,35 +81,6 @@
             </a>
           </li>
         </ul>
-
-        <h6
-          class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted"
-        >
-          <span>Settings</span>
-        </h6>
-        <ul class="nav flex-column mb-2">
-          <li class="nav-item">
-            <div class="nav-link">
-              <i
-                class="fas fa-sun"
-                *ngIf="!isDarkMode"
-                (click)="toggleTheme()"
-                style="cursor: pointer"
-              ></i>
-              <i
-                class="fas fa-moon"
-                *ngIf="isDarkMode"
-                (click)="toggleTheme()"
-                style="cursor: pointer"
-              ></i>
-              <span
-                style="margin-left: 10px; cursor: pointer"
-                (click)="toggleTheme()"
-                >Dark Mode</span
-              >
-            </div>
-          </li>
-        </ul>
       </div>
     </nav>
 
@@ -125,8 +96,8 @@
         <h1 class="h2">Dashboard</h1>
         <div class="btn-toolbar mb-2 mb-md-0">
           <div class="btn-group mr-2">
-              <app-clockin></app-clockin>
-              <app-clockout></app-clockout>
+            <app-clockin></app-clockin>
+            <app-clockout></app-clockout>
           </div>
         </div>
       </div>
@@ -153,60 +124,6 @@
                           : '/attendance-employeedashboard'
                       )
                     "
-                  >
-                    View Details
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="col-md-4">
-          <div class="card mb-4 shadow-sm">
-            <canvas id="leaveRequestsChart"></canvas>
-            <div class="card-body">
-              <p class="card-text">
-                <strong>Leave Requests:</strong>
-                {{ leaveRequestsData.pending }} Pending,
-                {{ leaveRequestsData.approved }} Approved,
-                {{ leaveRequestsData.rejected }} Rejected
-              </p>
-              <div class="d-flex justify-content-between align-items-center">
-                <div class="btn-group">
-                  <button
-                    type="button"
-                    class="btn btn-sm btn-outline-secondary"
-                    (click)="
-                      navigateTo(
-                        empRole?.toUpperCase() === 'MANAGER'
-                          ? '/manager/leave'
-                          : '/employee/leave'
-                      )
-                    "
-                  >
-                    View Details
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="col-md-4">
-          <div class="card mb-4 shadow-sm">
-            <canvas id="leaveBalanceChart"></canvas>
-            <div class="card-body">
-              <p class="card-text">
-                <strong>Avg. Leave Balance:</strong>
-                {{ leaveBalanceData.averageBalance }} days
-              </p>
-              <div class="d-flex justify-content-between align-items-center">
-                <div class="btn-group">
-                  <button
-                    type="button"
-                    class="btn btn-sm btn-outline-secondary"
-                    (click)="navigateTo('/employee/leave-balance')"
                   >
                     View Details
                   </button>
@@ -265,6 +182,59 @@
                           : '/employee/reports'
                       )
                     "
+                  >
+                    View Details
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card mb-4 shadow-sm">
+            <canvas id="leaveRequestsChart"></canvas>
+            <div class="card-body">
+              <p class="card-text">
+                <strong>Leave Requests:</strong>
+                {{ leaveRequestsData.pending }} Pending,
+                {{ leaveRequestsData.approved }} Approved,
+                {{ leaveRequestsData.rejected }} Rejected
+              </p>
+              <div class="d-flex justify-content-between align-items-center">
+                <div class="btn-group">
+                  <button
+                    type="button"
+                    class="btn btn-sm btn-outline-secondary"
+                    (click)="
+                      navigateTo(
+                        empRole?.toUpperCase() === 'MANAGER'
+                          ? '/manager/leave'
+                          : '/employee/leave'
+                      )
+                    "
+                  >
+                    View Details
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-4">
+          <div class="card mb-4 shadow-sm">
+            <canvas id="leaveBalanceChart"></canvas>
+            <div class="card-body">
+              <p class="card-text">
+                <strong>Avg. Leave Balance:</strong>
+                {{ leaveBalanceData.averageBalance }} days
+              </p>
+              <div class="d-flex justify-content-between align-items-center">
+                <div class="btn-group">
+                  <button
+                    type="button"
+                    class="btn btn-sm btn-outline-secondary"
+                    (click)="navigateTo('/employee/leave-balance')"
                   >
                     View Details
                   </button>

@@ -1,61 +1,38 @@
-
 <div class="dashboard-container">
   <div class="head-container">
+    <app-header></app-header>
   </div>
-  <div class="d-flex flex-column align-items-center">
-  <h1>Attendance Dashboard</h1>
-
+  
   <div class="main-content">
+    <!-- Left side navigation -->
     <div class="navigation">
+      <h2>Manager Dashboard</h2>
       <ul>
         <li>
-          <button
-            (click)="showComponent('display-attendance')"
-            [class.active]="activeComponent === 'display-attendance'"
-          >
-          View Your Attendance
-          </button>
+          <button (click)="showComponent('display-attendance')">View Your Attendance</button>
         </li>
         <li>
-          <button
-            (click)="showComponent('get-employee-attendance')"
-            [class.active]="activeComponent === 'get-employee-attendance'"
-          >
-          View Today's Attendance
-          </button>
+          <button (click)="showComponent('get-employee-attendance')">View Employee Attendance</button>
         </li>
         <li>
-          <button
-          (click)="showComponent('get-today-attendance')"
-            [class.active]="activeComponent === 'get-today-attendance'"
-          >
-          View Employee Attendance by Date
-          </button>
+          <button (click)="showComponent('get-employee-attendance-by-date')">View Employee Attendance by Date</button>
         </li>
         <li>
-          <button
-            (click)="showComponent('get-employee-attendance-by-date')"
-            [class.active]="activeComponent === 'get-employee-attendance-by-date'"
-          >
-          View Employee Attendance by Date
-          </button>
+          <button (click)="showComponent('get-today-attendance')">View Today's Attendance</button>
         </li>
         <li>
-          <button
-            (click)="showComponent('count-attendance')"
-            [class.active]="activeComponent === 'count-attendance'"
-          >
-          Count Employee Attendance
-          </button>
+          <button (click)="showComponent('count-attendance')">Count Employee Attendance</button>
         </li>
       </ul>
     </div>
-    <div class="content-area">
+
+    <!-- Right side content -->
+    <div class="container-fluid content-area">
       <app-displayattendance *ngIf="activeComponent === 'display-attendance'"></app-displayattendance>
       <app-getattendanceforemployee *ngIf="activeComponent === 'get-employee-attendance'"></app-getattendanceforemployee>
       <app-getattendanceforemployeeanddate *ngIf="activeComponent === 'get-employee-attendance-by-date'"></app-getattendanceforemployeeanddate>
       <app-getattendancefortoday *ngIf="activeComponent === 'get-today-attendance'"></app-getattendancefortoday>
       <app-countattendance *ngIf="activeComponent === 'count-attendance'"></app-countattendance>
-  </div>
+    </div>
   </div>
 </div>

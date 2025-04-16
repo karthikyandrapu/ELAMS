@@ -1,4 +1,7 @@
+
 <div class="assign-shift-container">
+  <app-shiftmanagerhome></app-shiftmanagerhome>
+  
   <form [formGroup]="assignShiftForm" (ngSubmit)="assign()">
     <div class="form-group">
       <label for="employeeId">Employee ID</label>
@@ -96,4 +99,5 @@
       {{ successMessage }}
     </div>
   </form>
+  
 </div>

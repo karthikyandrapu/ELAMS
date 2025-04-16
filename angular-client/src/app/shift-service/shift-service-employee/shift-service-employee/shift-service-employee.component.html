@@ -1,44 +1,12 @@
+<app-shift-employee-home></app-shift-employee-home>
+
 <div class="d-flex">
   <div
     id="page-content-wrapper"
     class="d-flex flex-column align-items-center justify-content-start flex-grow-1 overflow-auto"
   >
     <div class="container-fluid mt-3 align-items-center d-flex flex-column">
-      <h1 class="ml-3">Employee Shift Service</h1>
-      <div class="d-flex align-items-center justify-content-end w-100 button-container">
-        <button
-          class="btn btn-primary text-white bg blue ml-3"
-          routerLink="/get-employee-shifts"
-        >
-          View Shifts
-        </button>
-        <div class="dropdown-container">
-          <button
-            class="btn btn-primary text-white"
-            (click)="toggleShiftSwapTracker()"
-            id="shiftSwapTracker"
-          >
-            Shift Swap Request Tracker
-            <span [innerHTML]="arrowIcon"></span>
-          </button>
-          <div class="dropdown-content">
-            <div
-              *ngIf="isShiftSwapTrackerOpen"
-              class="dropdown-content position-absolute p-3"
-            >
-              <button routerLink="/shift-swap-request" class="dropdown-item">
-                Shift Swap Request
-              </button>
-              <button routerLink="/shift-swap-reject" class="dropdown-item">
-                Shift Swap Reject
-              </button>
-              <button routerLink="/shift-swap-approved" class="dropdown-item">
-                Shift Swap Approved
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
+      
       <app-upcomingshifts
         class="mt-3 align-items-center d-flex flex-column"
       ></app-upcomingshifts>

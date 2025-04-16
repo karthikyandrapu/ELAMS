@@ -1,23 +1,22 @@
-<div class="d-flex flex-column align-items-center">
-  <div class="container mt-4 list-campaign-container">
+<app-header></app-header>
+<div class="d-flex flex-column align-items-start mt-5">
+  <div class="container list-shift-container">
     <!-- App Layout -->
     <div class="row">
-      <div class="col-md-3">
-      </div>
-
       <!-- Cards Section -->
-      <div class="col-md-9">
-        <h1 class="heading">Shift Management</h1>
-
+      <div class="col-md-12">
         <div class="row">
-
           <!-- Assign Shift Card -->
           <div class="col-md-6">
             <div class="card mb-4 position-relative">
               <div class="card-body">
                 <h5 class="card-title">Assign Shift</h5>
                 <p class="card-text">Assign shifts to employees</p>
-                <button type="button" class="btn btn-info" routerLink="/assign-shift">
+                <button
+                  type="button"
+                  class="btn btn-info"
+                  routerLink="/assign-shift"
+                >
                   Assign Shift
                 </button>
               </div>
@@ -29,8 +28,14 @@
             <div class="card mb-4 position-relative">
               <div class="card-body">
                 <h5 class="card-title">View My Employee Shifts</h5>
-                <p class="card-text">View the shifts assigned to my employees</p>
-                <button type="button" class="btn btn-info" routerLink="/view-manager-shifts">
+                <p class="card-text">
+                  View the shifts assigned to my employees
+                </p>
+                <button
+                  type="button"
+                  class="btn btn-info"
+                  routerLink="/view-manager-shifts"
+                >
                   View Employee Shifts
                 </button>
               </div>
@@ -43,7 +48,11 @@
               <div class="card-body">
                 <h5 class="card-title">View My Own Shifts</h5>
                 <p class="card-text">Check my own shift schedule</p>
-                <button type="button" class="btn btn-info" routerLink="/view-manager-own-shifts">
+                <button
+                  type="button"
+                  class="btn btn-info"
+                  routerLink="/view-manager-own-shifts"
+                >
                   View My Shifts
                 </button>
               </div>
@@ -55,8 +64,14 @@
             <div class="card mb-4 position-relative">
               <div class="card-body">
                 <h5 class="card-title">View Employee Shifts by ID</h5>
-                <p class="card-text">Search and view shifts for a specific employee</p>
-                <button type="button" class="btn btn-info" routerLink="/view-employee-shifts">
+                <p class="card-text">
+                  Search and view shifts for a specific employee
+                </p>
+                <button
+                  type="button"
+                  class="btn btn-info"
+                  routerLink="/view-employee-shifts"
+                >
                   View Shifts by ID
                 </button>
               </div>
@@ -68,8 +83,14 @@
             <div class="card mb-4 position-relative">
               <div class="card-body">
                 <h5 class="card-title">View Swap Request</h5>
-                <p class="card-text">Manage shift swap requests submitted by employees.</p>
-                <button type="button" class="btn btn-info" routerLink="/view-manager-swap-requests">
+                <p class="card-text">
+                  Manage shift swap requests submitted by employees.
+                </p>
+                <button
+                  type="button"
+                  class="btn btn-info"
+                  routerLink="/view-manager-swap-requests"
+                >
                   View Swap Request
                 </button>
               </div>

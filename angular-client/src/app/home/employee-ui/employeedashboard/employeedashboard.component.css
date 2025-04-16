@@ -108,3 +108,7 @@ border-bottom: 1px solid #495057 !important; /* Dark border */
 }
 
 /* Add more dark theme styles for other elements as needed */
+leaveRequestsChart{
+  height: 480px;
+  width:480px;
+}

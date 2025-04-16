@@ -1,37 +1,30 @@
-/* Ensure the dashboard container fits within the viewport */
+/* attendance-employeedashboard.component.css */
 .dashboard-container {
-  margin-left: 250px; /* Add margin to account for the sidebar width */
-  margin-top: 60px; /* Adjust this value based on the height of your app-layout header */
-  padding: 20px;
-  width: calc(100% - 250px); /* Adjust width to exclude the sidebar */
-  box-sizing: border-box; /* Ensure padding is included in the width/height */
-  background-color: #f8f9fa; /* Optional: Add a light background color */
-  overflow: hidden; /* Prevent scrolling */
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  width: 100%;
 }
 
-.dashboard-container h1 {
-  font-size: 2rem;
-  font-weight: bold;
-  margin-bottom: 20px;
-  text-align: center;
+.head-container {
+  width: 100%;
+  z-index: 20;
 }
 
 .main-content {
   display: flex;
-  flex-direction: row; /* Align navigation and content side by side */
-  gap: 20px; /* Add spacing between navigation and content */
   width: 100%;
-  height: 100%; /* Ensure it takes the full height of the container */
 }
 
+/* Left sidebar navigation */
 .navigation {
-  width: 250px; /* Fixed width for the navigation */
+  width: 200px; /* Adjust as needed */
+  height: 550px;
+  top: 40px;
   background-color: #f8f9fa;
+  border-right: 1px solid #dee2e6;
   padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  height: 100%; /* Ensure it takes the full height of the container */
-  overflow-y: auto; /* Allow scrolling only for the navigation if needed */
+  overflow-y: auto;
 }
 
 .navigation ul {
@@ -60,18 +53,19 @@
   background-color: #e9ecef;
 }
 
-/* Active button state */
 .navigation ul li button.active {
   background-color: #007bff;
   color: white;
 }
 
+/* Right side content area */
 .content-area {
-  flex-grow: 1; /* Take up the remaining space */
+  flex-grow: 1;
   padding: 20px;
-  background-color: #ffffff;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  overflow: hidden; /* Prevent scrolling in the content area */
-  height: 100%; /* Ensure it takes the full height of the container */
+}
+
+/* Adjust margin for the second component */
+app-viewyourattedancebydate {
+  display: block;
+  margin-top: 20px; /* Add some space between the components */
 }
