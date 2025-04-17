@@ -19,7 +19,6 @@
           <th>Shift Date</th>
           <th>Shift Time</th>
           <th>Shift Status</th>
-          <th>Request Swap with</th>
         </tr>
       </thead>
       <tbody>
@@ -28,13 +27,6 @@
           <td>{{ shift.shiftDate }}</td>
           <td>{{ shift.shiftTime }}</td>
           <td>{{ shift.shiftStatus.status }}</td>
-          <td style="text-align: center">
-            {{
-              shift.shiftStatus.requestedSwapEmployeeId
-                ? shift.shiftStatus.requestedSwapEmployeeId
-                : "――"
-            }}
-          </td>
         </tr>
       </tbody>
     </table>

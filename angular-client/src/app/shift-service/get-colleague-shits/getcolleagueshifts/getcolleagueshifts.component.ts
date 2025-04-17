@@ -16,6 +16,7 @@ export class GetcolleagueshiftsComponent implements OnInit {
   shiftDate: string = ''; // Date in YYYY-MM-DD format
   noRecordFound = false; // Flag to indicate if no records are found
   errorMessage: string = ''; // To store error messages
+  successMessage: string = ''; // To store success messages for swap requests
   private employeeId!: number; // Employee ID fetched from session storage
 
   constructor(
@@ -48,6 +49,7 @@ export class GetcolleagueshiftsComponent implements OnInit {
   getColleagueShifts(): void {
     this.noRecordFound = false;
     this.errorMessage = '';
+    this.successMessage = ''; // Clear any previous success message
 
     // Call the service to fetch colleague shifts
     this.shiftService
@@ -68,17 +70,20 @@ export class GetcolleagueshiftsComponent implements OnInit {
   }
 
   requestSwap(colleagueId: number): void {
+    this.errorMessage = '';
+    this.successMessage = ''; // Clear any previous success message
     if (this.shiftId) {
       this.shiftService.requestShiftSwap(this.employeeId, this.shiftId, colleagueId)
         .subscribe(
           (response) => {
             console.log('Swap request successful:', response);
-            // Optionally show a success message to the user
+            this.successMessage = 'Shift swap request sent successfully!';
+            // Optionally, you might want to refresh the colleague shifts list here
+            // this.getColleagueShifts();
           },
           (error) => {
             console.error('Error requesting swap:', error);
             this.errorMessage = 'Failed to request shift swap.';
-            // Optionally show an error message to the user
           }
         );
     } else {

@@ -1,6 +1,6 @@
-<app-shiftmanagerhome></app-shiftmanagerhome>
 
-<div class="view-manager-swap-requests-container centered-table">
+<div class="d-flex flex-column align-items-center"><app-shiftmanagerhome></app-shiftmanagerhome>
+<div class="view-manager-swap-requests-container centered-table " >
   <h2>Manager Swap Requests</h2>
 
   <div *ngIf="noRecordFound" class="alert alert-warning">
@@ -28,7 +28,7 @@
   </div>
 
   <div *ngIf="swapRequests.length > 0">
-    <table class="table table-bordered">
+    <table class="table table-bordered" >
       <thead>
         <tr>
           <th>Shift ID</th>
@@ -62,4 +62,5 @@
       </tbody>
     </table>
   </div>
+</div>
 </div>

@@ -14,7 +14,10 @@ import { Attendance } from 'src/app/model/attendance-model/Attendance';
 export class AttendanceService {
   private attendanceApiUrl = `${environment.attendanceApiUrl}/attendance`; // Correct path based on backend @RequestMapping
   private currentAttendanceRecord!:any;
+<<<<<<< HEAD
 
+=======
+>>>>>>> abe3542a6b61b174854fa531819cdf99279dbed3
 
   constructor(private http: HttpClient) { }
 
@@ -66,8 +69,11 @@ export class AttendanceService {
     return this.http.get<number>(`${this.attendanceApiUrl}/count?employeeId=${employeeId}`, { params });
   }
 
+<<<<<<< HEAD
   //setting and getting current attendace data from displayattendance
 
+=======
+>>>>>>> abe3542a6b61b174854fa531819cdf99279dbed3
   setCurrentAttendance(attendanceBody:any){
     this.currentAttendanceRecord = attendanceBody;
   }

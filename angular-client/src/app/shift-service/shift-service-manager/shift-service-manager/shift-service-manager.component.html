@@ -1,65 +1,116 @@
-<!-- <!DOCTYPE html>
-<html lang="en">
-  <head> </head>
-  <body>
-    <app-header></app-header>
-    <div class="d-flex" id="wrapper">
-      <div class="bg-dark border-right" id="sidebar-wrapper">
-        <div class="sidebar-heading text-white">Shift Management</div>
-        <div class="list-group list-group-flush">
-          
+<app-header></app-header>
+<div class="d-flex flex-column align-items-start mt-5">
+  <div class="container list-shift-container">
+    <!-- App Layout -->
+    <div class="row">
+      <!-- Cards Section -->
+      <div class="col-md-12">
+        <div class="row">
+          <!-- Assign Shift Card -->
+          <div class="col-md-6">
+            <div class="card mb-4 position-relative">
+              <div class="card-body" routerLink="/assign-shift">
+                <h5 class="card-title">
+                  <i class="fas fa-tasks me-2"></i> Assign Shift
+                </h5>
+                <p class="card-text">Assign Shifts to Employees</p>
+                <button
+                  type="button"
+                  class="btn btn-info"
+                  routerLink="/assign-shift"
+                >
+                  Assign Shift
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- View My Employee Shifts Card -->
+          <div class="col-md-6">
+            <div class="card mb-4 position-relative">
+              <div class="card-body" routerLink="/view-manager-shifts">
+                <h5 class="card-title">
+                  <i class="fas fa-users me-2"></i> View My Employee Shifts
+                </h5>
+                <p class="card-text">
+                  Total Number of Employee Shifts: {{ totalManagerShiftCount }}
+                </p>
+                <button
+                  type="button"
+                  class="btn btn-info"
+                  routerLink="/view-manager-shifts"
+                >
+                  View Employee Shifts
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- View My Own Shifts Card -->
+          <div class="col-md-6">
+            <div class="card mb-4 position-relative">
+              <div class="card-body" routerLink="/view-manager-own-shifts">
+                <h5 class="card-title">
+                  <i class="fas fa-user-clock me-2"></i> View My Own Shifts
+                </h5>
+                <p class="card-text">
+                  Total Number of My Own Shifts: {{ totalMangerOwnCount }}
+                </p>
+                <button
+                  type="button"
+                  class="btn btn-info"
+                  routerLink="/view-manager-own-shifts"
+                >
+                  View My Shifts
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- View Employee Shifts by ID Card -->
+          <div class="col-md-6">
+            <div class="card mb-4 position-relative">
+              <div class="card-body" routerLink="/view-employee-shifts">
+                <h5 class="card-title">
+                  <i class="fas fa-id-card me-2"></i> View Employee Shifts by ID
+                </h5>
+                <p class="card-text">
+                  Total Number of Employees: {{ totalEmployeeCount }}
+                </p>
+                <button
+                  type="button"
+                  class="btn btn-info"
+                  routerLink="/view-employee-shifts"
+                >
+                  View Shifts by ID
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- View Swap Request Card -->
+          <div class="col-md-6">
+            <div class="card mb-4 position-relative">
+              <div class="card-body" routerLink="/view-manager-swap-requests">
+                <h5 class="card-title">
+                  <i class="fas fa-exchange-alt me-2"></i> View Swap Request
+                </h5>
+                <p class="card-text">
+                  Total Shift Swap Requests Submitted by Employee:
+                  {{ swapRequestCount }}
+                </p>
+                <button
+                  type="button"
+                  class="btn btn-info"
+                  routerLink="/view-manager-swap-requests"
+                >
+                  View Swap Request
+                </button>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
-    </div>
-    <div id="page-content-wrapper">
-      <div class="container-fluid">
-        <h1>Manager Shift Service</h1>
-      </div>
-    </div>
-  </body>
-</html> -->
-
-<app-header></app-header>
-<div class="d-flex" id="wrapper">
-  <div class="bg-dark border-right" id="sidebar-wrapper">
-    <div class="sidebar-heading text-white">Shift Management</div>
-    <div class="list-group list-group-flush">
-      <a
-        routerLink="/shiftservicemanager"
-        class="list-group-item list-group-item-action text-white"
-        >Home</a
-      >
-      <a
-        routerLink="/assign-shift"
-        class="list-group-item list-group-item-action text-white"
-        >Assign Shift</a
-      >
-      <a
-        routerLink="/view-manager-shifts"
-        class="list-group-item list-group-item-action text-white"
-        >View My Employee Shifts</a
-      >
-      <a
-        routerLink="/view-manager-own-shifts"
-        class="list-group-item list-group-item-action text-white"
-        >View My Own Shifts</a
-      >
-      <a
-        routerLink="/view-employee-shifts"
-        class="list-group-item list-group-item-action text-white"
-        >View employee shifts by id</a
-      >
-      <a
-        routerLink="/view-manager-swap-requests"
-        class="list-group-item list-group-item-action text-white"
-        >View Swap Request</a
-      >
-    </div>
-  </div>
-  <div id="page-content-wrapper">
-    <div class="container-fluid">
-      <h1>Manager Shift Service</h1>
-      <router-outlet></router-outlet>
     </div>
   </div>
 </div>

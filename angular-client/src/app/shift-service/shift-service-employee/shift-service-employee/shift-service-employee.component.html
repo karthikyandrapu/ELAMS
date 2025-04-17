@@ -1,57 +1,57 @@
-<div class="d-flex">
-  <app-sidenavbar
-    class="d-flex flex-column align-items-center justify-content-center border-right"
-  >
-  </app-sidenavbar>
+<app-shift-employee-home></app-shift-employee-home>
+
+<div class="d-flex flex-wrap justify-content-center" style="gap: 30px;margin-left: 100px;" >
   <div
     id="page-content-wrapper"
-    class="d-flex flex-column align-items-center justify-content-start flex-grow-1 overflow-auto"
+    class="d-flex flex-column align-items-center justify-content-start flex-grow-1"
   >
-    <div class="container-fluid mt-3 align-items-center d-flex flex-column">
-      <h1 class="ml-3">Employee Shift Service</h1>
-      <div class="d-flex align-items-center">
-        
-        <div class="mt-2 ml-2 ">
-          <button
-            class="btn btn-primary text-white"
-            (click)="toggleShiftSwapTracker()"
-            id="shiftSwapTracker"
-          >
-            Shift Swap Request Tracker
-            <span [innerHTML]="arrowIcon"></span>
-          </button>
-          <div *ngIf="isShiftSwapTrackerOpen" class="mt-2">
-            <button
-              routerLink="/shift-swap-request"
-              class="btn btn-outline-primary text-white btn-sm ml-2"
-            >
-              Shift Swap Request
-            </button>
-            <button
-              routerLink="/shift-swap-reject"
-              class="btn btn-outline-primary text-white btn-sm ml-2"
-            >
-              Shift Swap Reject
-            </button>
-            <button
-              routerLink="/shift-swap-approved"
-              class="btn btn-outline-primary text-white btn-sm ml-2"
-            >
-              Shift Swap Approved
-            </button>
+    <div class="container-fluid mt-3 align-items-center d-flex flex-column" >
+      <app-upcomingshifts
+        class="mt-3 align-items-center d-flex flex-column"
+      ></app-upcomingshifts>
+    </div>
+
+    <div class="container-fluid mt-3 d-flex flex-wrap justify-content-center" style="gap: 100px;">
+      <div class="md-4" style="width: 350px; margin-bottom: 15px;">
+        <div class="card mb-4 shadow-sm h-100">
+          <canvas id="shiftChart"></canvas>
+          <div class="card-body d-flex flex-column justify-content-between">
+            <div>
+              <p class="card-text">
+                <strong>Shifts:</strong> {{ shiftData.totalShifts }} Total,
+                {{ shiftData.openShifts }} Open
+              </p>
+            </div>
+            <div class="d-flex justify-content-between align-items-center">
+              <div class="btn-group">
+              </div>
+            </div>
           </div>
         </div>
-
       </div>
-      <router-outlet></router-outlet>
+
+      <div class="md-4" style="width: 350px; margin-bottom: 15px;">
+        <div class="card mb-4 shadow-sm h-100 d-flex flex-column">
+          <div style="flex-grow: 1; display: flex; align-items: flex-end; justify-content: center;">
+            <canvas id="leaveRequestsChart" style="max-width: 80%; max-height: 80%;"></canvas>
+          </div>
+          <div class="card-body text-center">
+            <p class="card-text">
+              <strong>Swap Requests:</strong>
+              {{ leaveRequestsData.pending }} Pending,
+              {{ leaveRequestsData.approved }} Approved,
+              {{ leaveRequestsData.rejected }} Rejected
+            </p>
+            <div class="d-flex justify-content-center align-items-center">
+              <div class="btn-group">
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
-    <app-upcomingshifts
-      class="mt-3 align-items-center d-flex flex-column"
-    >
-  </app-upcomingshifts>
-    <div></div>
+
+
   </div>
 </div>
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>

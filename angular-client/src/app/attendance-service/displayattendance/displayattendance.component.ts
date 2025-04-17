@@ -30,6 +30,7 @@ export class DisplayattendanceComponent implements OnInit, OnDestroy, AfterViewI
   pagedAttendanceRecordBody: any[] = [];
   totalPages = 1;
   pages: number[] = [];
+<<<<<<< HEAD
   maxPagesToShow = 5;
 
   // Current week filter properties
@@ -42,6 +43,8 @@ export class DisplayattendanceComponent implements OnInit, OnDestroy, AfterViewI
   monthLabels: string[] = [];
   currentMonthData: any[] = [];
   currentMonthLabel: string = '';
+=======
+>>>>>>> abe3542a6b61b174854fa531819cdf99279dbed3
 
   @ViewChild('attendanceChartCanvas') attendanceChartCanvas!: ElementRef;
 
@@ -51,13 +54,22 @@ export class DisplayattendanceComponent implements OnInit, OnDestroy, AfterViewI
   ) { }
 
   ngOnInit(): void {
+    console.log('Component initialized');
     this.userId = parseInt(this.authService.getLoggedInEmpId() || '', 10);
     this.userRole = sessionStorage.getItem('role') || '';
+<<<<<<< HEAD
+=======
+    console.log(`User ID: ${this.userId}, Role: ${this.userRole}`);
+>>>>>>> abe3542a6b61b174854fa531819cdf99279dbed3
     this.loadOwnAttendance();
   }
 
   ngAfterViewInit(): void {
+<<<<<<< HEAD
     // Ensure view is properly initialized
+=======
+    // Ensure view is properly initialized before attempting to render chart
+>>>>>>> abe3542a6b61b174854fa531819cdf99279dbed3
   }
 
   ngOnDestroy(): void {
@@ -75,24 +87,40 @@ export class DisplayattendanceComponent implements OnInit, OnDestroy, AfterViewI
       this.attendanceSubscription = this.attendanceService.getOwnAttendance(this.userId, this.userRole)
         .subscribe({
           next: (data) => {
+<<<<<<< HEAD
             this.isLoading = false;
             
+=======
+            console.log('Raw Attendance Data:', data);
+            this.isLoading = false;
+            
+            // Handle different possible response structures
+>>>>>>> abe3542a6b61b174854fa531819cdf99279dbed3
             if (Array.isArray(data)) {
               this.attendanceRecordBody = data;
             } else if (data && Array.isArray(data)) {
               this.attendanceRecordBody = data;
             } else if (data && typeof data === 'object') {
               this.attendanceRecordBody = Object.values(data).filter(item => Array.isArray(item)).flat();
+<<<<<<< HEAD
+=======
+              this.attendanceService.setCurrentAttendance(this.attendanceRecordBody)
+>>>>>>> abe3542a6b61b174854fa531819cdf99279dbed3
             } else {
               this.attendanceRecordBody = [];
             }
 
             if (this.attendanceRecordBody.length > 0) {
               this.attendanceRecords = this.attendanceRecordBody;
+<<<<<<< HEAD
               this.filterCurrentWeekData();
               this.organizeAttendanceByMonth();
               if (this.viewMode === 'graph') {
                 this.createBarGraph(this.currentWeekOnly ? this.currentWeekData : this.currentMonthData);
+=======
+              if (this.viewMode === 'graph') {
+                this.createBarGraph(this.attendanceRecordBody);
+>>>>>>> abe3542a6b61b174854fa531819cdf99279dbed3
               }
               this.setPagination();
               this.changePage(1);
@@ -102,6 +130,10 @@ export class DisplayattendanceComponent implements OnInit, OnDestroy, AfterViewI
             }
           },
           error: (error) => {
+<<<<<<< HEAD
+=======
+            console.error('Error loading attendance:', error);
+>>>>>>> abe3542a6b61b174854fa531819cdf99279dbed3
             this.isLoading = false;
             this.errorMessage = 'Failed to load attendance records. Please try again later.';
             this.clearData();
@@ -113,6 +145,7 @@ export class DisplayattendanceComponent implements OnInit, OnDestroy, AfterViewI
     }
   }
 
+<<<<<<< HEAD
   // New method to organize attendance by month
   organizeAttendanceByMonth(): void {
     this.attendanceByMonth = {};
@@ -209,30 +242,71 @@ export class DisplayattendanceComponent implements OnInit, OnDestroy, AfterViewI
     this.currentWeekOnly = !this.currentWeekOnly;
     if (this.viewMode === 'graph') {
       this.createBarGraph(this.currentWeekOnly ? this.currentWeekData : this.currentMonthData);
+=======
+  switchView(mode: 'graph' | 'table'): void {
+    console.log(`Switching view to: ${mode}`);
+    this.viewMode = mode;
+    if (this.viewMode === 'graph' && this.attendanceRecordBody.length > 0) {
+      console.log('Recreating graph with existing data');
+      this.createBarGraph(this.attendanceRecordBody);
+>>>>>>> abe3542a6b61b174854fa531819cdf99279dbed3
     }
   }
 
   createBarGraph(dataForGraph: any[]): void {
+<<<<<<< HEAD
     setTimeout(() => {
       if (!this.attendanceChartCanvas?.nativeElement) return;
 
       const ctx = this.attendanceChartCanvas.nativeElement.getContext('2d');
       if (!ctx) return;
 
+=======
+    // Add a small delay to ensure canvas is ready
+    setTimeout(() => {
+      if (!this.attendanceChartCanvas?.nativeElement) {
+        console.error('Canvas element not found');
+        return;
+      }
+
+      const ctx = this.attendanceChartCanvas.nativeElement.getContext('2d');
+      if (!ctx) {
+        console.error('Could not get canvas context');
+        return;
+      }
+
+      // Filter out records without valid clockInTime
+>>>>>>> abe3542a6b61b174854fa531819cdf99279dbed3
       const validRecords = dataForGraph.filter(record => 
         record.clockInTime && !isNaN(new Date(record.clockInTime).getTime())
       );
 
+<<<<<<< HEAD
       if (validRecords.length === 0) return;
 
+=======
+      if (validRecords.length === 0) {
+        console.warn('No valid records with clockInTime found');
+        return;
+      }
+
+      // Sort records by date
+>>>>>>> abe3542a6b61b174854fa531819cdf99279dbed3
       validRecords.sort((a, b) => 
         new Date(a.clockInTime).getTime() - new Date(b.clockInTime).getTime()
       );
 
       const labels = validRecords.map(record => this.formatDate(record.clockInTime));
+<<<<<<< HEAD
       const data = validRecords.map(record => record.workHours || 0);
       const backgroundColors = data.map(hours => this.getBarColor(hours));
 
+=======
+      const data = validRecords.map(record => record.workHours || 0); // Default to 0 if null
+      const backgroundColors = data.map(hours => this.getBarColor(hours));
+
+      // Destroy previous chart if exists
+>>>>>>> abe3542a6b61b174854fa531819cdf99279dbed3
       this.clearChart();
 
       try {
@@ -257,20 +331,33 @@ export class DisplayattendanceComponent implements OnInit, OnDestroy, AfterViewI
                 title: { 
                   display: true, 
                   text: 'Work Hours',
+<<<<<<< HEAD
                   font: { weight: 'bold' }
+=======
+                  font: {
+                    weight: 'bold'
+                  }
+>>>>>>> abe3542a6b61b174854fa531819cdf99279dbed3
                 }
               },
               x: {
                 title: { 
                   display: true, 
                   text: 'Date',
+<<<<<<< HEAD
                   font: { weight: 'bold' }
+=======
+                  font: {
+                    weight: 'bold'
+                  }
+>>>>>>> abe3542a6b61b174854fa531819cdf99279dbed3
                 }
               }
             },
             plugins: {
               tooltip: {
                 callbacks: {
+<<<<<<< HEAD
                   label: (context) => `Hours: ${context.raw}`
                 }
               },
@@ -280,6 +367,12 @@ export class DisplayattendanceComponent implements OnInit, OnDestroy, AfterViewI
                   'Current Week Attendance' : 
                   `${this.currentMonthLabel} Attendance`,
                 font: { size: 16 }
+=======
+                  label: function(context) {
+                    return `Hours: ${context.raw}`;
+                  }
+                }
+>>>>>>> abe3542a6b61b174854fa531819cdf99279dbed3
               }
             }
           }
@@ -291,15 +384,24 @@ export class DisplayattendanceComponent implements OnInit, OnDestroy, AfterViewI
   }
 
   getBarColor(hours: number | null): string {
+<<<<<<< HEAD
     if (hours === null) return '#ff6384';
     if (hours > 8) return '#4bc0c0';
     if (hours > 7) return '#36a2eb';
     if (hours > 4) return '#ffcd56';
     return '#ff6384';
+=======
+    if (hours === null) return '#ff6384'; // red
+    if (hours > 8) return '#4bc0c0'; // teal
+    if (hours > 7) return '#36a2eb'; // blue
+    if (hours > 4) return '#ffcd56'; // yellow
+    return '#ff6384'; // red
+>>>>>>> abe3542a6b61b174854fa531819cdf99279dbed3
   }
 
   setPagination(): void {
     this.totalPages = Math.ceil(this.attendanceRecordBody.length / this.pageSize);
+<<<<<<< HEAD
     this.updateVisiblePaginationPages();
   }
 
@@ -334,6 +436,9 @@ export class DisplayattendanceComponent implements OnInit, OnDestroy, AfterViewI
         this.pages.push(this.totalPages);
       }
     }
+=======
+    this.pages = Array.from({ length: this.totalPages }, (_, i) => i + 1);
+>>>>>>> abe3542a6b61b174854fa531819cdf99279dbed3
   }
 
   changePage(page: number): void {
@@ -341,7 +446,10 @@ export class DisplayattendanceComponent implements OnInit, OnDestroy, AfterViewI
     const startIndex = (this.currentPage - 1) * this.pageSize;
     const endIndex = startIndex + this.pageSize;
     this.pagedAttendanceRecordBody = this.attendanceRecordBody.slice(startIndex, endIndex);
+<<<<<<< HEAD
     this.updateVisiblePaginationPages();
+=======
+>>>>>>> abe3542a6b61b174854fa531819cdf99279dbed3
   }
 
   formatDate(dateString: string): string {
@@ -362,7 +470,10 @@ export class DisplayattendanceComponent implements OnInit, OnDestroy, AfterViewI
     this.attendanceRecords = [];
     this.attendanceRecordBody = [];
     this.pagedAttendanceRecordBody = [];
+<<<<<<< HEAD
     this.currentWeekData = [];
+=======
+>>>>>>> abe3542a6b61b174854fa531819cdf99279dbed3
     this.setPagination();
     this.clearChart();
   }
@@ -374,7 +485,12 @@ export class DisplayattendanceComponent implements OnInit, OnDestroy, AfterViewI
     }
   }
 
+<<<<<<< HEAD
   isEllipsis(pageNumber: number): boolean {
     return pageNumber < 0;
   }
 }
+=======
+  
+}
+>>>>>>> abe3542a6b61b174854fa531819cdf99279dbed3

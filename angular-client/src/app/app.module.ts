@@ -25,8 +25,6 @@ import { ShiftServiceManagerComponent } from './shift-service/shift-service-mana
 import { HeaderComponent } from './header/header.component';
 import { ManagerdashboardComponent } from './home/manager-ui/managerdashboard/managerdashboard.component';
 import { EmployeedashboardComponent } from './home/employee-ui/employeedashboard/employeedashboard.component';
-import { ShiftmanagerhomeComponent } from './shift-service/home/shift-managerhome/shiftmanagerhome/shiftmanagerhome.component';
-import { ShiftemployeehomeComponent } from './shift-service/home/shift-employeehome/shiftemployeehome/shiftemployeehome.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ClockinComponent } from './attendance-service/clockin/clockin.component';
 import { ClockoutComponent } from './attendance-service/clockout/clockout.component';
@@ -76,10 +74,17 @@ import { SwaprequestedComponent } from './shift-service/swap-requested/swapreque
 import { GetemplyeeshiftsbyidComponent } from './shift-service/get-employee-shifts-by-id/getemplyeeshiftsbyid/getemplyeeshiftsbyid.component';
 import { ViewmanagerswaprequestsComponent } from './shift-service/view-manager-swap-requests/viewmanagerswaprequests/viewmanagerswaprequests.component';
 import { SidenavbarComponent } from './navbar/sidenavbar/sidenavbar.component';
+<<<<<<< HEAD
 import { ViewyourattedancebydateComponent } from './attendance-service/viewyourattedancebydate/viewyourattedancebydate.component';
 
 
 
+=======
+import { LayoutComponent } from './layouts/layout/layout.component';
+import { ViewyourattedancebydateComponent } from './attendance-service/viewyourattedancebydate/viewyourattedancebydate.component';
+import { ShiftmanagerhomeComponent } from './shift-service/shift-manager-home/shiftmanagerhome.component';
+import { ShiftEmployeeHomeComponent } from './shift-service/shift-employee-home/shift-employee-home.component';
+>>>>>>> abe3542a6b61b174854fa531819cdf99279dbed3
 @NgModule({
   declarations: [
     AppComponent,
@@ -107,8 +112,6 @@ import { ViewyourattedancebydateComponent } from './attendance-service/viewyoura
     HeaderComponent,
     ManagerdashboardComponent,
     EmployeedashboardComponent,
-    ShiftmanagerhomeComponent,
-    ShiftemployeehomeComponent,
     ClockinComponent,
     ClockoutComponent,
     CountattendanceComponent,
@@ -138,8 +141,16 @@ import { ViewyourattedancebydateComponent } from './attendance-service/viewyoura
     RequestLeaveComponent,
     ReviewLeaveComponent,
     SidenavbarComponent,
+<<<<<<< HEAD
     GetattendanceforemployeeanddateComponent,
     ViewyourattedancebydateComponent
+=======
+    LayoutComponent,
+    GetattendanceforemployeeanddateComponent,
+    ViewyourattedancebydateComponent,
+    ShiftmanagerhomeComponent,
+    ShiftEmployeeHomeComponent,
+>>>>>>> abe3542a6b61b174854fa531819cdf99279dbed3
   ],
   imports: [
     BrowserModule,

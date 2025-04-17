@@ -1,5 +1,5 @@
 /* Container styling */
-.get-colleague-shifts-container {
+.get-employee-shifts-container {
   max-width: 800px;
   margin: 20px auto;
   padding: 20px;
@@ -78,14 +78,4 @@ table tr:hover {
   background-color: #fff3cd;
   color: #856404;
   border: 1px solid #ffeeba;
-}
-
-.alert-danger {
-  background-color: #f8d7da;
-  color: #721c24;
-  border: 1px solid #f5c6cb;
-}
-
-body {
-  background-color: white;
 }

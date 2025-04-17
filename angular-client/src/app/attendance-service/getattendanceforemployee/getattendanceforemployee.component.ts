@@ -23,6 +23,7 @@ export class GetattendanceforemployeeComponent implements OnInit, AfterViewInit 
   @ViewChild('attendanceChartCanvas') attendanceChartCanvas!: ElementRef;
   attendanceChart: Chart | undefined;
 
+<<<<<<< HEAD
   // Month view properties
   currentMonthIndex: number = 0;
   attendanceByMonth: { [key: string]: any[] } = {};
@@ -30,6 +31,8 @@ export class GetattendanceforemployeeComponent implements OnInit, AfterViewInit 
   currentMonthData: any[] = [];
   currentMonthLabel: string = '';
 
+=======
+>>>>>>> abe3542a6b61b174854fa531819cdf99279dbed3
   // Pagination properties
   pageSize = 5;
   currentPage = 1;
@@ -37,7 +40,10 @@ export class GetattendanceforemployeeComponent implements OnInit, AfterViewInit 
   totalPages = 1;
   pages: number[] = [];
   employeeIds: number[] = [];
+<<<<<<< HEAD
   maxPagesToShow = 5; // Maximum number of pagination buttons to show
+=======
+>>>>>>> abe3542a6b61b174854fa531819cdf99279dbed3
 
   constructor(
     private authService: AuthenticationService,
@@ -59,8 +65,12 @@ export class GetattendanceforemployeeComponent implements OnInit, AfterViewInit 
         this.currentPage = 1;
       });
       modalElement.addEventListener('shown.bs.modal', () => {
+<<<<<<< HEAD
         this.organizeAttendanceByMonth();
         this.renderCurrentMonthChart();
+=======
+        this.renderAttendanceChart();
+>>>>>>> abe3542a6b61b174854fa531819cdf99279dbed3
       });
     }
     this.loadEmployeeIds();
@@ -92,7 +102,10 @@ export class GetattendanceforemployeeComponent implements OnInit, AfterViewInit 
         next: (data) => {
           this.errorMessage = '';
           this.employeeAttendanceRecords = Object.values(data)[1];
+<<<<<<< HEAD
           this.organizeAttendanceByMonth();
+=======
+>>>>>>> abe3542a6b61b174854fa531819cdf99279dbed3
           this.setPagination();
           this.changePage(1);
           this.showAttendanceModal();
@@ -101,8 +114,11 @@ export class GetattendanceforemployeeComponent implements OnInit, AfterViewInit 
           this.errorMessage = 'Failed to load employee attendance: ' + (error.error || error.message);
           this.employeeAttendanceRecords = [];
           this.pagedAttendanceRecords = [];
+<<<<<<< HEAD
           this.attendanceByMonth = {};
           this.monthLabels = [];
+=======
+>>>>>>> abe3542a6b61b174854fa531819cdf99279dbed3
           this.showAttendanceModal();
           if (this.attendanceChart) {
             this.attendanceChart.destroy();
@@ -114,8 +130,11 @@ export class GetattendanceforemployeeComponent implements OnInit, AfterViewInit 
       this.errorMessage = 'Please select an employee to view their attendance.';
       this.employeeAttendanceRecords = [];
       this.pagedAttendanceRecords = [];
+<<<<<<< HEAD
       this.attendanceByMonth = {};
       this.monthLabels = [];
+=======
+>>>>>>> abe3542a6b61b174854fa531819cdf99279dbed3
       this.showAttendanceModal();
       if (this.attendanceChart) {
         this.attendanceChart.destroy();
@@ -123,13 +142,17 @@ export class GetattendanceforemployeeComponent implements OnInit, AfterViewInit 
       }
     }
   }
+<<<<<<< HEAD
 
+=======
+>>>>>>> abe3542a6b61b174854fa531819cdf99279dbed3
   showAttendanceModal(): void {
     if (this.attendanceModal) {
       this.attendanceModal.show();
     }
   }
 
+<<<<<<< HEAD
   organizeAttendanceByMonth(): void {
     this.attendanceByMonth = {};
     this.monthLabels = [];
@@ -277,10 +300,52 @@ export class GetattendanceforemployeeComponent implements OnInit, AfterViewInit 
             callbacks: {
               label: (context) => {
                 return `Work Hours: ${context.parsed.y.toFixed(2)}`;
+=======
+  renderAttendanceChart(): void {
+    if (this.employeeAttendanceRecords && this.employeeAttendanceRecords.length > 0 && this.attendanceChartCanvas) {
+      const dates = this.employeeAttendanceRecords.map((record: any) => new Date(record.clockInTime).toLocaleDateString());
+      const workHours = this.employeeAttendanceRecords.map((record: any) => record.workHours);
+
+      this.attendanceChart = new Chart(this.attendanceChartCanvas.nativeElement, {
+        type: 'bar',
+        data: {
+          labels: dates,
+          datasets: [{
+            label: 'Work Hours',
+            data: workHours,
+            backgroundColor: 'rgba(54, 162, 235, 0.8)',
+            borderColor: 'rgba(54, 162, 235, 1)',
+            borderWidth: 1
+          }]
+        },
+        options: {
+          scales: {
+            y: {
+              beginAtZero: true,
+              title: {
+                display: true,
+                text: 'Work Hours'
+              }
+            },
+            x: {
+              title: {
+                display: true,
+                text: 'Date'
+              }
+            }
+          },
+          plugins: {
+            tooltip: {
+              callbacks: {
+                label: (context) => {
+                  return `Work Hours: ${context.parsed.y.toFixed(2)}`;
+                }
+>>>>>>> abe3542a6b61b174854fa531819cdf99279dbed3
               }
             }
           }
         }
+<<<<<<< HEAD
       }
     });
   }
@@ -345,12 +410,25 @@ export class GetattendanceforemployeeComponent implements OnInit, AfterViewInit 
         this.pages.push(this.totalPages);
       }
     }
+=======
+      });
+    } else if (this.attendanceChart) {
+      this.attendanceChart.destroy();
+      this.attendanceChart = undefined;
+    }
+  }
+
+  setPagination(): void {
+    this.totalPages = Math.ceil(this.employeeAttendanceRecords.length / this.pageSize);
+    this.pages = Array.from({ length: this.totalPages }, (_, i) => i + 1);
+>>>>>>> abe3542a6b61b174854fa531819cdf99279dbed3
   }
 
   changePage(page: number): void {
     this.currentPage = page;
     const startIndex = (this.currentPage - 1) * this.pageSize;
     const endIndex = startIndex + this.pageSize;
+<<<<<<< HEAD
     
     // Use current month data if available, otherwise use all records
     if (this.currentMonthData && this.currentMonthData.length > 0) {
@@ -365,5 +443,8 @@ export class GetattendanceforemployeeComponent implements OnInit, AfterViewInit 
   // Helper method to check if the page number is an ellipsis
   isEllipsis(pageNumber: number): boolean {
     return pageNumber < 0;
+=======
+    this.pagedAttendanceRecords = this.employeeAttendanceRecords.slice(startIndex, endIndex);
+>>>>>>> abe3542a6b61b174854fa531819cdf99279dbed3
   }
 }

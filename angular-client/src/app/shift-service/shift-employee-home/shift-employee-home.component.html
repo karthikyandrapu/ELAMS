@@ -1,0 +1,49 @@
+<div class="dashboard-container">
+    <div class="head-container">
+      <app-header></app-header>
+    </div>
+    
+    <div class="main-content">
+      <!-- Left side navigation -->
+      <div class="navigation">
+        <h2>Employee Dashboard</h2>
+        <ul>
+        
+      
+          <li>
+              <button type="button" routerLink="/get-employee-shifts">
+                  View Shifts
+                </button>
+         </li>
+          <li>
+            <div class="dropdown-container">
+                <button
+                  (click)="toggleShiftSwapTracker()"
+                  id="shiftSwapTracker"
+                >
+                  Track Swap Request 
+                  <span [innerHTML]="arrowIcon"></span>
+                </button>
+                <div class="dropdown-content">
+                  <div
+                    *ngIf="isShiftSwapTrackerOpen"
+                    class="dropdown-content position-absolute p-3"
+                  >
+                    <button routerLink="/shift-swap-request" class="dropdown-item" >
+                      Shift Swap Request
+                    </button>
+                    <button routerLink="/shift-swap-reject" class="dropdown-item">
+                      Shift Swap Reject
+                    </button>
+                    <button routerLink="/shift-swap-approved" class="dropdown-item">
+                      Shift Swap Approved
+                    </button>
+                  </div>
+                </div>
+              </div>
+         </li>
+        </ul>
+  </div>
+
+  </div> 
+</div>

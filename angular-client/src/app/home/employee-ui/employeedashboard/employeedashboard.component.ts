@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthenticationService } from 'src/app/service/auth/auth.service'; // Adjust the path as needed
 import { Chart, registerables } from 'chart.js';
+import { EmployeeserviceService } from 'src/app/service/employee-service/employee.service';
 Chart.register(...registerables);
  
 @Component({
@@ -13,6 +14,8 @@ Chart.register(...registerables);
 })
 export class EmployeedashboardComponent {
   empRole: string | null = null;
+  employeeId!:number;
+  empName: string | null = null;
   isDarkMode: boolean = false;
  
   // Dummy data for charts (replace with your actual API calls)
@@ -22,14 +25,25 @@ export class EmployeedashboardComponent {
   shiftData = { totalShifts: 20, openShifts: 2 };
   reportData = { generatedReports: 5 };
  
-  constructor(private router: Router, public authService: AuthenticationService) {}
+  constructor(private router: Router, public authService: AuthenticationService,
+    public employeeService:EmployeeserviceService// Adjust the path as needed
+  ) {}
  
   ngOnInit(): void {
     this.empRole = sessionStorage.getItem('role');
-    if (this.empRole?.toUpperCase() === 'MANAGER') {
-      // Load manager-specific dashboard data/charts if needed
-    } else {
-      // Load employee-specific dashboard data/charts if needed
+    const empId = this.authService.getLoggedInEmpId();
+    if (empId) {
+      this.employeeId = parseInt(empId, 10);
+      this.employeeService.getEmployeeById(this.employeeId).subscribe({
+        next: (response) => {
+          console.log('Employee Name:', response.name);
+          sessionStorage.setItem('empName', response.name);
+          this.empName = response.name;
+        },
+        error: (error) => { 
+          console.error('Error fetching employee name:', error);
+        } 
+      });
     }
     this.renderCharts();
   }
@@ -42,7 +56,7 @@ export class EmployeedashboardComponent {
   navigateTo(route: string): void {
     this.router.navigate([route]);
   }
- 
+
   renderCharts(): void {
     this.renderAttendanceChart();
     this.renderLeaveRequestsChart();

@@ -29,6 +29,7 @@ h3:hover {
 canvas {
   width: 100%; /* Make the chart responsive */
   max-height: 400px; /* Adjust as needed */
+<<<<<<< HEAD
 }
 
 .view-controls {
@@ -71,4 +72,6 @@ canvas {
   display: flex;
   align-items: center;
   justify-content: center;
+=======
+>>>>>>> abe3542a6b61b174854fa531819cdf99279dbed3
 }
