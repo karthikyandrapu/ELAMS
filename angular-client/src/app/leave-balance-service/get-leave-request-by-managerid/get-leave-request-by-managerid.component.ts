@@ -11,7 +11,8 @@ interface LeaveBalanceUpdateDTO {
 @Component({
   selector: 'app-get-leave-request-by-managerid',
   templateUrl: './get-leave-request-by-managerid.component.html',
-  styleUrls: ['./get-leave-request-by-managerid.component.css']
+  styleUrls: ['./get-leave-request-by-managerid.component.css'],
+  standalone: false
 })
 export class GetLeaveRequestByManageridComponent implements OnInit { // Implement OnInit
   managerId: string | null = null;
