@@ -1,12 +1,12 @@
 <app-shift-employee-home></app-shift-employee-home>
 <div class="d-flex flex-column align-items-center">
-  <div class="rejected-swaps-container">
+  <div class="rejected-swaps-container" style="margin-top: 100px;" >
     <div *ngIf="errorMessage" class="error-message">
       {{ errorMessage }}
     </div>
 
     <div *ngIf="noRecordFound && !errorMessage">No rejected swap requests found.</div>
-    <table class="table table-bordered" *ngIf="rejectedSwaps.length > 0">
+    <table  class="table table-bordered" *ngIf="rejectedSwaps.length > 0">
       <thead>
         <tr>
           <th>Shift ID</th>

@@ -9,9 +9,11 @@
           <!-- Assign Shift Card -->
           <div class="col-md-6">
             <div class="card mb-4 position-relative">
-              <div class="card-body">
-                <h5 class="card-title">Assign Shift</h5>
-                <p class="card-text">Assign shifts to employees</p>
+              <div class="card-body" routerLink="/assign-shift">
+                <h5 class="card-title">
+                  <i class="fas fa-tasks me-2"></i> Assign Shift
+                </h5>
+                <p class="card-text">Assign Shifts to Employees</p>
                 <button
                   type="button"
                   class="btn btn-info"
@@ -26,10 +28,12 @@
           <!-- View My Employee Shifts Card -->
           <div class="col-md-6">
             <div class="card mb-4 position-relative">
-              <div class="card-body">
-                <h5 class="card-title">View My Employee Shifts</h5>
+              <div class="card-body" routerLink="/view-manager-shifts">
+                <h5 class="card-title">
+                  <i class="fas fa-users me-2"></i> View My Employee Shifts
+                </h5>
                 <p class="card-text">
-                  View the shifts assigned to my employees
+                  Total Number of Employee Shifts: {{ totalManagerShiftCount }}
                 </p>
                 <button
                   type="button"
@@ -45,9 +49,13 @@
           <!-- View My Own Shifts Card -->
           <div class="col-md-6">
             <div class="card mb-4 position-relative">
-              <div class="card-body">
-                <h5 class="card-title">View My Own Shifts</h5>
-                <p class="card-text">Check my own shift schedule</p>
+              <div class="card-body" routerLink="/view-manager-own-shifts">
+                <h5 class="card-title">
+                  <i class="fas fa-user-clock me-2"></i> View My Own Shifts
+                </h5>
+                <p class="card-text">
+                  Total Number of My Own Shifts: {{ totalMangerOwnCount }}
+                </p>
                 <button
                   type="button"
                   class="btn btn-info"
@@ -62,10 +70,12 @@
           <!-- View Employee Shifts by ID Card -->
           <div class="col-md-6">
             <div class="card mb-4 position-relative">
-              <div class="card-body">
-                <h5 class="card-title">View Employee Shifts by ID</h5>
+              <div class="card-body" routerLink="/view-employee-shifts">
+                <h5 class="card-title">
+                  <i class="fas fa-id-card me-2"></i> View Employee Shifts by ID
+                </h5>
                 <p class="card-text">
-                  Search and view shifts for a specific employee
+                  Total Number of Employees: {{ totalEmployeeCount }}
                 </p>
                 <button
                   type="button"
@@ -81,10 +91,13 @@
           <!-- View Swap Request Card -->
           <div class="col-md-6">
             <div class="card mb-4 position-relative">
-              <div class="card-body">
-                <h5 class="card-title">View Swap Request</h5>
+              <div class="card-body" routerLink="/view-manager-swap-requests">
+                <h5 class="card-title">
+                  <i class="fas fa-exchange-alt me-2"></i> View Swap Request
+                </h5>
                 <p class="card-text">
-                  Manage shift swap requests submitted by employees.
+                  Total Shift Swap Requests Submitted by Employee:
+                  {{ swapRequestCount }}
                 </p>
                 <button
                   type="button"
