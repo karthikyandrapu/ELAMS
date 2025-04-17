@@ -1,0 +1,155 @@
+/* Main card container */
+.flip-card {
+    perspective: 1000px;
+    width: 100%;
+    max-width: 500px;
+    height: 300px;
+    margin: 20px 0;
+  }
+  
+  /* Inner container that handles the flip transition */
+  .flip-card-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    transition: transform 0.8s;
+    transform-style: preserve-3d;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    border-radius: 10px;
+  }
+  
+  /* Apply the flip when active */
+  .flip-card.active .flip-card-inner {
+    transform: rotateY(180deg);
+  }
+  
+  /* Positioning for both front and back */
+  .flip-card-front, .flip-card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    border-radius: 10px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  /* Front side styling */
+  .flip-card-front {
+    background-color: #f8f9fa;
+    border: 1px solid #dee2e6;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  /* Back side styling - initially rotated */
+  .flip-card-back {
+    background-color: #ffffff;
+    transform: rotateY(180deg);
+    overflow-y: auto;
+  }
+  
+  /* Card title */
+  .card-title {
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+    color: #343a40;
+  }
+  
+  /* Input group styling */
+  .input-group {
+    margin-bottom: 15px;
+    width: 100%;
+  }
+  
+  /* Button styling */
+  .card-button {
+    margin-top: 15px;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 4px;
+    background-color: #007bff;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .card-button:hover {
+    background-color: #0069d9;
+  }
+  
+  /* Close button */
+  .close-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .close-button:hover {
+    background-color: #c82333;
+  }
+  
+  /* Attendance record item */
+  .attendance-item {
+    padding: 10px;
+    border-bottom: 1px solid #eee;
+    text-align: left;
+  }
+  
+  .attendance-item:last-child {
+    border-bottom: none;
+  }
+  
+  /* Hover effect for front card */
+  .flip-card-front:hover {
+    box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+    transform: translateY(-2px);
+    transition: all 0.3s ease;
+  }
+  
+  /* Record labels */
+  .record-label {
+    font-weight: bold;
+    color: #495057;
+  }
+  
+  /* No records message */
+  .no-records {
+    text-align: center;
+    color: #6c757d;
+    margin-top: 20px;
+  }
+  
+  /* Error message */
+  .error-message {
+    color: #dc3545;
+    margin-top: 15px;
+    text-align: center;
+  }
+  
+  .input-group{
+    padding-left: 10px;
+  }
+  
+  .input-box1{
+    width: 50%;
+    padding-left: 20px;
+  }
+  
+  .input-box2{
+    width: 64%;
+    padding-left: 76px;
+  }

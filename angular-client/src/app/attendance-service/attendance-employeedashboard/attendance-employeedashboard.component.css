@@ -1,13 +1,71 @@
+/* attendance-employeedashboard.component.css */
+.dashboard-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  width: 100%;
+}
 
-.head-container-header {
-    font-size: 24px;
-    position: relative; /* Ensure it is positioned relative to its parent */
-    z-index: 1; /* Keeps it above other elements if needed */
-  }
-  
-  .dashboard-container {
-    display: flex; /* Use flexbox for alignment */
-    flex-direction: column; /* Stack children vertically */
-    position: relative; 
-     /* Add spacing if needed */
-  }
+.head-container {
+  width: 100%;
+  z-index: 20;
+}
+
+.main-content {
+  display: flex;
+  width: 100%;
+}
+
+/* Left sidebar navigation */
+.navigation {
+  width: 200px; /* Adjust as needed */
+  height: 550px;
+  top: 40px;
+  background-color: #f8f9fa;
+  border-right: 1px solid #dee2e6;
+  padding: 20px;
+  overflow-y: auto;
+}
+
+.navigation ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.navigation ul li {
+  margin-bottom: 10px;
+}
+
+.navigation ul li button {
+  display: block;
+  width: 100%;
+  padding: 10px 15px;
+  text-align: left;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  border-radius: 4px;
+}
+
+.navigation ul li button:hover {
+  background-color: #e9ecef;
+}
+
+.navigation ul li button.active {
+  background-color: #007bff;
+  color: white;
+}
+
+/* Right side content area */
+.content-area {
+  flex-grow: 1;
+  padding: 20px;
+}
+
+/* Adjust margin for the second component */
+app-viewyourattedancebydate {
+  display: block;
+  margin-top: 20px; /* Add some space between the components */
+}

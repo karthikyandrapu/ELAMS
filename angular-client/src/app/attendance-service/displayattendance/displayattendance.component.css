@@ -1,10 +1,74 @@
+/* displayattendance.component.css */
+.container-fluid {
+  padding: 20px;
+}
+
 h3 {
-    border-bottom: 2px solid transparent; /* Initially transparent border */
-    transition: border-bottom 0.3s ease-in-out; /* Smooth transition */
-    padding-bottom: 3px; /* Optional: Add some space for the border */
-    display: inline;
-  }
-  
-  h3:hover {
-    border-bottom: 2px solid currentColor; /* Border color matches text color */
-  }
+  border-bottom: 2px solid transparent;
+  transition: border-bottom 0.3s ease-in-out;
+  padding-bottom: 3px;
+  display: inline;
+}
+
+h3:hover {
+  border-bottom: 2px solid currentColor;
+}
+
+/* Style for the view mode buttons */
+.btn-outline-primary {
+  margin-bottom: 10px;
+}
+
+.btn-outline-primary.active {
+  background-color: #007bff;
+  color: white;
+  border-color: #007bff;
+}
+
+/* Style for the chart canvas */
+canvas {
+  width: 100%; /* Make the chart responsive */
+  max-height: 400px; /* Adjust as needed */
+}
+
+.view-controls {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+/* Week toggle container */
+.week-toggle-container {
+  display: flex;
+  align-items: center;
+}
+
+/* Month navigation container */
+.month-navigation {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+
+/* Month label styling */
+.month-label {
+  font-size: 1rem;
+  font-weight: 500;
+  min-width: 180px;
+  text-align: center;
+  margin: 0 8px;
+}
+
+/* Navigation buttons */
+.nav-button {
+  padding: 0.25rem 0.5rem;
+  font-size: 1rem;
+  width: 32px; /* Fixed width for square buttons */
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

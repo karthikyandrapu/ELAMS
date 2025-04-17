@@ -1,13 +1,94 @@
-
-.head-container-header {
-  font-size: 24px;
-  position: relative; /* Ensure it is positioned relative to its parent */
-  z-index: 1; /* Keeps it above other elements if needed */
+.dashboard-container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  width: 100%;
 }
 
-.dashboard-container {
-  display: flex; /* Use flexbox for alignment */
-  flex-direction: column; /* Stack children vertically */
-  position: relative; 
-   /* Add spacing if needed */
+.head-container {
+  width: 100%;
+  z-index: 20;
+}
+
+.main-content {
+  display: flex;
+  height: calc(100vh - 60px); /* Adjust based on your header height */
+  width: 100%;
+}
+
+/* Left sidebar navigation */
+.navigation {
+  position: fixed;
+  top: 40px; /* Adjust based on your header height */
+  left: 0;
+  width: 250px;
+  height: 500px;
+  background-color: #f8f9fa;
+  padding: 20px;
+  border-right: 1px solid #dee2e6;
+  height: calc(100vh - 60px); /* Adjust based on your header height */
+  overflow-y: auto; /* Allow scrolling if menu is too long */
+  z-index: 10;
+}
+
+.navigation h2 {
+  margin-bottom: 20px;
+  font-size: 1.5rem;
+  color: #333;
+}
+
+.navigation ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.navigation ul li {
+  margin-bottom: 10px;
+}
+
+.navigation ul li button {
+  display: block;
+  width: 100%;
+  padding: 10px 15px;
+  text-align: left;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  border-radius: 4px;
+}
+
+.navigation ul li button:hover {
+  background-color: #e9ecef;
+}
+
+/* Active button state */
+.navigation ul li button.active {
+  background-color: #007bff;
+  color: white;
+}
+
+/* Right side content area */
+.content-area {
+  margin-left: 250px; /* Same as navigation width */
+  margin-top: 60px;
+  padding: 20px;
+  width: calc(100% - 250px);
+  height: 100%;
+  overflow-y: auto;
+}
+
+/* Add margin to all components except 'display-attendance' */
+app-getattendanceforemployee,
+app-getattendanceforemployeeanddate,
+app-getattendancefortoday,
+app-countattendance {
+  display: block;
+  margin-left: 200px; /* Adjust this value as needed */
+}
+
+/* No extra margin for the display-attendance component */
+app-displayattendance {
+  display: block;
 }
