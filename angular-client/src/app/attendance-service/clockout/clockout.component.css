@@ -1,76 +1,65 @@
 .btn-3 {
-  scale: 0.80;
-  line-height: 2;
-  text-decoration: none;
-  display: inline-flex;
-  align-items: center;
-  gap: 0.75rem;
-  background-color: var(--clr);
-  color: #fff;
-  border-radius: 10rem;
-  font-weight: 600;
-  font-size: 14px;
-  padding: 12px 24px 12px 16px;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  transition: background-color 0.3s;
-}
-
-.btn-3 .button__icon-wrapper {
-  flex-shrink: 0;
-  width: 25px;
-  height: 25px;
-  position: relative;
-  color: var(--clr);
-  background-color: #fff;
-  border-radius: 50%;
-  display: grid;
-  place-items: center;
-  overflow: hidden;
-}
-
-.btn-3:hover {
-  background-color: #02A2F8;
-}
-
-.btn-3:hover .button__icon-wrapper {
-  color: #02A2F8;
-}
-
-.btn-3 .button__icon-svg--copy {
-  position: absolute;
-  transform: translate(-150%, 150%);
-}
-
-.btn-3:hover .button__icon-svg:first-child {
-  transition: transform 0.3s ease-in-out;
-  transform: translate(150%, -150%);
-}
-
-.btn-3:hover .button__icon-svg--copy {
-  transition: transform 0.3s ease-in-out 0.1s;
-  transform: translate(0);
-}
-
-.clockInButton{
-  border: 0;
-  font-size: larger;
-  background-color: black;
-  color: white;
-}
-
-.clockInButton:hover {
-  background-color: #02A2F8;
-}
-
-.slide-in {
-  animation: slideInLeft 0.5s ease-out forwards;
-  transform: translateX(-100%); /* Start off-screen to the left */
-}
-
-@keyframes slideInLeft {
-  to {
-    transform: translateX(0); /* Slide into view */
+    scale: 0.80;
+    line-height: 2;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    background-color: var(--clr);
+    color: #fff;
+    border-radius: 10rem;
+    font-weight: 600;
+    font-size: 14px;
+    padding: 12px 24px 12px 16px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    transition: background-color 0.3s;
   }
-}
+  
+  .btn-3 .button__icon-wrapper {
+    flex-shrink: 0;
+    width: 25px;
+    height: 25px;
+    position: relative;
+    color: var(--clr);
+    background-color: #fff;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    overflow: hidden;
+  }
+  
+  .btn-3:hover {
+    background-color: #02A2F8;
+  }
+  
+  .btn-3:hover .button__icon-wrapper {
+    color: #02A2F8;
+  }
+  
+  .btn-3 .button__icon-svg--copy {
+    position: absolute;
+    transform: translate(-150%, 150%);
+  }
+  
+  .btn-3:hover .button__icon-svg:first-child {
+    transition: transform 0.3s ease-in-out;
+    transform: translate(150%, -150%);
+  }
+  
+  .btn-3:hover .button__icon-svg--copy {
+    transition: transform 0.3s ease-in-out 0.1s;
+    transform: translate(0);
+  }
+  
+  .clockInButton{
+    border: 0;
+    font-size: larger;
+    background-color: black;
+    color: white;
+  }
+
+  .clockInButton:hover {
+    background-color: #02A2F8;
+  }

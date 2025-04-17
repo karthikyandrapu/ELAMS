@@ -1,49 +1,25 @@
-<div class="container-fluid mt-2">
-  <h3>View Employee Attendance by Date</h3>
-  <div class="flip-card" [ngClass]="{'active': isFlipped}">
-    <div class="flip-card-inner">
-      <!-- Front side with input form -->
-      <div class="flip-card-front">
-        <h3 class="card-title">Employee Attendance Details</h3>
-        
-        <div class="input-group">
-          <label for="employeeIdDate" class="col-form-label me-2">Employee ID:</label>
-          <div class="input-box1">
-          <input type="number" id="employeeIdDate" [(ngModel)]="selectedEmployeeId" class="form-control" width="20px">
-        </div>
-        </div>
-        
-        <div class="input-group">
-          <label for="date" class="col-form-label">Date:</label>
-          <div class="input-box2">
-          <input type="date" id="date" [(ngModel)]="selectedDate" class="form-control">
-        </div>
-        </div>
-        
-        <button id="loadAttendanceByDateBtn" class="card-button" (click)="loadAttendanceAndFlip()">
-          Load Attendance by Date
-        </button>
-      </div>
-      
-      <!-- Back side with attendance data -->
-      <div class="flip-card-back">
-        <button class="close-button" (click)="closeCard()">✕</button>
-        <h3 class="card-title">Attendance Records</h3>
-        
-        <div *ngIf="dateAttendanceRecords?.length > 0">
-          <div class="attendance-item" *ngFor="let record of dateAttendanceRecords">
-            <p><span class="record-label">Clock In Time:</span> {{ record.clockInTime | date: 'HH:mm:ss' }}</p>
-            <p><span class="record-label">Clock Out Time:</span> {{ record.clockOutTime | date: 'HH:mm:ss' }}</p>
-            <p><span class="record-label">Work Hours:</span> {{ record.workHours | number: '2.1-2' }}</p>
-          </div>
-        </div>
-        
-        <p *ngIf="dateAttendanceRecords?.length === 0 && selectedEmployeeId && selectedDate" class="no-records">
-          No attendance records for employee {{ selectedEmployeeId }} on {{ selectedDate }}.
-        </p>
-        
-        <!-- <div *ngIf="errorMessage" class="error-message">{{ errorMessage }}</div> -->
-      </div>
-    </div>
-  </div>
+<h3>View Employee Attendance by Date</h3>
+<div>
+  <label for="employeeIdDate">Employee ID:</label>
+  <input type="number" id="employeeIdDate" [(ngModel)]="selectedEmployeeId">
+  <label for="date">Date:</label>
+  <input type="date" id="date" [(ngModel)]="selectedDate">
+  <button id="loadAttendanceByDateBtn" (click)="loadAttendanceByDate()">Load Attendance by Date</button>
 </div>
+<table *ngIf="dateAttendanceRecords.length > 0">
+  <thead>
+    <tr>
+      <th>Clock In Time</th>
+      <th>Clock Out Time</th>
+      <th>Work Hours</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let record of dateAttendanceRecords">
+      <td>{{ record.clockInTime | date: 'HH:mm:ss' }}</td>
+      <td>{{ record.clockOutTime | date: 'HH:mm:ss' }}</td>
+      <td>{{ record.workHours | number: '2.1-2' }}</td>
+    </tr>
+  </tbody>
+</table>
+<p *ngIf="dateAttendanceRecords.length === 0 && selectedEmployeeId && selectedDate && !errorMessage">No attendance records for employee {{ selectedEmployeeId }} on {{ selectedDate }}.</p>

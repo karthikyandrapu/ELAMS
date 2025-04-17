@@ -1,43 +1,20 @@
-<div class="dashboard-container">
-  <div class="head-container">
-    <app-header></app-header>
-  </div>
-  <h1>Employee Dashboard</h1>
-
-  <div class="main-content">
-    <div class="navigation">
-      <ul>
-        <li>
-          <button
-            (click)="showComponent('display-attendance')"
-            [class.active]="activeComponent === 'display-attendance'"
-          >
-            View Your Attendance
-          </button>
-        </li>
-        <li>
-          <button
-            (click)="showComponent('view-attendance-by-date')"
-            [class.active]="activeComponent === 'view-attendance-by-date'"
-          >
-            View Attendance by Date
-          </button>
-        </li>
-        <li>
-          <button
-            (click)="showComponent('count-attendance')"
-            [class.active]="activeComponent === 'count-attendance'"
-          >
-            Count Attendance
-          </button>
-        </li>
-      </ul>
+<div class="dashboard-container"> 
+    <div class="head-container">
+      <app-header></app-header>
     </div>
-
-    <div class="content-area">
-      <app-displayattendance *ngIf="activeComponent === 'display-attendance'"></app-displayattendance>
-      <app-viewyourattedancebydate *ngIf="activeComponent === 'view-attendance-by-date'"></app-viewyourattedancebydate>
-      <app-countattendance *ngIf="activeComponent === 'count-attendance'"></app-countattendance>
+    <h1>Employee</h1>
+    <div class="container-fluid">
+      <div class="row mt-5 mb-5">
+        <div class="col-md-6 d-flex justify-content-center">
+          <app-clockin></app-clockin>
+        </div>
+        <div class="col-md-6 d-flex justify-content-center">
+          <app-clockout></app-clockout>
+        </div>
+      </div>
     </div>
-  </div>
-</div>
+  
+    <div>
+      <app-displayattendance></app-displayattendance>
+    </div>
+    </div>

@@ -1,10 +1,6 @@
-import { Component, OnInit, AfterViewInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { AuthenticationService } from 'src/app/service/auth/auth.service';
-import { AttendanceService } from 'src/app/service/attendance-service/attendance.service';
-import { Modal } from 'bootstrap';
-import { Chart, registerables } from 'chart.js';
-import { EmployeeserviceService } from 'src/app/service/employee-service/employee.service';
-Chart.register(...registerables);
+import { AttendanceService } from 'src/app/service/attendance-service/attendance.service'; 
 
 @Component({
   selector: 'app-getattendanceforemployee',
@@ -12,12 +8,12 @@ Chart.register(...registerables);
   styleUrls: ['./getattendanceforemployee.component.css'],
   standalone: false
 })
-export class GetattendanceforemployeeComponent implements OnInit, AfterViewInit {
-  todayAttendanceRecords: any = [];
-  errorMessage: string = '';
-  managerId!: number;
+export class GetattendanceforemployeeComponent implements OnInit{
+  todayAttendanceRecords:any = [];
+  errorMessage: string = 'ops';
+  managerId: number | null = null;
   userRole: string = "";
-  employeeAttendanceRecords: any = [];
+  employeeAttendanceRecords:any = [];
   viewSelectedEmployeeId!: number;
   attendanceModal: Modal | undefined;
   @ViewChild('attendanceChartCanvas') attendanceChartCanvas!: ElementRef;
@@ -47,8 +43,7 @@ export class GetattendanceforemployeeComponent implements OnInit, AfterViewInit 
 
   constructor(
     private authService: AuthenticationService,
-    private attendanceService: AttendanceService,
-    private employeeService: EmployeeserviceService
+    private attendanceService: AttendanceService
   ) { }
 
   ngOnInit(): void {
@@ -100,7 +95,8 @@ export class GetattendanceforemployeeComponent implements OnInit, AfterViewInit 
     if (this.viewSelectedEmployeeId) {
       this.attendanceService.getEmployeeAttendance(this.viewSelectedEmployeeId, 'MANAGER', this.managerId).subscribe({
         next: (data) => {
-          this.errorMessage = '';
+          console.log(data);
+          
           this.employeeAttendanceRecords = Object.values(data)[1];
 <<<<<<< HEAD
           this.organizeAttendanceByMonth();
@@ -111,7 +107,8 @@ export class GetattendanceforemployeeComponent implements OnInit, AfterViewInit 
           this.showAttendanceModal();
         },
         error: (error) => {
-          this.errorMessage = 'Failed to load employee attendance: ' + (error.error || error.message);
+          // this.errorMessage = 'Failed to load employee attendance  : ' + (error.error || error.message);
+          console.log('Error Message:', this.errorMessage);
           this.employeeAttendanceRecords = [];
           this.pagedAttendanceRecords = [];
 <<<<<<< HEAD

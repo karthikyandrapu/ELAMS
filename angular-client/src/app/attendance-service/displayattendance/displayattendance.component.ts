@@ -1,22 +1,17 @@
-import { Component, OnInit, OnDestroy, ElementRef, ViewChild, AfterViewInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { AuthenticationService } from 'src/app/service/auth/auth.service';
 import { AttendanceService } from 'src/app/service/attendance-service/attendance.service';
 import { Attendance } from 'src/app/model/attendance-model/Attendance';
-import { Chart, ChartOptions, ChartData, registerables } from 'chart.js';
-import { Subscription } from 'rxjs';
-
-Chart.register(...registerables);
-
 @Component({
   selector: 'app-displayattendance',
+  standalone:false,
   templateUrl: './displayattendance.component.html',
-  styleUrls: ['./displayattendance.component.css'],
-  standalone: false
+  styleUrls: ['./displayattendance.component.css']
 })
-export class DisplayattendanceComponent implements OnInit, OnDestroy, AfterViewInit {
+export class DisplayattendanceComponent {
   userId: number | null = null;
   userRole: string = "";
-  attendanceRecordBody: any[] = [];
+  attendanceRecordBody: any = [];
   attendanceRecords: Attendance[] = [];
   errorMessage: string = '';
   viewMode: 'graph' | 'table' = 'graph';
@@ -81,10 +76,7 @@ export class DisplayattendanceComponent implements OnInit, OnDestroy, AfterViewI
 
   loadOwnAttendance(): void {
     if (this.userId && this.userRole) {
-      this.isLoading = true;
-      this.errorMessage = '';
-      
-      this.attendanceSubscription = this.attendanceService.getOwnAttendance(this.userId, this.userRole)
+      this.attendanceService.getOwnAttendance(this.userId, this.userRole)
         .subscribe({
           next: (data) => {
 <<<<<<< HEAD
@@ -140,8 +132,7 @@ export class DisplayattendanceComponent implements OnInit, OnDestroy, AfterViewI
           }
         });
     } else {
-      this.errorMessage = 'Employee ID or role not found. Please log in again.';
-      this.clearData();
+      this.errorMessage = 'Employee ID or role not found.';
     }
   }
 
