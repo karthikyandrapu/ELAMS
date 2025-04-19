@@ -1,0 +1,31 @@
+<app-leave-manager-dashboard></app-leave-manager-dashboard>
+<div class="div-container" style="margin-top: 70px;">
+    <h2>Add Leave Balance</h2>
+  
+    <div *ngIf="errorMessage" class="error-message">
+      {{ errorMessage }}
+    </div>
+  
+    <div *ngIf="successMessage" class="success-message">
+      {{ successMessage }}
+    </div>
+  
+    <div>
+      <label for="employeeId">Employee:</label>
+      <select id="employeeId" [(ngModel)]="selectedEmployeeId">
+        <option *ngFor="let id of employeeIds" [value]="id">{{ id }}</option>
+      </select>
+    </div>
+  
+    <div>
+      <label for="leaveType">Leave Type:</label>
+      <input type="text" id="leaveType" [(ngModel)]="leaveType" />
+    </div>
+  
+    <div>
+      <label for="daysToAdd">Days to Add:</label>
+      <input type="number" id="daysToAdd" [(ngModel)]="daysToAdd" />
+    </div>
+  
+    <button (click)="addLeaveBalance()">Add Leave Balance</button>
+  </div>

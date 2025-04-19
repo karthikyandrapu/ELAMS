@@ -1,0 +1,51 @@
+<app-shift-employee-home></app-shift-employee-home>
+<div class="d-flex flex-column align-items-center">
+  <div class="rejected-swaps-container" style="margin-top: 100px;" >
+    <div *ngIf="errorMessage" class="error-message">
+      {{ errorMessage }}
+    </div>
+
+    <div *ngIf="noRecordFound && !errorMessage">No rejected swap requests found.</div>
+    <table  class="table table-bordered" *ngIf="rejectedSwaps.length > 0">
+      <thead>
+        <tr>
+          <th>Shift ID</th>
+          <th>Shift Date</th>
+          <th>Shift Time</th>
+          <th>Shift Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let swap of pagedRejectedSwaps">
+          <td>{{ swap.shiftId }}</td>
+          <td>{{ swap.shiftDate }}</td>
+          <td>{{ swap.shiftTime }}</td>
+          <td>{{ swap.shiftStatus.status }}</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div *ngIf="totalPages > 1" class="d-flex justify-content-center mt-3">
+      <nav aria-label="Rejected Swaps Pagination">
+        <ul class="pagination">
+          <li class="page-item" [class.disabled]="currentPage === 1">
+            <button class="page-link" (click)="changePage(currentPage - 1)">Previous</button>
+          </li>
+
+          <ng-container *ngFor="let page of pages">
+            <li *ngIf="!isEllipsis(page)" class="page-item" [class.active]="page === currentPage">
+              <button class="page-link" (click)="changePage(page)">{{ page }}</button>
+            </li>
+            <li *ngIf="isEllipsis(page)" class="page-item disabled">
+              <span class="page-link">...</span>
+            </li>
+          </ng-container>
+
+          <li class="page-item" [class.disabled]="currentPage === totalPages">
+            <button class="page-link" (click)="changePage(currentPage + 1)">Next</button>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+</div>

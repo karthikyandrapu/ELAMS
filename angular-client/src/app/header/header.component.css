@@ -1,0 +1,36 @@
+/* Navbar styling */
+.navbar {
+  position: fixed; /* Changed from relative to fixed */
+  background-color: #297acf;
+  padding: 10px 20px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  width: 100%; /* Occupy the entire width of its parent */
+  left: 0; /* Ensure it starts from the left edge */
+  top: 0; /* Typically positioned at the top */
+  z-index: 1000;
+}
+
+/* You might need to add this to your body or the element below the navbar */
+/* body {
+  padding-top: 60px; /* Adjust the value to the height of your navbar */
+/* } */
+
+.navbar-container a {
+  color: white;
+  text-decoration: none;
+  font-size: 16px;
+  padding: 8px 12px;
+  border-radius: 4px;
+  transition: background-color 0.3s ease;
+}
+
+.navbar-container a:hover {
+  background-color: #0056b3;
+}
+
+.navbar-container a.active {
+  font-weight: bold;
+  background-color: #0056b3;
+}

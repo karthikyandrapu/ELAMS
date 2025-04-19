@@ -1,0 +1,148 @@
+<div class="signup-container-side">
+  <div class="image-side-signup" style="margin-right: 70px;">
+    <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/draw2.webp" alt="Sign Up Illustration">
+  </div>
+  <div class="signup-card-grid">
+    <h2>Create Account</h2>
+    <form
+      [formGroup]="signupForm"
+      (ngSubmit)="register()"
+      class="signup-form-grid"
+    >
+      <div class="form-group-grid">
+        <label for="empId"><i class="fas fa-id-card"></i> Employee ID:</label>
+        <input
+          type="number"
+          id="empId"
+          name="empId"
+          formControlName="empId"
+          required
+          placeholder="Enter your Employee ID"
+        />
+        <div
+          *ngIf="
+            signupForm.controls['empId'].invalid &&
+            (signupForm.controls['empId'].dirty ||
+              signupForm.controls['empId'].touched)
+          "
+          class="error-message-grid"
+        >
+          <div *ngIf="signupForm.controls['empId'].errors?.['required']">
+            Employee ID is required.
+          </div>
+          <div *ngIf="signupForm.controls['empId'].errors?.['pattern']">
+            Employee ID must be a number.
+          </div>
+        </div>
+      </div>
+      <div class="form-group-grid">
+        <label for="empName"><i class="fas fa-user"></i> Employee Name:</label>
+        <input
+          type="text"
+          id="empName"
+          name="empName"
+          formControlName="empName"
+          required
+          placeholder="Enter your Name"
+        />
+        <div
+          *ngIf="
+            signupForm.controls['empName'].invalid &&
+            (signupForm.controls['empName'].dirty ||
+              signupForm.controls['empName'].touched)
+          "
+          class="error-message-grid"
+        >
+          <div *ngIf="signupForm.controls['empName'].errors?.['required']">
+            Employee Name is required.
+          </div>
+          <div *ngIf="signupForm.controls['empName'].errors?.['pattern']">
+            Employee Name must contain only letters and spaces.
+          </div>
+          <div *ngIf="signupForm.controls['empName'].errors?.['minlength']">
+            Employee Name must be at least {{ minNameLength }} characters long.
+          </div>
+        </div>
+      </div>
+      <div class="form-group-grid">
+        <label for="userName"><i class="fas fa-at"></i> Username:</label>
+        <input
+          type="text"
+          id="userName"
+          name="userName"
+          formControlName="userName"
+          required
+          placeholder="Choose a Username"
+        />
+        <div
+          *ngIf="
+            signupForm.controls['userName'].invalid &&
+            (signupForm.controls['userName'].dirty ||
+              signupForm.controls['userName'].touched)
+          "
+          class="error-message-grid"
+        >
+          <div *ngIf="signupForm.controls['userName'].errors?.['required']">
+            Username is required.
+          </div>
+          <div *ngIf="signupForm.controls['userName'].errors?.['pattern']">
+            Username must start with a letter and can include letters, numbers, periods, underscores, or hyphens.
+          </div>
+          <div *ngIf="signupForm.controls['userName'].errors?.['minlength']">
+            Username must be at least {{ minUsernameLength }} characters long.
+          </div>
+        </div>
+      </div>
+      <div class="form-group-grid">
+        <label for="password"><i class="fas fa-lock"></i> Password:</label>
+        <input
+          type="password"
+          id="password"
+          name="password"
+          formControlName="password"
+          required
+          placeholder="Choose a strong Password"
+        />
+        <div
+          *ngIf="
+            signupForm.controls['password'].invalid &&
+            (signupForm.controls['password'].dirty ||
+              signupForm.controls['password'].touched)
+          "
+          class="error-message-grid"
+        >
+          <div *ngIf="signupForm.controls['password'].errors?.['required']">
+            Password is required.
+          </div>
+          <div *ngIf="signupForm.controls['password'].errors?.['minlength']">
+            Password must be at least {{ minPasswordLength }} characters long.
+          </div>
+          <div *ngIf="signupForm.controls['password'].errors?.['pattern']">
+            Password must start with a letter, contain at least one special character and one number, and have no spaces.
+          </div>
+        </div>
+      </div>
+      <div class="form-group-grid-full">
+        <label for="empRole"><i class="fas fa-briefcase"></i> Role:</label>
+        <select id="empRole" name="empRole" formControlName="empRole">
+          <option value="EMPLOYEE">Employee</option>
+          <option value="MANAGER">Manager</option>
+        </select>
+      </div>
+      <button
+        type="submit"
+        class="signup-button-grid"
+        [disabled]="signupForm.invalid"
+      >
+        <i class="fas fa-user-plus"></i> Sign Up
+      </button>
+    </form>
+    <p class="error-message-grid" *ngIf="errorMessage">
+      <i class="fas fa-exclamation-circle"></i> {{ errorMessage }}
+    </p>
+
+    <div class="login-link-grid">
+      Already have an account? <a routerLink="/login">Log In</a>
+    </div>
+  </div>
+</div>

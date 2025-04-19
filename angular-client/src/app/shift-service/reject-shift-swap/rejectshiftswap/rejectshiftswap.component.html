@@ -1,0 +1,43 @@
+<div class="reject-shift-swap-container">
+  <h2>Reject Shift Swap</h2>
+  <form (ngSubmit)="rejectSwap()">
+    <div class="form-group">
+      <label for="shiftId">Shift ID</label>
+      <input
+        type="number"
+        id="shiftId"
+        [(ngModel)]="shiftId"
+        name="shiftId"
+        class="form-control"
+        placeholder="Enter Shift ID"
+        required
+      />
+    </div>
+ 
+    <div class="form-group">
+      <label for="managerId">Manager ID</label>
+      <input
+        type="number"
+        id="managerId"
+        [(ngModel)]="managerId"
+        name="managerId"
+        class="form-control"
+        placeholder="Enter Manager ID"
+        required
+      />
+    </div>
+ 
+    <button type="submit" class="btn btn-danger">Reject Swap</button>
+  </form>
+ 
+  <div *ngIf="submitted">
+    <div *ngIf="successMessage" class="alert alert-success">
+      {{ successMessage }}
+    </div>
+ 
+    <div *ngIf="errorMessage" class="alert alert-danger">
+      {{ errorMessage }}
+    </div>
+  </div>
+</div>
+ 

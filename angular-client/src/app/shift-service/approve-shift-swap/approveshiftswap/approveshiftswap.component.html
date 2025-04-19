@@ -1,0 +1,36 @@
+<div class="approve-shift-swap-container">
+  <h2>Approve Shift Swap</h2>
+  <form (ngSubmit)="approveSwap()">
+    <div class="form-group">
+      <label for="shiftId">Shift ID</label>
+      <input
+        type="number"
+        id="shiftId"
+        [(ngModel)]="shiftId"
+        name="shiftId"
+        class="form-control"
+        placeholder="Enter Shift ID"
+        required
+      />
+    </div>
+
+    <div class="form-group">
+      <label for="swapWithEmployeeId">Swap With Employee ID</label>
+      <input
+        type="number"
+        id="swapWithEmployeeId"
+        [(ngModel)]="swapWithEmployeeId"
+        name="swapWithEmployeeId"
+        class="form-control"
+        placeholder="Enter Employee ID to Swap With"
+        required
+      />
+    </div>
+
+    <button type="submit" class="btn btn-primary">Approve Swap</button>
+  </form>
+
+  <div *ngIf="errorMessage" class="alert alert-danger">
+    {{ errorMessage }}
+  </div>
+</div>

@@ -1,0 +1,135 @@
+/* General styles for the page */
+body {
+  background-color: white;
+  font-family: sans-serif; /* Or your preferred font */
+  margin: 0;
+  padding: 0;
+}
+
+.d-flex {
+  display: flex;
+}
+
+.flex-column {
+  flex-direction: column;
+}
+
+.align-items-center {
+  align-items: center;
+}
+
+.justify-content-center {
+  justify-content: center;
+}
+
+.justify-content-start {
+  justify-content: flex-start;
+}
+
+.justify-content-between {
+  justify-content: space-between;
+}
+
+.justify-content-end {
+  justify-content: flex-end;
+}
+
+.flex-grow-1 {
+  flex-grow: 1;
+}
+
+.overflow-auto {
+  overflow: auto;
+}
+
+.mt-3 {
+  margin-top: 1rem;
+}
+
+.ml-3 {
+  margin-left: 1rem;
+}
+
+/* Styles for the main content wrapper */
+#page-content-wrapper {
+  background-color: white;
+  padding: 20px; /* Add some padding around the content area */
+}
+
+/* Styles for the container fluid */
+.container-fluid {
+  background-color: white;
+  padding: 15px; /* Add some padding inside the container */
+}
+
+/* Styles for the "Employee Shift Service" heading */
+h1 {
+  font-size: 2em;
+  color: #333;
+  margin-bottom: 15px;
+}
+
+/* Styles for the buttons */
+.btn-primary {
+  background-color: #007bff;
+  border-color: #007bff;
+  color: white;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 1rem;
+}
+
+.btn-primary:hover {
+  background-color: #0056b3;
+  border-color: #0056b3;
+}
+
+/* Container for buttons aligned to the right */
+.button-container {
+  display: flex; /* Align buttons side by side */
+  justify-content: flex-end; /* Align buttons to the right */
+  gap: 1rem; /* Add spacing between the buttons */
+  width: 100%; /* Ensure the container spans the full width */
+}
+
+/* Styles for the dropdown container */
+.dropdown-container {
+  position: relative; /* Ensure dropdown is positioned relative to this container */
+}
+
+/* Dropdown content */
+.dropdown-content {
+   border-radius: 5px; /* Rounded corners */
+  padding: 0; /* Remove extra padding inside the dropdown */
+  z-index: 1050; /* Ensure it appears above other elements */
+  position: absolute; /* Ensure the dropdown is positioned relative to its parent */
+  top: 100%; /* Position it below the button */
+  left: 0; /* Align it to the left of the button */
+  min-width: 200px; /* Set a minimum width for the dropdown */
+  max-width: 300px; /* Optional: Limit the maximum width */
+  box-sizing: border-box; /* Ensure padding and border are included in width/height */
+  outline: none; /* Remove focus outline */
+}
+
+/* Dropdown items */
+.dropdown-content .dropdown-item {
+  background-color: #007bff; /* Blue background for buttons */
+  color: white; /* White text for buttons */
+  border: none; /* Remove button borders */
+  text-align: left; /* Align text to the left */
+  width: 100%; /* Make buttons take full width */
+  padding: 8px 16px; /* Add padding to the buttons */
+  border-radius: 4px; /* Rounded corners for buttons */
+  cursor: pointer; /* Pointer cursor on hover */
+  display: block; /* Ensure items stack vertically */
+}
+
+/* Hover effect for dropdown items */
+.dropdown-content .dropdown-item:hover {
+  background-color: #0056b3; /* Darker blue on hover */
+  color: white; /* Keep text white */
+}
+

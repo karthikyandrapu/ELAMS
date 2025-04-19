@@ -1,0 +1,40 @@
+<div class="d-flex flex-column align-items-center">
+  <app-leave-manager-dashboard></app-leave-manager-dashboard>
+<div class="container mt-5" style="margin-left: 300px;">
+  <h2>Leave Requests</h2>
+  
+
+
+  <div class="mt-4" *ngIf="errorMessage">
+    <div class="alert alert-danger">{{ errorMessage }}</div>
+  </div>
+
+  <div class="mt-4" *ngIf="leaveRequests && leaveRequests.length > 0 && employeeId !== null" >
+    <h3>Leave Request Details for Employee ID: {{ employeeId }}</h3>
+    <table class="table table-bordered">
+      <thead class="thead-dark">
+        <tr>
+          <th>Leave ID</th>
+          <th>Start Date</th>
+          <th>End Date</th>
+          <th>Leave Type</th>
+          <th>No of days</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let request of leaveRequests">
+          <td>{{ request.leaveId }}</td>
+          <td>{{ request.startDate }}</td>
+          <td>{{ request.endDate }}</td>
+          <td>{{ request.leaveType }}</td>
+          <td>{{ calculateDays(request.startDate, request.endDate)}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="mt-4" *ngIf="leaveRequests && leaveRequests.length === 0 && !errorMessage">
+    <div class="alert alert-info">No leave requests found.</div>
+  </div>
+</div>
+</div>

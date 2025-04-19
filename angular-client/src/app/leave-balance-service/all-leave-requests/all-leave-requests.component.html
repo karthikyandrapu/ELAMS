@@ -1,0 +1,28 @@
+<div class="d-flex flex-column align-items-center">
+  <app-leave-manager-dashboard></app-leave-manager-dashboard>
+<div class="container mt-5">
+    <h2 class="text-center text-primary">All Leave Requests</h2>
+    <table class="table table-bordered table-striped mt-4">
+      <thead class="table-primary">
+        <tr>
+          <th>Leave ID</th>
+          <th>Employee ID</th>
+          <th>Leave Type</th>
+          <th>Status</th>
+          <th>Start Date</th>
+          <th>End Date</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let request of leaveRequests">
+          <td>{{ request.leaveId }}</td>
+          <td>{{ request.employeeId }}</td>
+          <td>{{ request.leaveType }}</td>
+          <td>{{ request.status }}</td>
+          <td>{{ request.startDate }}</td>
+          <td>{{ request.endDate }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+ </div> 

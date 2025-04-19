@@ -1,0 +1,97 @@
+<!-- <app-attendancemanagerhome></app-attendancemanagerhome>
+<div class="section">
+    <h3>Fetch Employees by Attendance Trend</h3>
+    <form (submit)="fetchEmployeesByAttendanceTrend()" class="form">
+      <label for="managerId">Manager ID:</label>
+      <input type="number" id="managerId" [(ngModel)]="managerId" name="managerId" required>
+      <button type="submit" class="btn">Fetch Employees</button>
+    </form>
+  </div>
+
+
+   <div *ngIf="trendKeys.length > 0" class="mt-4">
+    <h4>Employees by Attendance Trend</h4>
+    <div class="list-group">
+      <div *ngFor="let trend of trendKeys" class="list-group-item">
+        <strong class="text-capitalize">{{ trend }}:</strong>
+        <ul class="list-group mt-2">
+          <li *ngFor="let employeeId of employeesByTrend[trend]" class="list-group-item">
+            Employee ID: <span class="font-weight-bold">{{ employeeId }}</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="trendKeys.length === 0" class="alert alert-warning mt-4" role="alert">
+    <h4 class="alert-heading">No Employees Found</h4>
+    <p>No employees found for the given trend.</p>
+  </div>
+  
+  <div class="chart-container">
+    <canvas #attendanceChartCanvas></canvas>
+</div>
+ -->
+ <!-- <app-attendancemanagerhome></app-attendancemanagerhome>
+ <div class="section">
+     <h3>Fetch Employees by Attendance Trend</h3>
+     <form (submit)="fetchEmployeesByAttendanceTrend()" class="form">
+         <label for="managerId">Manager ID:</label>
+         <input type="number" id="managerId" [(ngModel)]="managerId" name="managerId" required>
+         <button type="submit" class="btn">Fetch Employees</button>
+     </form>
+ </div>
+ 
+ <div *ngIf="trendKeys.length > 0" class="trends-section mt-4">
+     <h4>Employees by Attendance Trend</h4>
+     <div class="list-group">
+         <div *ngFor="let trend of trendKeys" class="list-group-item">
+             <strong class="text-capitalize">{{ trend }}:</strong>
+             <ul class="list-group mt-2">
+                 <li *ngFor="let employeeId of employeesByTrend[trend]" class="list-group-item">
+                     Employee ID: <span class="font-weight-bold">{{ employeeId }}</span>
+                 </li>
+             </ul>
+         </div>
+     </div>
+ </div>
+ <div *ngIf="trendKeys.length === 0" class="alert alert-warning mt-4 no-employees-message" role="alert">
+     <h4 class="alert-heading">No Employees Found</h4>
+     <p>No employees found for the given trend.</p>
+ </div>
+ 
+ <div class="chart-container">
+     <canvas #attendanceChartCanvas></canvas>
+ </div>
+  -->
+  <app-attendancemanagerhome></app-attendancemanagerhome>
+  <div class="section">
+      <h3>Fetch Employees by Attendance Trend</h3>
+      <form (submit)="fetchEmployeesByAttendanceTrend()" class="form">
+          <label for="managerId">Manager ID:</label>
+          <input type="number" id="managerId" [(ngModel)]="managerId" name="managerId" required>
+          <button type="submit" class="btn">Fetch Employees</button>
+      </form>
+  </div>
+  
+  <div *ngIf="trendKeys.length > 0" class="trends-section mt-4">
+      <h4>Employees by Attendance Trend</h4>
+      <div class="list-group">
+          <div *ngFor="let trend of trendKeys" class="list-group-item">
+              <strong class="text-capitalize">{{ trend }}:</strong>
+              <ul class="list-group mt-2">
+                  <li *ngFor="let employeeId of employeesByTrend[trend]" class="list-group-item">
+                      Employee ID: <span class="font-weight-bold">{{ employeeId }}</span>
+                  </li>
+              </ul>
+          </div>
+      </div>
+  </div>
+  <div *ngIf="trendKeys.length === 0" class="alert alert-warning mt-4 no-employees-message" role="alert">
+      <h4 class="alert-heading">No Employees Found</h4>
+      <p>No employees found for the given ManagerId.</p>
+  </div>
+  
+  <div class="chart-container">
+      <canvas #attendanceChartCanvas></canvas>
+  </div>
+  

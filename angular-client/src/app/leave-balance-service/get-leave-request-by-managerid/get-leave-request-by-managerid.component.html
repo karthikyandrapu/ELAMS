@@ -1,0 +1,64 @@
+<div class="d-flex flex-column align-items-center"  style="margin-left: 250px; margin-top: 30px;">
+  <app-leave-manager-dashboard></app-leave-manager-dashboard>
+<div class="container mt-5 align-items-center justify-content-center">
+  <h2>Leave Requests By Manager</h2>
+  <div class="form-group mb-3" >
+    <label for="managerId">Employee Id</label>
+    <input
+      type="text"
+      id="managerId"
+      class="form-control"
+      [(ngModel)]="managerId"
+      name="managerId"
+      required
+      [readonly]="true"
+    />
+  </div>
+  <button class="btn btn-primary mt-3" (click)="getLeaveRequestsByManagerId()">Fetch Leave Requests</button>
+
+  <div class="mt-4" *ngIf="errorMessage">
+    <div class="alert alert-danger">{{ errorMessage }}</div>
+  </div>
+
+  <div class="mt-4" *ngIf="leaveRequests && leaveRequests.length > 0">
+    <h3>Leave Request Details</h3>
+    <table class="table table-bordered">
+      <thead class="thead-dark">
+        <tr>
+          <th>Leave ID</th>
+          <th>Employee ID</th>
+          <th>Start Date</th>
+          <th>End Date</th>
+          <th>Leave Type</th>
+          <th>No of Days</th>
+          <th>Status</th>
+          <th>Submit</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let request of leaveRequests">
+          <td>{{ request.leaveId }}</td>
+          <td>{{ request.employeeId }}</td>
+          <td>{{ request.startDate }}</td>
+          <td>{{ request.endDate }}</td>
+          <td>{{ request.leaveType }}</td>
+          <td>{{ calculateDays(request.startDate, request.endDate) }}</td>
+          <td>
+            <select
+              class="form-control"
+              [(ngModel)]="request.status"
+            >
+              <option [value]="request.status" [selected]="true">{{ request.status }}</option>
+              <option value="APPROVED" *ngIf="request.status !== 'APPROVED' && request.status !== 'REJECTED'">APPROVED</option>
+              <option value="REJECTED" *ngIf="request.status !== 'REJECTED' && request.status !== 'APPROVED'">REJECTED</option>
+            </select>
+          </td>
+          <td>
+            <button class="btn btn-sm btn-success" (click)="updateLeaveRequestStatus(request)">Update</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+</div>

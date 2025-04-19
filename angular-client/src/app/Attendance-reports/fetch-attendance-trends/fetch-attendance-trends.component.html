@@ -1,0 +1,163 @@
+<!-- 
+    
+   <div class="section">
+     <h3>Fetch Attendance Trends</h3>
+     <form (submit)="fetchAttendanceTrends()" class="form">
+       <label for="trendEmployeeId">Employee ID:</label>
+       <input type="number" id="trendEmployeeId" [(ngModel)]="employeeId" name="trendEmployeeId" required>
+   
+       <label for="trendDateRange">Date Range:</label>
+       <input type="text" id="trendDateRange" [(ngModel)]="dateRange" name="trendDateRange" required>
+   
+       <button type="submit" class="btn">Fetch Trends</button>
+     </form>
+   </div>
+  
+   <div *ngIf="trends; else noTrend" class="section">
+    <h3 class="mb-4">Attendance Trends</h3>
+    <div class="card shadow-sm">
+      <div class="card-body">
+        <div class="chart-container" style="width: 100%; max-width: 400px; height: 400px; margin: 0 auto;">
+          <canvas #attendancePieChartCanvas></canvas>
+        </div>
+        <div class="mt-4">
+          <p class="mb-2">
+            <strong class="text-muted">Employee ID:</strong>
+            <span class="font-weight-bold">{{ trends.employeeId }}</span>
+          </p>
+          <p class="mb-2">
+            <strong class="text-muted">Date Range:</strong>
+            <span class="font-weight-bold">{{ trends.dateRange }}</span>
+          </p>
+          <p class="mb-2">
+            <strong class="text-muted">Average Attendance:</strong>
+            <span class="font-weight-bold text-success">{{ trends.averageAttendancePercentage }}%</span>
+          </p>
+          <p class="mb-2">
+            <strong class="text-muted">Average Absenteeism:</strong>
+            <span class="font-weight-bold text-danger">{{ trends.averageAbsenteeismPercentage }}%</span>
+          </p>
+          <p class="mb-0">
+            <strong class="text-muted">Overall Trend:</strong>
+            <span class="font-weight-bold">{{ trends.overallTrend }}</span>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <ng-template #noTrend>
+    <div class="section">
+      <div class="alert alert-info" role="alert">
+        <h4 class="alert-heading">No Attendance Trends Found</h4>
+        <p>Attendance trends could not be calculated for the selected data.</p>
+      </div>
+    </div>
+  </ng-template>
+  
+   -->
+   <!-- <app-attendancemanagerhome></app-attendancemanagerhome>
+   <div class="container mt-5">
+    <div class="row">
+      <div class="col-md-6">
+        <div class="section">
+          <h3>Fetch Attendance Trends</h3>
+          <form (submit)="fetchAttendanceTrends()" class="form">
+            <label for="trendEmployeeId">Employee ID:</label>
+            <input type="number" id="trendEmployeeId" [(ngModel)]="employeeId" name="trendEmployeeId" required>
+            <label for="trendDateRange">Date Range:</label>
+            <input type="text" id="trendDateRange" [(ngModel)]="dateRange" name="trendDateRange" required>
+            <button type="submit" class="btn">Fetch Trends</button>
+          </form>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div *ngIf="trends; else noTrend" class="section">
+          <h3 class="mb-4">Attendance Trends</h3>
+          <div class="chart-container" style="width: 100%; max-width: 400px; height: 400px; margin: 0 auto;">
+            <canvas #attendancePieChartCanvas></canvas>
+          </div>
+          <div class="mt-4">
+            <p class="mb-2">
+              <strong class="text-muted">Employee ID:</strong>
+              <span class="font-weight-bold">{{ trends.employeeId }}</span>
+            </p>
+            <p class="mb-2">
+              <strong class="text-muted">Date Range:</strong>
+              <span class="font-weight-bold">{{ trends.dateRange }}</span>
+            </p>
+            <p class="mb-2">
+              <strong class="text-muted">Average Attendance:</strong>
+              <span class="font-weight-bold text-success">{{ trends.averageAttendancePercentage }}%</span>
+            </p>
+            <p class="mb-2">
+              <strong class="text-muted">Average Absenteeism:</strong>
+              <span class="font-weight-bold text-danger">{{ trends.averageAbsenteeismPercentage }}%</span>
+            </p>
+            <p class="mb-0">
+              <strong class="text-muted">Overall Trend:</strong>
+              <span class="font-weight-bold">{{ trends.overallTrend }}</span>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <ng-template #noTrend>
+      <div class="section">
+        <div class="alert alert-info" role="alert">
+          <h4 class="alert-heading">No Attendance Trends Found</h4>
+          <p>Attendance trends could not be calculated for the selected data.</p>
+        </div>
+      </div>
+    </ng-template>
+  </div>
+   -->
+  <app-attendancemanagerhome></app-attendancemanagerhome>
+   <div class="container mt-4">
+    <mat-card class="chart-card">
+      <mat-card-header>
+        <mat-card-title>Attendance Trend</mat-card-title>
+        <mat-card-subtitle *ngIf="trends">Employee ID: {{ trends.employeeId }}</mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content>
+        <div class="chart-container">
+          <canvas #attendancePieChartCanvas></canvas>
+        </div>
+        <div *ngIf="trends" class="chart-legend">
+          <div class="legend-item">
+            <div class="legend-color attendance"></div>
+            <span>Attendance: {{ trends.averageAttendancePercentage }}%</span>
+          </div>
+          <div class="legend-item">
+            <div class="legend-color absenteeism"></div>
+            <span>Absenteeism: {{ trends.averageAbsenteeismPercentage }}%</span>
+          </div>
+          <p class="overall-trend" *ngIf="trends.overallTrend">
+            <strong>Overall Trend:</strong> {{ trends.overallTrend }}
+          </p>
+        </div>
+        <div *ngIf="!trends" class="no-data">
+          No attendance data available. Please fetch trends.
+        </div>
+      </mat-card-content>
+      <mat-card-actions>
+        <form (submit)="fetchAttendanceTrends()" class="fetch-form">
+          <mat-form-field appearance="outline">
+            <mat-label>Employee ID</mat-label>
+            <mat-icon matPrefix>badge</mat-icon>
+            <input matInput type="number" [(ngModel)]="employeeId" name="employeeId">
+          </mat-form-field>
+  
+          <mat-form-field appearance="outline">
+            <mat-label>Date Range</mat-label>
+            <mat-icon matPrefix>date_range</mat-icon>
+            <input matInput type="text" [(ngModel)]="dateRange" name="dateRange">
+          </mat-form-field>
+  
+          <button mat-raised-button color="primary" type="submit">
+            <mat-icon>show_chart</mat-icon>
+            Fetch Trends
+          </button>
+        </form>
+      </mat-card-actions>
+    </mat-card>
+  </div>
