@@ -6,6 +6,7 @@ import { LeaveBalance } from 'src/app/model/leave-model/LeaveBalance'; // Assumi
 
 @Component({
   selector: 'app-leave-home-manager',
+  standalone: false,
   templateUrl: './leave-home-manager.component.html',
   styleUrls: ['./leave-home-manager.component.css']
 })

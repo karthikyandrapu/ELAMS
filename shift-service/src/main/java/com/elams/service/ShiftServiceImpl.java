@@ -167,12 +167,9 @@ public class ShiftServiceImpl implements ShiftService {
         );
         ZonedDateTime now = ZonedDateTime.now(ZoneId.systemDefault());
         
-        System.out.println("[COMPLETE_SHIFTS] Current Time (IST): " + now);
-
         for (ShiftStatus shiftStatus : shiftsToComplete) {
             Shift shift = shiftRepository.findById(shiftStatus.getShiftId()).orElse(null);
             if (shift != null) {
-                System.out.println("[COMPLETE_SHIFTS] Processing Shift ID: " + shift.getShiftId());
                 try {
                     LocalDate startDate = shift.getShiftDate();
                     LocalTime startTime = shift.getShiftTime();
@@ -182,29 +179,14 @@ public class ShiftServiceImpl implements ShiftService {
                     LocalDateTime endDateTime = startDateTime.plusHours(durationHours);
                     ZonedDateTime shiftEndTime = ZonedDateTime.of(endDateTime, ZoneId.systemDefault());
 
-                    System.out.println("[COMPLETE_SHIFTS]   Shift Start Date: " + startDate);
-                    System.out.println("[COMPLETE_SHIFTS]   Shift Start Time: " + startTime);
-                    System.out.println("[COMPLETE_SHIFTS]   Shift Duration (Hours): " + durationHours);
-                    System.out.println("[COMPLETE_SHIFTS]   Calculated End DateTime (Local): " + endDateTime);
-                    System.out.println("[COMPLETE_SHIFTS]   Calculated End DateTime (Zoned, IST): " + shiftEndTime);
-
                     if (shiftEndTime.isBefore(now)) {
-                        System.out.println("[COMPLETE_SHIFTS]   Shift End Time is BEFORE Current Time. Marking as COMPLETED.");
                         shiftStatus.setStatus(ShiftStatusType.COMPLETED);
                         shiftStatusRepository.save(shiftStatus);
-                    } else {
-                        System.out.println("[COMPLETE_SHIFTS]   Shift End Time is NOT before Current Time.");
                     }
                 } catch (DateTimeException e) {
-                    System.err.println(
-                            "[COMPLETE_SHIFTS] Error calculating shift end time for shift ID: " + shift.getShiftId() +
-                                    ". Please verify the shift date, time, and duration configurations. Error: " + e.getMessage()
-                    );
+                                    throw new DateTimeException(".Please verify the shift date, time, and duration configurations. Error: " + e.getMessage());
                 }
-            } else {
-                System.out.println("[COMPLETE_SHIFTS] Shift not found for ShiftStatus ID: " + shiftStatus.getShiftId());
-            }
-            System.out.println("[COMPLETE_SHIFTS] --------------------");
+            } 
         }
     }
     /**
@@ -369,32 +351,26 @@ public class ShiftServiceImpl implements ShiftService {
             throw new InvalidSwapEmployeeException("Requested swap employee id does not match");
         }
  
-        // Fetch the original shift's date and time
         LocalDate originalShiftDate = originalShift.getShiftDate();
         LocalTime originalShiftTime = originalShift.getShiftTime();
  
-        // Find the shift for the new employee on the same date
         Shift swapShift = shiftRepository.findByEmployeeIdAndShiftDate(newEmployeeId, originalShiftDate);
         if (swapShift == null) {
             throw new SwapShiftNotFoundException("No shift found for the requested employee on the same date.");
         }
         ShiftStatus shiftSwapStatus = shiftStatusRepository.findByShiftId(swapShift.getShiftId());
 
-        // Fetch the swap shift's date and time
         LocalDate swapShiftDate = swapShift.getShiftDate();
         LocalTime swapShiftTime = swapShift.getShiftTime();
  
-        // Check for conflicts: original employee at the swap time
         if (shiftRepository.existsByEmployeeIdAndShiftDateAndShiftTime(originalEmployeeId, swapShiftDate, swapShiftTime)) {
             throw new SwapConflictException("Original employee already has a shift at the swap time.");
         }
  
-        // Check for conflicts: swapping employee at the original time
         if (shiftRepository.existsByEmployeeIdAndShiftDateAndShiftTime(requestedSwapEmployeeId, originalShiftDate, originalShiftTime)) {
             throw new SwapConflictException("Swapping employee already has a shift at the original shift's time.");
         }
  
-        // Perform the swap of date and time
         originalShift.setShiftDate(swapShiftDate);
         originalShift.setShiftTime(swapShiftTime);
         shiftRepository.save(originalShift);

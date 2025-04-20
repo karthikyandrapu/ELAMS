@@ -1,16 +1,16 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { GetLeaveBalanceComponent } from './get-leave-balance.component';
+import { GetallComponent } from './get-leave-balance.component';
 
 describe('GetLeaveBalanceComponent', () => {
-  let component: GetLeaveBalanceComponent;
-  let fixture: ComponentFixture<GetLeaveBalanceComponent>;
+  let component: GetallComponent;
+  let fixture: ComponentFixture<GetallComponent>;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [GetLeaveBalanceComponent]
+      declarations: [GetallComponent]
     });
-    fixture = TestBed.createComponent(GetLeaveBalanceComponent);
+    fixture = TestBed.createComponent(GetallComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

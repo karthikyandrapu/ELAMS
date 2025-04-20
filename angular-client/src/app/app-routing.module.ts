@@ -4,11 +4,7 @@ import { AssignshiftComponent } from './shift-service/assign-shift/assignshift/a
 import { GetemployeeshiftsComponent } from './shift-service/get-employee-shifts/getemployeeshifts/getemployeeshifts.component';
 import { ViewmanagershiftsComponent } from './shift-service/view-manager-shifts/viewmanagershifts/viewmanagershifts.component';
 import { ViewmanagerownshiftsComponent } from './shift-service/view-manager-own-shits/viewmanagerownshifts/viewmanagerownshifts.component';
-import { RequestshiftswapComponent } from './shift-service/request-shift-swap/requestshiftswap/requestshiftswap.component';
-import { ApproveshiftswapComponent } from './shift-service/approve-shift-swap/approveshiftswap/approveshiftswap.component';
-import { RejectshiftswapComponent } from './shift-service/reject-shift-swap/rejectshiftswap/rejectshiftswap.component';
 import { UpdateshiftComponent } from './shift-service/update-shift/updateshift/updateshift.component';
-import { DeleteshiftComponent } from './shift-service/delete-shift/deleteshift/deleteshift.component';
 import { GetcolleagueshiftsComponent } from './shift-service/get-colleague-shits/getcolleagueshifts/getcolleagueshifts.component';
 import { SignupComponent } from './auth-employee/signup/signup.component';
 import { LoginComponent } from './auth-employee/login/login.component';
@@ -95,26 +91,13 @@ const routes: Routes = [
     path: 'view-manager-own-shifts',
     component: ViewmanagerownshiftsComponent,  canActivate: [GuardMngService]
   },
-  {
-    path: 'request-shift',
-    component: RequestshiftswapComponent,canActivate: [GuardEmpService]
-  },
-  {
-    path: 'approve-shift-swap',
-    component: ApproveshiftswapComponent, canActivate: [GuardMngService]
-  },
-  {
-    path: 'reject-shift-swap',
-    component: RejectshiftswapComponent, canActivate: [GuardMngService]
-  },
+ 
+ 
   {
     path: 'update-shift',
     component: UpdateshiftComponent, canActivate: [GuardMngService]
   },
-  {
-    path: 'delete-shift',
-    component: DeleteshiftComponent, canActivate: [GuardMngService]
-  },
+  
   {
     path: 'get-colleague-shifts',
     component: GetcolleagueshiftsComponent,canActivate: [GuardEmpService]

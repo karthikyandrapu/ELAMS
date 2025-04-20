@@ -10,11 +10,7 @@ import { EmployeeserviceService } from './service/employee-service/employee.serv
 import { GetemployeeshiftsComponent } from './shift-service/get-employee-shifts/getemployeeshifts/getemployeeshifts.component';
 import { ViewmanagershiftsComponent } from './shift-service/view-manager-shifts/viewmanagershifts/viewmanagershifts.component';
 import { ViewmanagerownshiftsComponent } from './shift-service/view-manager-own-shits/viewmanagerownshifts/viewmanagerownshifts.component';
-import { RequestshiftswapComponent } from './shift-service/request-shift-swap/requestshiftswap/requestshiftswap.component';
-import { ApproveshiftswapComponent } from './shift-service/approve-shift-swap/approveshiftswap/approveshiftswap.component';
-import { RejectshiftswapComponent } from './shift-service/reject-shift-swap/rejectshiftswap/rejectshiftswap.component';
 import { UpdateshiftComponent } from './shift-service/update-shift/updateshift/updateshift.component';
-import { DeleteshiftComponent } from './shift-service/delete-shift/deleteshift/deleteshift.component';
 import { GetcolleagueshiftsComponent } from './shift-service/get-colleague-shits/getcolleagueshifts/getcolleagueshifts.component';
 import { LoginComponent } from './auth-employee/login/login.component';
 import { AuthenticationService } from './service/auth/auth.service';
@@ -86,6 +82,7 @@ import { GetLeaveRequestsManagerComponent } from './leave-balance-service/get-le
 import { AddLeaveBalanceComponent } from './leave-balance-service/add-leave-balance/add-leave-balance.component';
 import { LeaveBalance } from './model/leave-model/LeaveBalance';
 import { SwapWithAnotherEmployeeComponent } from './shift-service/swap-with-another-employee/swap-with-another-employee.component';
+import { GetallComponent } from './leave-balance-service/get-leave-balance/get-leave-balance.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -96,11 +93,7 @@ import { SwapWithAnotherEmployeeComponent } from './shift-service/swap-with-anot
     GetemployeeshiftsComponent,
     ViewmanagershiftsComponent,
     ViewmanagerownshiftsComponent,
-    RequestshiftswapComponent,
-    ApproveshiftswapComponent,
-    RejectshiftswapComponent,
     UpdateshiftComponent,
-    DeleteshiftComponent,
     GetcolleagueshiftsComponent,
     SwapapprovedComponent,
     SwaprejectedComponent,
@@ -153,6 +146,7 @@ import { SwapWithAnotherEmployeeComponent } from './shift-service/swap-with-anot
     GetLeaveRequestsManagerComponent,
     AddLeaveBalanceComponent,
     SwapWithAnotherEmployeeComponent,
+    GetallComponent
   ],
   imports: [
     BrowserModule,

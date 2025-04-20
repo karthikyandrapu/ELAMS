@@ -134,7 +134,8 @@
             <div class="card-body">
               <p class="card-text">
                 <strong>Shifts:</strong> {{ shiftData.totalShifts }} Total,
-                {{ shiftData.openShifts }} Open
+                {{ shiftData.scheduledShifts }} Scheduled,
+                {{ shiftData.completedShifts }} Completed
               </p>
               <div class="d-flex justify-content-between align-items-center">
                 <div class="btn-group">
@@ -144,7 +145,7 @@
                     (click)="
                       navigateTo(
                         empRole?.toUpperCase() === 'MANAGER'
-                          ? '/shift-service-manager'
+                          ? '/view-manager-own-shifts'
                           : '/shift-service-employee'
                       )
                     "

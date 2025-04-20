@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { AuthenticationService } from 'src/app/service/auth/auth.service'; // Adjust the path as needed
 import { Chart, registerables } from 'chart.js';
 import { EmployeeserviceService } from 'src/app/service/employee-service/employee.service';
+import { ShiftserviceService } from 'src/app/service/shift-service/shift.service';
 Chart.register(...registerables);
  
 @Component({
@@ -17,15 +18,15 @@ export class EmployeedashboardComponent {
   employeeId!:number;
   empName: string | null = null;
   isDarkMode: boolean = false;
- 
+  loadingCharts = true;
   // Dummy data for charts (replace with your actual API calls)
   attendanceData = { total: 150, present: 135, absent: 15 };
   leaveRequestsData = { total: 50, pending: 10, approved: 35, rejected: 5 };
   leaveBalanceData = { averageBalance: 12 };
-  shiftData = { totalShifts: 20, openShifts: 2 };
+  shiftData = { totalShifts: 0, scheduledShifts: 0, completedShifts: 0, swappedShiftsCount: 0 };
   reportData = { generatedReports: 5 };
  
-  constructor(private router: Router, public authService: AuthenticationService,
+  constructor(private router: Router,private shiftService: ShiftserviceService,public authService: AuthenticationService,
     public employeeService:EmployeeserviceService// Adjust the path as needed
   ) {}
  
@@ -34,6 +35,7 @@ export class EmployeedashboardComponent {
     const empId = this.authService.getLoggedInEmpId();
     if (empId) {
       this.employeeId = parseInt(empId, 10);
+      this.loadInitialData();
       this.employeeService.getEmployeeById(this.employeeId).subscribe({
         next: (response) => {
           console.log('Employee Name:', response.name);
@@ -45,7 +47,27 @@ export class EmployeedashboardComponent {
         } 
       });
     }
-    this.renderCharts();
+    
+
+  }
+  loadInitialData(): void {
+    this.loadingCharts = true;
+    this.shiftService.getEmployeeShifts(this.employeeId).subscribe({
+      next: (shifts) => {
+        this.shiftData.totalShifts = shifts.length;
+        this.shiftData.scheduledShifts = shifts.filter(shift => shift.shiftStatus?.status === 'SCHEDULED').length;
+        this.shiftData.completedShifts = shifts.filter(shift => shift.shiftStatus?.status === 'COMPLETED').length;
+  
+        // Render charts after shift data is loaded
+        this.loadingCharts = false;
+        this.renderCharts();
+      },
+      error: (error) => {
+        console.error('Error fetching employee shifts:', error);
+        this.loadingCharts = false;
+        // Handle error appropriately
+      }
+    });
   }
  
   toggleTheme(): void {
@@ -58,6 +80,7 @@ export class EmployeedashboardComponent {
   }
 
   renderCharts(): void {
+    
     this.renderAttendanceChart();
     this.renderLeaveRequestsChart();
     this.renderLeaveBalanceChart();
@@ -170,32 +193,33 @@ export class EmployeedashboardComponent {
  
   renderShiftChart(): void {
     const ctx = document.getElementById('shiftChart') as HTMLCanvasElement;
-    new Chart(ctx, {
-      type: 'pie',
-      data: {
-        labels: ['Total Shifts', 'Open Shifts'],
-        datasets: [{
-          data: [this.shiftData.totalShifts, this.shiftData.openShifts],
-          backgroundColor: ['#17a2b8', '#6c757d'],
-          borderWidth: 1
-        }]
-      },
-      options: {
-        onClick: () => this.navigateTo(this.empRole?.toUpperCase() === 'MANAGER' ? '/shift-service-manager' : '/shift-service-employee'),
-        plugins: {
-          legend: {
-            position: 'bottom'
-          },
-          title: {
-            display: true,
-            text: 'Shift Overview',
-            font: {
-              size: 16
+    if (ctx) {
+      new Chart(ctx, {
+        type: 'pie',
+        data: {
+          labels: ['Scheduled', 'Completed'],
+          datasets: [{
+            data: [this.shiftData.scheduledShifts, this.shiftData.completedShifts],
+            backgroundColor: ['#17a2b8', '#6c757d'],
+            borderWidth: 1
+          }]
+        },
+        options: {
+          plugins: {
+            legend: {
+              position: 'bottom'
+            },
+            title: {
+              display: true,
+              text: 'Shift Overview',
+              font: {
+                size: 16
+              }
             }
           }
         }
-      }
-    });
+      });
+    }
   }
  
   renderReportsChart(): void {

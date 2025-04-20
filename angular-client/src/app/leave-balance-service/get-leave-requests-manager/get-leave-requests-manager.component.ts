@@ -4,6 +4,7 @@ import { AuthenticationService } from 'src/app/service/auth/auth.service';
 
 @Component({
   selector: 'app-get-leave-requests-manager',
+  standalone: false,
   templateUrl: './get-leave-requests-manager.component.html',
   styleUrls: ['./get-leave-requests-manager.component.css']
 })

@@ -4,6 +4,7 @@ import { LeaveRequestService } from 'src/app/service/leave-balance/leave-balance
 
 @Component({
   selector: 'app-getall',
+  standalone: false,
   templateUrl: './get-leave-balance.component.html',
   styleUrls: ['./get-leave-balance.component.css']
 })

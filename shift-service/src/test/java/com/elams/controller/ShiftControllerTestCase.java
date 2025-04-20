@@ -525,7 +525,7 @@ class ShiftControllerTestCase {
 	        assertEquals(HttpStatus.OK, response.getStatusCode());
 	        assertEquals(requests, response.getBody());
 	    }
-
+	    
 	    @Test
 	    @DisplayName("Get Manager Swap Requests - Positive Test - Manager Role - No Requests Found")
 	    void getManagerSwapRequests_Positive_ManagerRole_NoRequestsFound() {
@@ -552,5 +552,158 @@ class ShiftControllerTestCase {
 
 	        assertEquals(HttpStatus.FORBIDDEN, response.getStatusCode());
 	    }
+	    
+	    @Test
+	    @DisplayName("Get Upcoming Employee Shifts - Positive Test - Employee Role")
+	    void getUpcomingEmployeeShifts_Positive_EmployeeRole() {
+	    	Long employeeId = 2L;
+	        EmployeeRole role = EmployeeRole.EMPLOYEE;
+	        List<ShiftDTO> upcomingShifts = List.of(new ShiftDTO(), new ShiftDTO()); // Mock upcoming shifts
 
+	        when(shiftService.viewUpcomingEmployeeShifts(employeeId)).thenReturn(upcomingShifts);
+
+	        ResponseEntity<List<ShiftDTO>> response = shiftController.getUpcomingEmployeeShifts(employeeId, role);
+
+	        assertEquals(HttpStatus.OK, response.getStatusCode());
+	        assertEquals(upcomingShifts, response.getBody());
+	        verify(shiftService).viewUpcomingEmployeeShifts(employeeId); }
+    
+	    @Test
+	    @DisplayName("Get Upcoming Employee Shifts - Negative Test - Non-Employee Role")
+	    void getUpcomingEmployeeShifts_Negative_NonEmployeeRole() {
+	        Long employeeId = 2L;
+	        EmployeeRole role = EmployeeRole.MANAGER;
+
+	        ResponseEntity<List<ShiftDTO>> response = shiftController.getUpcomingEmployeeShifts(employeeId, role);
+
+	        assertEquals(HttpStatus.FORBIDDEN, response.getStatusCode());
+	        verify(shiftService, never()).viewUpcomingEmployeeShifts(anyLong());
+	    }
+	    
+	    @Test
+	    @DisplayName("View Employee Swap Requests - Positive Test - Employee Role")
+	    void viewEmployeeSwapRequests_Positive_EmployeeRole() {
+	        Long employeeId = 3L;
+	        EmployeeRole role = EmployeeRole.EMPLOYEE;
+	        List<ShiftDTO> swapRequests = List.of(new ShiftDTO()); // Mock employee's swap requests
+
+	        when(shiftService.viewEmployeeSwapRequests(employeeId)).thenReturn(swapRequests);
+
+	        ResponseEntity<List<ShiftDTO>> response = shiftController.viewEmployeeSwapRequests(employeeId, role);
+
+	        assertEquals(HttpStatus.OK, response.getStatusCode());
+	        assertEquals(swapRequests, response.getBody());
+	        verify(shiftService).viewEmployeeSwapRequests(employeeId);
+	    }
+	    
+	    @Test
+	    @DisplayName("View Employee Swap Requests - Negative Test - Non-Employee Role")
+	    void viewEmployeeSwapRequests_Negative_NonEmployeeRole() {
+	        Long employeeId = 3L;
+	        EmployeeRole role = EmployeeRole.MANAGER;
+
+	        ResponseEntity<List<ShiftDTO>> response = shiftController.viewEmployeeSwapRequests(employeeId, role);
+
+	        assertEquals(HttpStatus.FORBIDDEN, response.getStatusCode());
+	        verify(shiftService, never()).viewEmployeeSwapRequests(anyLong());
+	    }
+	    
+	    
+	    @Test
+	    @DisplayName("View Employee Rejected Swap Requests - Positive Test - Employee Role")
+	    void viewEmployeeRejectedSwapRequests_Positive_EmployeeRole() {
+	        Long employeeId = 4L;
+	        EmployeeRole role = EmployeeRole.EMPLOYEE;
+	        List<ShiftDTO> rejectedRequests = List.of(new ShiftDTO()); // Mock rejected swap requests
+
+	        when(shiftService.viewEmployeeRejectedSwapRequests(employeeId)).thenReturn(rejectedRequests);
+
+	        ResponseEntity<List<ShiftDTO>> response = shiftController.viewEmployeeRejectedSwapRequests(employeeId, role);
+
+	        assertEquals(HttpStatus.OK, response.getStatusCode());
+	        assertEquals(rejectedRequests, response.getBody());
+	        verify(shiftService).viewEmployeeRejectedSwapRequests(employeeId);
+	    }
+	    
+	    @Test
+	    @DisplayName("View Employee Rejected Swap Requests - Negative Test - Non-Employee Role")
+	    void viewEmployeeRejectedSwapRequests_Negative_NonEmployeeRole() {
+	        Long employeeId = 4L;
+	        EmployeeRole role = EmployeeRole.MANAGER;
+
+	        ResponseEntity<List<ShiftDTO>> response = shiftController.viewEmployeeRejectedSwapRequests(employeeId, role);
+
+	        assertEquals(HttpStatus.FORBIDDEN, response.getStatusCode());
+	        verify(shiftService, never()).viewEmployeeRejectedSwapRequests(anyLong());
+	    }
+	    
+	    
+	    @Test
+	    @DisplayName("View Employee Approved Swap Requests - Positive Test - Employee Role")
+	    void viewEmployeeApprovedSwapRequests_Positive_EmployeeRole() {
+	        Long employeeId = 5L;
+	        EmployeeRole role = EmployeeRole.EMPLOYEE;
+	        List<ShiftDTO> approvedRequests = List.of(new ShiftDTO()); // Mock approved swap requests
+
+	        when(shiftService.viewEmployeeApprovedSwapRequests(employeeId)).thenReturn(approvedRequests);
+
+	        ResponseEntity<List<ShiftDTO>> response = shiftController.viewEmployeeApprovedSwapRequests(employeeId, role);
+
+	        assertEquals(HttpStatus.OK, response.getStatusCode());
+	        assertEquals(approvedRequests, response.getBody());
+	        verify(shiftService).viewEmployeeApprovedSwapRequests(employeeId);
+	    }
+	    
+	    
+	    @Test
+	    @DisplayName("View Employee Approved Swap Requests - Negative Test - Non-Employee Role")
+	    void viewEmployeeApprovedSwapRequests_Negative_NonEmployeeRole() {
+	        Long employeeId = 5L;
+	        EmployeeRole role = EmployeeRole.MANAGER;
+
+	        ResponseEntity<List<ShiftDTO>> response = shiftController.viewEmployeeApprovedSwapRequests(employeeId, role);
+
+	        assertEquals(HttpStatus.FORBIDDEN, response.getStatusCode());
+	        verify(shiftService, never()).viewEmployeeApprovedSwapRequests(anyLong());
+	    }
+
+	    @Test
+	    @DisplayName("View Employee Swapped With Another Employee - Positive Test - Employee Role")
+	    void viewEmployeeSwappedWithAnotherEmployee_Positive_EmployeeRole() {
+	        Long employeeId = 6L;
+	        EmployeeRole role = EmployeeRole.EMPLOYEE;
+	        List<ShiftDTO> swappedShifts = List.of(new ShiftDTO()); // Mock swapped shifts
+
+	        when(shiftService.viewEmployeeSwappedWithAnotherEmployee(employeeId)).thenReturn(swappedShifts);
+
+	        ResponseEntity<List<ShiftDTO>> response = shiftController.viewEmployeeSwappedWithAnotherEmployee(employeeId, role);
+
+	        assertEquals(HttpStatus.OK, response.getStatusCode());
+	        assertEquals(swappedShifts, response.getBody());
+	        verify(shiftService).viewEmployeeSwappedWithAnotherEmployee(employeeId);
+	    }
+	    
+	    @Test
+	    @DisplayName("View Employee Swapped With Another Employee - Negative Test - Non-Employee Role")
+	    void viewEmployeeSwappedWithAnotherEmployee_Negative_NonEmployeeRole() {
+	        Long employeeId = 6L;
+	        EmployeeRole role = EmployeeRole.MANAGER;
+
+	        ResponseEntity<List<ShiftDTO>> response = shiftController.viewEmployeeSwappedWithAnotherEmployee(employeeId, role);
+
+	        assertEquals(HttpStatus.FORBIDDEN, response.getStatusCode());
+	        verify(shiftService, never()).viewEmployeeSwappedWithAnotherEmployee(anyLong());
+	    }
+	    
+	    
+	    
+	    
+	    
+	    
+	    
+	    
+	    
+	    
+	    
+	    
 }

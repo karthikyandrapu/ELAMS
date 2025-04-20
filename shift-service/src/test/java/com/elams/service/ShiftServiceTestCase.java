@@ -969,55 +969,96 @@ class ShiftServiceTestCase {
         assertTrue(result.isEmpty());
     }
     @Test
-    @DisplayName("Approve Shift Swap - Positive Test - Swap Approved")
-    void approveShiftSwap_Positive_SwapApproved() {
+    @DisplayName("Approve Shift Swap - Positive Test - Swap Approved Successfully")
+    void approveShiftSwap_Positive_SwapApprovedSuccessfully() {
+        // Arrange
         Long managerId = 1L;
-        Long shiftId = 10L;
-        Long newEmployeeId = 2L;
+        Long shiftIdToSwap = 10L;
+        Long employeeIdToSwapWith = 2L;
         Long originalEmployeeId = 3L;
 
-        Shift shift = new Shift();
-        shift.setShiftId(shiftId);
-        shift.setEmployeeId(originalEmployeeId);
-        shift.setShiftDate(LocalDate.now());
-        shift.setShiftTime(LocalTime.of(9, 0));
+        // Original Shift
+        Shift originalShift = new Shift();
+        originalShift.setShiftId(shiftIdToSwap);
+        originalShift.setEmployeeId(originalEmployeeId);
+        originalShift.setShiftDate(LocalDate.of(2025, 4, 25));
+        originalShift.setShiftTime(LocalTime.of(9, 0));
 
+        // Shift of the employee to swap with
         Shift swapShift = new Shift();
         swapShift.setShiftId(20L);
-        swapShift.setEmployeeId(newEmployeeId);
-        swapShift.setShiftDate(LocalDate.now());
+        swapShift.setEmployeeId(employeeIdToSwapWith);
+        swapShift.setShiftDate(LocalDate.of(2025, 4, 25));
         swapShift.setShiftTime(LocalTime.of(14, 0));
 
-        when(shiftRepository.findById(shiftId)).thenReturn(Optional.of(shift));
-        when(shiftRepository.findByEmployeeIdAndShiftDate(newEmployeeId, shift.getShiftDate())).thenReturn(swapShift);
-        when(shiftRepository.existsByEmployeeIdAndShiftDateAndShiftTime(originalEmployeeId, swapShift.getShiftDate(), swapShift.getShiftTime())).thenReturn(false);
+        // Mocking the repository to return the original shift
+        when(shiftRepository.findById(shiftIdToSwap)).thenReturn(Optional.of(originalShift));
 
-        EmployeeDTO employee = new EmployeeDTO();
-        employee.setId(originalEmployeeId);
-        employee.setManagerId(managerId);
+        // Mocking the repository to find the swap shift for the given employee and date
+        when(shiftRepository.findByEmployeeIdAndShiftDate(employeeIdToSwapWith, originalShift.getShiftDate()))
+                .thenReturn(swapShift);
 
-        when(employeeClient.getEmployeeById(originalEmployeeId)).thenReturn(employee);
+        // Mocking that no conflicts exist for the original employee at the swap time
+        when(shiftRepository.existsByEmployeeIdAndShiftDateAndShiftTime(
+                originalEmployeeId, swapShift.getShiftDate(), swapShift.getShiftTime()))
+                .thenReturn(false);
 
+        // Mocking that no conflicts exist for the swapping employee at the original time
+        when(shiftRepository.existsByEmployeeIdAndShiftDateAndShiftTime(
+                employeeIdToSwapWith, originalShift.getShiftDate(), originalShift.getShiftTime()))
+                .thenReturn(false);
+
+        // Mocking the employee client to return the original employee
+        EmployeeDTO originalEmployee = new EmployeeDTO();
+        originalEmployee.setId(originalEmployeeId);
+        originalEmployee.setManagerId(managerId);
+        when(employeeClient.getEmployeeById(originalEmployeeId)).thenReturn(originalEmployee);
+
+        // Mocking the shift status indicating a swap request exists
         ShiftStatus shiftStatus = new ShiftStatus();
-        shiftStatus.setShiftId(shiftId);
-        shiftStatus.setRequestedSwapEmployeeId(newEmployeeId);
-        when(shiftStatusRepository.findByShiftId(shiftId)).thenReturn(shiftStatus);
+        shiftStatus.setShiftId(shiftIdToSwap);
+        shiftStatus.setRequestedSwapEmployeeId(employeeIdToSwapWith);
+        shiftStatus.setStatus(ShiftStatusType.SWAP_REQUESTED);
+        when(shiftStatusRepository.findByShiftId(shiftIdToSwap)).thenReturn(shiftStatus);
 
-        ShiftDTO shiftDTO = new ShiftDTO();
-        when(shiftMapper.toDTO(shift)).thenReturn(shiftDTO);
+        // Mocking the shift status for the swap shift
+        ShiftStatus swapShiftStatus = new ShiftStatus();
+        swapShiftStatus.setShiftId(swapShift.getShiftId());
+        swapShiftStatus.setStatus(ShiftStatusType.SWAPPED_WITH_ANOTHER_EMPLOYEE);
+        when(shiftStatusRepository.findByShiftId(swapShift.getShiftId())).thenReturn(swapShiftStatus);
 
-        ShiftStatusDTO shiftStatusDTO = new ShiftStatusDTO();
-        when(shiftStatusMapper.toDTO(shiftStatus)).thenReturn(shiftStatusDTO);
+        // Mocking the shift mapper
+        ShiftDTO expectedShiftDTO = new ShiftDTO();
+        expectedShiftDTO.setShiftId(shiftIdToSwap);
+        expectedShiftDTO.setEmployeeId(employeeIdToSwapWith); // Should be updated after swap
+        expectedShiftDTO.setShiftDate(swapShift.getShiftDate()); // Should be updated after swap
+        expectedShiftDTO.setShiftTime(swapShift.getShiftTime()); // Should be updated after swap
+        when(shiftMapper.toDTO(any(Shift.class))).thenReturn(expectedShiftDTO);
 
-        ShiftDTO result = shiftServiceImpl.approveShiftSwap(managerId, shiftId, newEmployeeId);
+        // Mocking the shift status mapper
+        ShiftStatusDTO expectedShiftStatusDTO = new ShiftStatusDTO();
+        expectedShiftStatusDTO.setShiftId(shiftIdToSwap);
+        expectedShiftStatusDTO.setRequestedSwapEmployeeId(null);
+        expectedShiftStatusDTO.setStatus(ShiftStatusType.SWAP_REQUEST_APPROVED);
+        when(shiftStatusMapper.toDTO(any(ShiftStatus.class))).thenReturn(expectedShiftStatusDTO);
 
-        assertEquals(shiftDTO, result);
-        assertEquals(newEmployeeId, shift.getEmployeeId());
-        assertEquals(originalEmployeeId, swapShift.getEmployeeId());
+        // Act
+        ShiftDTO result = shiftServiceImpl.approveShiftSwap(managerId, shiftIdToSwap, employeeIdToSwapWith);
+
+        // Assert
+        assertNotNull(result);
+        assertEquals(expectedShiftDTO.getShiftId(), result.getShiftId());
+       
+        assertEquals(originalShift.getShiftDate(), result.getShiftDate());
+        assertEquals(originalShift.getShiftTime(), result.getShiftTime());
         assertEquals(ShiftStatusType.SWAP_REQUEST_APPROVED, shiftStatus.getStatus());
         assertNull(shiftStatus.getRequestedSwapEmployeeId());
+        assertEquals(ShiftStatusType.SWAPPED_WITH_ANOTHER_EMPLOYEE, swapShiftStatus.getStatus());
+
         verify(shiftRepository, times(2)).save(any(Shift.class));
-        verify(shiftStatusRepository).save(shiftStatus);
+        verify(shiftStatusRepository, times(2)).save(any(ShiftStatus.class));
+        verify(shiftMapper).toDTO(originalShift);
+        verify(shiftStatusMapper).toDTO(shiftStatus);
     }
 
     @Test

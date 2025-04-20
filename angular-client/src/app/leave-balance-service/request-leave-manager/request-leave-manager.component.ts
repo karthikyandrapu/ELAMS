@@ -18,6 +18,7 @@ interface EmployeeDetailsDTO {
 }
 @Component({
   selector: 'app-request-leave-manager',
+  standalone: false,
   templateUrl: './request-leave-manager.component.html',
   styleUrls: ['./request-leave-manager.component.css']
 })

@@ -149,7 +149,7 @@ export class ShiftServiceEmployeeComponent implements OnInit, AfterViewInit {
           labels: ['Scheduled', 'Completed'],
           datasets: [{
             data: [this.shiftData.scheduledShifts, this.shiftData.completedShifts],
-            backgroundColor: ['#007bff', '#28a745'],
+            backgroundColor: ['#17a2b8', '#6c757d'],
             borderWidth: 1
           }]
         },

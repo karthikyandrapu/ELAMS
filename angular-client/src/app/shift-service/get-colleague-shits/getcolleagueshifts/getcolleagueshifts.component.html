@@ -18,9 +18,9 @@
       No colleague shifts found for the selected date.
     </div>
 
-    <table class="table table-bordered">
+    <table class="table table-bordered" *ngIf="shifts.length > 0">
       <thead>
-        <tr style="background-color: #2c3e50; color: white;">
+        <tr>
           <th>Employee ID</th>
           <th>Shift Date</th>
           <th>Shift Time</th>
@@ -28,7 +28,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let colleagueShift of pagedShifts" class="colleague-shift-row">
+        <tr *ngFor="let colleagueShift of pagedShifts">
           <td>{{ colleagueShift.employeeId }}</td>
           <td>{{ colleagueShift.shiftDate }}</td>
           <td>{{ colleagueShift.shiftTime }}</td>

@@ -10,7 +10,7 @@ import { ShiftserviceService } from 'src/app/service/shift-service/shift.service
   selector: 'app-assignshift',
   standalone: false,
   templateUrl: './assignshift.component.html',
-  styleUrls: ['./assignshift.component.css']
+  styleUrls: ['./assignshift.component.css'],
 })
 export class AssignshiftComponent implements OnInit {
   assignShiftForm!: FormGroup;
@@ -20,7 +20,7 @@ export class AssignshiftComponent implements OnInit {
   shiftTimeOptions: { display: string; value: string }[] = [
     { display: '9:00 AM - 6:00 PM', value: '09:00:00' },
     { display: '6:00 PM - 3:00 AM', value: '18:00:00' },
-    { display: '3:00 AM - 12:00 PM', value: '03:00:00' }
+    { display: '3:00 AM - 12:00 PM', value: '03:00:00' },
   ];
   errorMessage: string = ''; // To store error messages
   successMessage: string = ''; // To store success messages
@@ -39,16 +39,14 @@ export class AssignshiftComponent implements OnInit {
       this.managerId = parseInt(empId, 10); // Convert empId to number
     } else {
       console.error('Manager ID not found in session storage.');
-    }
+    } // Fetch the list of employees
 
-    // Fetch the list of employees
-    this.fetchEmployeeIdsByManagerId();
+    this.fetchEmployeeIdsByManagerId(); // Initialize the form
 
-    // Initialize the form
     this.assignShiftForm = this.formBuilder.group({
       employeeId: ['', [Validators.required]], // Dropdown for Employee ID
-      shiftDate: ['', [Validators.required, Validators.pattern(/^\d{4}-\d{2}-\d{2}$/)]],
-      shiftTime: ['', [Validators.required]] // Dropdown for Shift Time
+      shiftDate: ['',[Validators.required]],
+      shiftTime: ['', [Validators.required]], // Dropdown for Shift Time
     });
   }
 
@@ -60,18 +58,21 @@ export class AssignshiftComponent implements OnInit {
       },
       error: (error: HttpErrorResponse) => {
         console.error('Error fetching employees:', error);
-        this.errorMessage = error.error ? (typeof error.error === 'string' ? error.error : JSON.stringify(error.error)) : 'Failed to load employees. Please try again.';
+        this.errorMessage = error.error
+          ? typeof error.error === 'string'
+            ? error.error
+            : JSON.stringify(error.error)
+          : 'Failed to load employees. Please try again.';
         this.successMessage = ''; // Clear any potential success message
-      }
+      },
     });
   }
 
   assign() {
     this.shift.employeeId = this.assignShiftForm.value.employeeId; // Get selected employee ID
     this.shift.shiftDate = this.assignShiftForm.value.shiftDate;
-    this.shift.shiftTime = this.assignShiftForm.value.shiftTime;
+    this.shift.shiftTime = this.assignShiftForm.value.shiftTime; // Call the service to assign the shift
 
-    // Call the service to assign the shift
     this.shiftService.assignShift(this.shift, this.managerId).subscribe({
       next: (response) => {
         console.log('Shift assigned successfully:', response);
@@ -81,9 +82,26 @@ export class AssignshiftComponent implements OnInit {
       },
       error: (error: HttpErrorResponse) => {
         console.error('Error assigning shift:', error);
-        this.errorMessage = error.error ? (typeof error.error === 'string' ? error.error : JSON.stringify(error.error)) : 'An unexpected error occurred while assigning the shift.';
         this.successMessage = ''; // Clear any potential success message
-      }
+        if (
+          error.error &&
+          typeof error.error === 'object' &&
+          error.error.shiftDate
+        ) {
+          // Backend returned a specific validation error for shiftDate
+          this.errorMessage = error.error.shiftDate;
+        } else if (error.error && typeof error.error === 'string') {
+          // Backend returned a string error message
+          this.errorMessage = error.error;
+        } else if (error.message) {
+          // Angular error message
+          this.errorMessage = error.message;
+        } else {
+          // Generic error message
+          this.errorMessage =
+            'An unexpected error occurred while assigning the shift.';
+        }
+      },
     });
   }
 }

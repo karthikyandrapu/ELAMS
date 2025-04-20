@@ -6,6 +6,7 @@ import { EmployeeserviceService } from 'src/app/service/employee-service/employe
 
 @Component({
   selector: 'app-add-leave-balance',
+  standalone: false,
   templateUrl: './add-leave-balance.component.html',
   styleUrls: ['./add-leave-balance.component.css']
 })
