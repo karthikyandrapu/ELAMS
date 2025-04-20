@@ -35,7 +35,6 @@ public class ShiftServiceAspect {
     @Pointcut("execution(* com.elams.repository..*(..))")
     public void repositoryMethods() {
     }
-   
     
     /**
      * Logs method entry before executing service layer methods.

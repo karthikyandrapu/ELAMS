@@ -2,7 +2,6 @@ package com.elams.controller;
 
 import java.time.LocalDate;
 import java.util.List;
-
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -226,28 +225,73 @@ public interface ShiftController {
             @Parameter(description = "Manager ID", required = true) @PathVariable Long managerId,
             @Parameter(description = "Employee Role", required = true) @RequestHeader("role") EmployeeRole role);
     
+    /**
+     * Retrieves the upcoming shifts for a specific employee.
+     */
+    @Operation(summary = "Get upcoming employee shifts", description = "Retrieves the upcoming shifts for a specific employee.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "List of upcoming shifts", content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE, schema = @Schema(implementation = ShiftDTO.class))),
+            @ApiResponse(responseCode = "403", description = "Unauthorized access"),
+            @ApiResponse(responseCode = "404", description = "Employee not found"),
+            @ApiResponse(responseCode = "500", description = "Internal server error")
+    })
     @GetMapping("/employee/{employeeId}/upcoming")
     ResponseEntity<List<ShiftDTO>> getUpcomingEmployeeShifts(@PathVariable Long employeeId,
     		@RequestHeader("role") EmployeeRole role);
     
-    
-    
+    /**
+     * Retrieves all swap requests made by a specific employee.
+     */
+    @Operation(summary = "View employee swap requests", description = "Retrieves all swap requests made by a specific employee.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "List of swap requests", content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE, schema = @Schema(implementation = ShiftDTO.class))),
+            @ApiResponse(responseCode = "403", description = "Unauthorized access"),
+            @ApiResponse(responseCode = "404", description = "Employee not found"),
+            @ApiResponse(responseCode = "500", description = "Internal server error")
+    })
     @GetMapping("/employee/{employeeId}/swap/requests")
     ResponseEntity<List<ShiftDTO>> viewEmployeeSwapRequests(@PathVariable Long employeeId,
     		@RequestHeader("role") EmployeeRole role);
 
+    /**
+     * Retrieves all rejected swap requests for a specific employee.
+     */
+    @Operation(summary = "View employee rejected swap requests", description = "Retrieves all rejected swap requests for a specific employee.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "List of rejected swap requests", content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE, schema = @Schema(implementation = ShiftDTO.class))),
+            @ApiResponse(responseCode = "403", description = "Unauthorized access"),
+            @ApiResponse(responseCode = "404", description = "Employee not found"),
+            @ApiResponse(responseCode = "500", description = "Internal server error")
+    })
     @GetMapping("/employee/{employeeId}/swap/rejected")
     ResponseEntity<List<ShiftDTO>> viewEmployeeRejectedSwapRequests(@PathVariable Long employeeId,
     		@RequestHeader("role") EmployeeRole role);
 
+    /**
+     * Retrieves all approved swap requests for a specific employee.
+     */
+    @Operation(summary = "View employee approved swap requests", description = "Retrieves all approved swap requests for a specific employee.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "List of approved swap requests", content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE, schema = @Schema(implementation = ShiftDTO.class))),
+            @ApiResponse(responseCode = "403", description = "Unauthorized access"),
+            @ApiResponse(responseCode = "404", description = "Employee not found"),
+            @ApiResponse(responseCode = "500", description = "Internal server error")
+    })
     @GetMapping("/employee/{employeeId}/swap/approved")
     ResponseEntity<List<ShiftDTO>> viewEmployeeApprovedSwapRequests(@PathVariable Long employeeId,
     		@RequestHeader("role") EmployeeRole role);
     
+    /**
+     * Retrieves all shifts swapped with another employee for a specific employee.
+     */
+    @Operation(summary = "View employee swapped shifts with another employee", description = "Retrieves all shifts swapped with another employee for a specific employee.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "List of swapped shifts", content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE, schema = @Schema(implementation = ShiftDTO.class))),
+            @ApiResponse(responseCode = "403", description = "Unauthorized access"),
+            @ApiResponse(responseCode = "404", description = "Employee not found"),
+            @ApiResponse(responseCode = "500", description = "Internal server error")
+    })
     @GetMapping("/employee/{employeeId}/swap/anotheremployee")
     ResponseEntity<List<ShiftDTO>>  viewEmployeeSwappedWithAnotherEmployee(@PathVariable Long employeeId,
-    		@RequestHeader("role") EmployeeRole role);
-    
-    
-    
+    		@RequestHeader("role") EmployeeRole role);   
 }

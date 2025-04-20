@@ -289,6 +289,7 @@ public class ShiftControllerImpl implements ShiftController {
         List<ShiftDTO> requests = shiftService.getManagerSwapRequests(managerId);
         return ResponseEntity.ok(requests);
     }
+    
     /**
      * Retrieves the list of upcoming shifts for a specific employee.
      * <p>
@@ -308,6 +309,14 @@ public class ShiftControllerImpl implements ShiftController {
         return ResponseEntity.ok(upcomingShifts);
     }
     
+    /**
+     * Retrieves all swap requests made by a specific employee.
+     *
+     * @param employeeId The ID of the employee.
+     * @param role       The role of the employee.
+     * @return {@code HTTP 200 OK} with a list of {@link ShiftDTO} objects representing the swap requests.
+     *         {@code HTTP 403 Forbidden} if the role is not EMPLOYEE.
+     */
     @GetMapping("/employee/{employeeId}/swap/requests")
     public ResponseEntity<List<ShiftDTO>> viewEmployeeSwapRequests(@PathVariable Long employeeId,
     		@RequestHeader("role") EmployeeRole role) {
@@ -318,6 +327,14 @@ public class ShiftControllerImpl implements ShiftController {
         return ResponseEntity.ok(swapRequests);
     }
 
+    /**
+     * Retrieves all rejected swap requests for a specific employee.
+     *
+     * @param employeeId The ID of the employee.
+     * @param role       The role of the employee.
+     * @return {@code HTTP 200 OK} with a list of {@link ShiftDTO} objects representing the rejected swap requests.
+     *         {@code HTTP 403 Forbidden} if the role is not EMPLOYEE.
+     */
     @GetMapping("/employee/{employeeId}/swap/rejected")
     public ResponseEntity<List<ShiftDTO>> viewEmployeeRejectedSwapRequests(@PathVariable Long employeeId,
     		@RequestHeader("role") EmployeeRole role) {
@@ -328,6 +345,14 @@ public class ShiftControllerImpl implements ShiftController {
         return ResponseEntity.ok(rejectedRequests);
     }
 
+    /**
+     * Retrieves all approved swap requests for a specific employee.
+     *
+     * @param employeeId The ID of the employee.
+     * @param role       The role of the employee.
+     * @return {@code HTTP 200 OK} with a list of {@link ShiftDTO} objects representing the approved swap requests.
+     *         {@code HTTP 403 Forbidden} if the role is not EMPLOYEE.
+     */
     @GetMapping("/employee/{employeeId}/swap/approved")
     public ResponseEntity<List<ShiftDTO>> viewEmployeeApprovedSwapRequests(@PathVariable Long employeeId,
     		@RequestHeader("role") EmployeeRole role) {
@@ -337,6 +362,15 @@ public class ShiftControllerImpl implements ShiftController {
         List<ShiftDTO> approvedRequests = shiftService.viewEmployeeApprovedSwapRequests(employeeId);
         return  ResponseEntity.ok(approvedRequests);
     }
+    
+    /**
+     * Retrieves all shifts swapped with another employee for a specific employee.
+     *
+     * @param employeeId The ID of the employee.
+     * @param role       The role of the employee.
+     * @return {@code HTTP 200 OK} with a list of {@link ShiftDTO} objects representing the shifts swapped with another employee.
+     *         {@code HTTP 403 Forbidden} if the role is not EMPLOYEE.
+     */
     @GetMapping("/employee/{employeeId}/swap/anotheremployee")
     public ResponseEntity<List<ShiftDTO>> viewEmployeeSwappedWithAnotherEmployee(@PathVariable Long employeeId,
     		@RequestHeader("role") EmployeeRole role) {
@@ -346,6 +380,5 @@ public class ShiftControllerImpl implements ShiftController {
         List<ShiftDTO> swappedWithAnotherEmployee = shiftService.viewEmployeeSwappedWithAnotherEmployee(employeeId);
         return  ResponseEntity.ok(swappedWithAnotherEmployee);
     }
-    
     
 }

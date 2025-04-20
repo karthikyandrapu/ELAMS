@@ -118,10 +118,43 @@ public interface ShiftService {
      */
 	List<ShiftDTO> getManagerSwapRequests(Long managerId);
 	
+	/**
+	 * Retrieves a list of upcoming shifts for a specific employee.
+	 *
+	 * @param employeeId The ID of the employee whose upcoming shifts are being retrieved.
+	 * @return A list of {@link ShiftDTO} objects representing the employee's upcoming shifts.
+	 */
 	List<ShiftDTO> viewUpcomingEmployeeShifts(Long employeeId);
 	
+	/**
+	 * Retrieves a list of swap requests made by a specific employee.
+	 *
+	 * @param employeeId The ID of the employee whose swap requests are being retrieved.
+	 * @return A list of {@link ShiftDTO} objects representing the employee's swap requests.
+	 */
 	List<ShiftDTO> viewEmployeeSwapRequests(Long employeeId);
+	
+	/**
+	 * Retrieves a list of rejected swap requests for a specific employee.
+	 *
+	 * @param employeeId The ID of the employee whose rejected swap requests are being retrieved.
+	 * @return A list of {@link ShiftDTO} objects representing the employee's rejected swap requests.
+	 */
     List<ShiftDTO> viewEmployeeRejectedSwapRequests(Long employeeId);
+    
+    /**
+     * Retrieves a list of approved swap requests for a specific employee.
+     *
+     * @param employeeId The ID of the employee whose approved swap requests are being retrieved.
+     * @return A list of {@link ShiftDTO} objects representing the employee's approved swap requests.
+     */
     List<ShiftDTO> viewEmployeeApprovedSwapRequests(Long employeeId);
+    
+    /**
+     * Retrieves a list of shifts swapped with another employee for a specific employee.
+     *
+     * @param employeeId The ID of the employee whose swapped shifts are being retrieved.
+     * @return A list of {@link ShiftDTO} objects representing the shifts swapped with another employee.
+     */
     List<ShiftDTO> viewEmployeeSwappedWithAnotherEmployee(Long employeeId);
 }

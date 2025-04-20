@@ -76,6 +76,14 @@ public interface ShiftRepository extends JpaRepository<Shift, Long> {
      */
     Shift findByEmployeeIdAndShiftDate(Long employeeId, LocalDate shiftDate);
     
+    /**
+     * Retrieves a list of shifts for a specific employee that are scheduled on or after the given date.
+     * The results are ordered by shift date in ascending order, and within the same date, by shift time in ascending order.
+     *
+     * @param employeeId The ID of the employee whose shifts are being retrieved.
+     * @param shiftDate  The date from which to retrieve shifts (inclusive).
+     * @return A list of {@link Shift} objects representing the employee's shifts.
+     */
     List<Shift> findByEmployeeIdAndShiftDateGreaterThanEqualOrderByShiftDateAscShiftTimeAsc(Long employeeId, LocalDate shiftDate);
 
 }

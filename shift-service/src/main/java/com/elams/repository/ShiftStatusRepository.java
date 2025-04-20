@@ -54,11 +54,23 @@ public interface ShiftStatusRepository extends JpaRepository<ShiftStatus, Long> 
      */
     List<ShiftStatus> findByStatusIn(List<ShiftStatusType> statuses);
     
-    
-    
+    /**
+     * Retrieves a list of shift statuses for a specific employee where the status is in the provided list of statuses.
+     *
+     * @param statuses   A list of {@link ShiftStatusType} representing the statuses to filter by.
+     * @param employeeId The ID of the employee whose shift statuses are being retrieved.
+     * @return A list of {@link ShiftStatus} objects matching the specified statuses and employee ID.
+     */
     @Query("SELECT ss FROM ShiftStatus ss JOIN Shift s ON ss.shiftId = s.shiftId WHERE ss.status IN :statuses AND s.employeeId = :employeeId")
     List<ShiftStatus> findByStatusInAndEmployeeId(@Param("statuses") List<ShiftStatusType> statuses, @Param("employeeId") Long employeeId);
 
+    /**
+     * Retrieves a list of shift statuses for a specific employee where the status matches the provided status.
+     *
+     * @param status     A {@link ShiftStatusType} representing the status to filter by.
+     * @param employeeId The ID of the employee whose shift statuses are being retrieved.
+     * @return A list of {@link ShiftStatus} objects matching the specified status and employee ID.
+     */
     @Query("SELECT ss FROM ShiftStatus ss JOIN Shift s ON ss.shiftId = s.shiftId WHERE ss.status = :status AND s.employeeId = :employeeId")
     List<ShiftStatus> findByStatusAndEmployeeId(@Param("status") ShiftStatusType status, @Param("employeeId") Long employeeId);
 }

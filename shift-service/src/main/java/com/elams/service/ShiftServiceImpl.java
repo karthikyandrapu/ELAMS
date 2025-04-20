@@ -587,6 +587,14 @@ public class ShiftServiceImpl implements ShiftService {
         return processShifts(shifts);
     }
     
+    /**
+     * Retrieves a list of upcoming shifts for a specific employee.
+     *
+     * @param employeeId The ID of the employee whose upcoming shifts are being retrieved.
+     * @return A list of {@link ShiftDTO} objects representing the employee's upcoming shifts.
+     *         The shifts are ordered by shift date in ascending order, and within the same date, by shift time in ascending order.
+     * @throws EntityNotFoundException if the employee with the given ID does not exist.
+     */
     @Override
     public List<ShiftDTO> viewUpcomingEmployeeShifts(Long employeeId) {
         getEmployeeOrThrow(employeeId); // Ensure employee exists
@@ -596,12 +604,12 @@ public class ShiftServiceImpl implements ShiftService {
         return processShifts(upcomingShifts);
     }
     
-    
     /**
-     * Retrieves all shift swap requests (both requested and approved) for a specific employee.
+     * Retrieves a list of shift DTOs for a specific employee based on a single shift status.
      *
-     * @param employeeId The ID of the employee.
-     * @return A list of ShiftDTO representing the employee's swap requests.
+     * @param status     The {@link ShiftStatusType} to filter shifts by.
+     * @param employeeId The ID of the employee whose shifts are being retrieved.
+     * @return A list of {@link ShiftDTO} objects matching the specified status and employee ID.
      */
     private List<ShiftDTO> getShiftDTOsByStatusAndEmployeeId(ShiftStatusType status, Long employeeId) {
         return shiftStatusRepository.findByStatusAndEmployeeId(status, employeeId)
@@ -611,6 +619,13 @@ public class ShiftServiceImpl implements ShiftService {
                 .toList();
     }
 
+    /**
+     * Retrieves a list of shift DTOs for a specific employee based on multiple shift statuses.
+     *
+     * @param statuses   A list of {@link ShiftStatusType} to filter shifts by.
+     * @param employeeId The ID of the employee whose shifts are being retrieved.
+     * @return A list of {@link ShiftDTO} objects matching the specified statuses and employee ID.
+     */
     private List<ShiftDTO> getShiftDTOsByStatusesAndEmployeeId(List<ShiftStatusType> statuses, Long employeeId) {
         return shiftStatusRepository.findByStatusInAndEmployeeId(statuses, employeeId)
                 .stream()
@@ -619,6 +634,12 @@ public class ShiftServiceImpl implements ShiftService {
                 .toList();
     }
 
+    /**
+     * Converts a {@link ShiftStatus} object to a {@link ShiftDTO}.
+     *
+     * @param shiftStatus The {@link ShiftStatus} object to convert.
+     * @return A {@link ShiftDTO} object representing the shift, or {@code null} if the shift does not exist.
+     */
     private ShiftDTO convertToShiftDTO(ShiftStatus shiftStatus) {
         Optional<Shift> shiftOptional = shiftRepository.findById(shiftStatus.getShiftId());
         if (shiftOptional.isPresent()) {
@@ -630,6 +651,12 @@ public class ShiftServiceImpl implements ShiftService {
         return null;
     }
 
+    /**
+     * Retrieves a list of swap requests made by a specific employee.
+     *
+     * @param employeeId The ID of the employee whose swap requests are being retrieved.
+     * @return A list of {@link ShiftDTO} objects representing the employee's swap requests.
+     */
     @Override
     public List<ShiftDTO> viewEmployeeSwapRequests(Long employeeId) {
         return getShiftDTOsByStatusesAndEmployeeId(
@@ -638,16 +665,34 @@ public class ShiftServiceImpl implements ShiftService {
         );
     }
 
+    /**
+     * Retrieves a list of rejected swap requests for a specific employee.
+     *
+     * @param employeeId The ID of the employee whose rejected swap requests are being retrieved.
+     * @return A list of {@link ShiftDTO} objects representing the employee's rejected swap requests.
+     */
     @Override
     public List<ShiftDTO> viewEmployeeRejectedSwapRequests(Long employeeId) {
         return getShiftDTOsByStatusAndEmployeeId(ShiftStatusType.SWAP_REQUEST_REJECTED, employeeId);
     }
 
+    /**
+     * Retrieves a list of approved swap requests for a specific employee.
+     *
+     * @param employeeId The ID of the employee whose approved swap requests are being retrieved.
+     * @return A list of {@link ShiftDTO} objects representing the employee's approved swap requests.
+     */
     @Override
     public List<ShiftDTO> viewEmployeeApprovedSwapRequests(Long employeeId) {
         return getShiftDTOsByStatusAndEmployeeId(ShiftStatusType.SWAP_REQUEST_APPROVED, employeeId);
     }
 
+    /**
+     * Retrieves a list of shifts swapped with another employee for a specific employee.
+     *
+     * @param employeeId The ID of the employee whose swapped shifts are being retrieved.
+     * @return A list of {@link ShiftDTO} objects representing the shifts swapped with another employee.
+     */
     @Override
     public List<ShiftDTO> viewEmployeeSwappedWithAnotherEmployee(Long employeeId) {
         return getShiftDTOsByStatusAndEmployeeId(ShiftStatusType.SWAPPED_WITH_ANOTHER_EMPLOYEE, employeeId);
