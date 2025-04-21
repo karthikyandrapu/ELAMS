@@ -1,0 +1,54 @@
+{"properties": [
+  {
+    "name": "spring.cloud.gateway.globalcors.configuration.[/**].allowed-origins",
+    "type": "java.lang.String",
+    "description": "A description for 'spring.cloud.gateway.globalcors.configuration.[/**].allowed-origins'"
+  },
+  {
+    "name": "spring.cloud.routes",
+    "type": "java.lang.String",
+    "description": "A description for 'spring.cloud.routes'"
+  }
+]} "description": "A description for 'spring.cloud.gateway.globalcors.configuration.[/**].allowed-origins'"
+  },
+  {
+    "name": "spring.cloud.gateway.globalcors.configuration.[/**].allowedMethods",
+    "type": "java.lang.String",
+    "description": "A description for 'spring.cloud.gateway.globalcors.configuration.[/**].allowedMethods'"
+  }
+]} "description": "A description for 'spring.cloud.gateway.globalcors.configuration.[/**].allowed-origins'"
+  },
+  {
+    "name": "spring.cloud.gateway.globalcors.configuration.[/**].allowedMethods",
+    "type": "java.lang.String",
+    "description": "A description for 'spring.cloud.gateway.globalcors.configuration.[/**].allowedMethods'"
+  }
+]} "description": "A description for 'spring.cloud.gateway.globalcors.configuration.[/**].allowed-origins'"
+  },
+  {
+    "name": "spring.cloud.routes",
+    "type": "java.lang.String",
+    "description": "A description for 'spring.cloud.routes'"
+  }
+]} "description": "A description for 'spring.cloud.gateway.globalcors.configuration.[/**].allowed-origins'"
+  },
+  {
+    "name": "spring.cloud.gateway.globalcors.configuration.[/**].allowCredentials",
+    "type": "java.lang.String",
+    "description": "A description for 'spring.cloud.gateway.globalcors.configuration.[/**].allowCredentials'"
+  }
+]} "description": "A description for 'spring.cloud.gateway.globalcors.configuration.[/**].allowed-origins'"
+  },
+  {
+    "name": "spring.cloud.gateway.globalcors.configuration.[/**].allowedHeaders",
+    "type": "java.lang.String",
+    "description": "A description for 'spring.cloud.gateway.globalcors.configuration.[/**].allowedHeaders'"
+  }
+]} "description": "A description for 'spring.cloud.gateway.globalcors.configuration.[/**].allowed-origins'"
+  },
+  {
+    "name": "spring.cloud.gateway.globalcors.configuration.[/**].allowedMethods",
+    "type": "java.lang.String",
+    "description": "A description for 'spring.cloud.gateway.globalcors.configuration.[/**].allowedMethods'"
+  }
+]}

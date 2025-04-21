@@ -1,31 +1,42 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Chart } from 'chart.js';
 import { AuthenticationService } from 'src/app/service/auth/auth.service';
 import { EmployeeserviceService } from 'src/app/service/employee-service/employee.service';
 import { ShiftserviceService } from 'src/app/service/shift-service/shift.service';
-
+import { forkJoin } from 'rxjs'; // Import forkJoin
+import { tap } from 'rxjs/operators'; // Import tap for cleaner side effects
+import { LeaveRequestService } from 'src/app/service/leave-request-service/leave-request.service';
+import { HttpClient } from '@angular/common/http';
+ 
 @Component({
   selector: 'app-managerdashboard',
   standalone:false,
   templateUrl: './managerdashboard.component.html',
   styleUrls: ['./managerdashboard.component.css']
 })
-export class ManagerdashboardComponent {
+export class ManagerdashboardComponent implements OnInit {
   empRole: string | null = null;
-  employeeId!:number;
+  employeeId!: number;
   empName: string | null = null;
   isDarkMode: boolean = false;
   loadingCharts = true;
-  // Dummy data for charts (replace with your actual API calls)
+  leaveRequests: any[] = [];
+  errorMessage: string = '';
+ 
   attendanceData = { total: 150, present: 135, absent: 15 };
-  leaveRequestsData = { total: 50, pending: 10, approved: 35, rejected: 5 };
+  leaveRequestsData = { total: 0, pending: 0, approved: 0, rejected: 0 };
   leaveBalanceData = { averageBalance: 12 };
   shiftData = { totalShifts: 0, scheduledShifts: 0, completedShifts: 0, swappedShiftsCount: 0 };
   reportData = { generatedReports: 5 };
  
-  constructor(private router: Router,private shiftService: ShiftserviceService,public authService: AuthenticationService,
-    public employeeService:EmployeeserviceService// Adjust the path as needed
+  constructor(
+    private router: Router,
+    private shiftService: ShiftserviceService,
+    public authService: AuthenticationService,
+    public employeeService: EmployeeserviceService,
+    private leaveRequestService: LeaveRequestService,
+    private http: HttpClient
   ) {}
  
   ngOnInit(): void {
@@ -33,36 +44,55 @@ export class ManagerdashboardComponent {
     const empId = this.authService.getLoggedInEmpId();
     if (empId) {
       this.employeeId = parseInt(empId, 10);
-      this.loadInitialData();
+      this.loadInitialDataAndLeaveRequests(); // Call the combined loading function
       this.employeeService.getEmployeeById(this.employeeId).subscribe({
         next: (response) => {
           console.log('Employee Name:', response.name);
           sessionStorage.setItem('empName', response.name);
           this.empName = response.name;
         },
-        error: (error) => { 
+        error: (error) => {
           console.error('Error fetching employee name:', error);
-        } 
+        },
       });
     }
-
   }
-  loadInitialData(): void {
+ 
+  loadInitialDataAndLeaveRequests(): void {
     this.loadingCharts = true;
-    this.shiftService.getEmployeeShifts(this.employeeId).subscribe({
-      next: (shifts) => {
+ 
+    const shifts$ = this.shiftService.getEmployeeShifts(this.employeeId).pipe(
+      tap((shifts) => {
         this.shiftData.totalShifts = shifts.length;
         this.shiftData.scheduledShifts = shifts.filter(shift => shift.shiftStatus?.status === 'SCHEDULED').length;
         this.shiftData.completedShifts = shifts.filter(shift => shift.shiftStatus?.status === 'COMPLETED').length;
-  
-        this.renderCharts(); // Render charts after shift data is loaded
+      })
+    );
+ 
+    const leaveRequests$ = this.http
+      .get<any[]>(`http://localhost:8052/leave-requests/employee?employeeId=${this.employeeId}`)
+      .pipe(
+        tap((data: any[]) => {
+          this.leaveRequests = data;
+          this.leaveRequestsData.total = data.length;
+          this.leaveRequestsData.pending = data.filter(request => request.status === 'PENDING').length;
+          this.leaveRequestsData.approved = data.filter(request => request.status === 'APPROVED').length;
+          this.leaveRequestsData.rejected = data.filter(request => request.status === 'REJECTED').length;
+          this.errorMessage = '';
+        })
+      );
+ 
+    forkJoin([shifts$, leaveRequests$]).subscribe({
+      next: () => {
         this.loadingCharts = false;
+        this.renderCharts(); // Render charts only after both observables complete
       },
       error: (error) => {
-        console.error('Error fetching employee shifts:', error);
+        console.error('Error fetching initial data and leave requests:', error);
         this.loadingCharts = false;
+        this.errorMessage = 'Failed to load dashboard data.';
         // Handle error appropriately
-      }
+      },
     });
   }
  
@@ -74,9 +104,8 @@ export class ManagerdashboardComponent {
   navigateTo(route: string): void {
     this.router.navigate([route]);
   }
-
+ 
   renderCharts(): void {
-    
     this.renderAttendanceChart();
     this.renderLeaveRequestsChart();
     this.renderLeaveBalanceChart();
@@ -116,56 +145,61 @@ export class ManagerdashboardComponent {
  
   renderLeaveRequestsChart(): void {
     const ctx = document.getElementById('leaveRequestsChart') as HTMLCanvasElement;
-    new Chart(ctx, {
-      type: 'bar',
-      data: {
-        labels: ['Pending', 'Approved', 'Rejected'],
-        datasets: [{
-          label: 'Leave Requests',
-          data: [this.leaveRequestsData.pending, this.leaveRequestsData.approved, this.leaveRequestsData.rejected],
-          backgroundColor: ['#ffc107', '#28a745', '#dc3545'],
-          borderWidth: 1
-        }]
-      },
-      options: {
-        onClick: () => this.navigateTo(this.empRole?.toUpperCase() === 'MANAGER' ? '/manager/leave' : '/employee/leave'),
-        scales: {
-          y: {
-            beginAtZero: true
-          }
+    if (ctx) {
+      new Chart(ctx, {
+        type: 'bar',
+        data: {
+          labels: ['Pending', 'Approved', 'Rejected'],
+          datasets: [{
+            label: 'leave Requests',
+            data: [this.leaveRequestsData.pending, this.leaveRequestsData.approved, this.leaveRequestsData.rejected],
+            backgroundColor: ['#ffc107', '#28a745', '#dc3545'],
+            borderWidth: 1
+          }]
         },
-        plugins: {
-          legend: {
-            display: false
+        options: {
+          scales: {
+            y: {
+              beginAtZero: true
+            }
           },
-          title: {
-            display: true,
-            text: 'Leave Request Status',
-            font: {
-              size: 16
+          plugins: {
+            legend: {
+              display: false
+            },
+            title: {
+              display: true,
+              text: 'Leave Request Status',
+              font: {
+                size: 16
+              }
             }
           }
         }
-      }
-    });
+      });
+    }
   }
  
   renderLeaveBalanceChart(): void {
     const ctx = document.getElementById('leaveBalanceChart') as HTMLCanvasElement;
+    if (!ctx) {
+      console.error('leaveBalanceChart is undefined');
+      return;
+    }
     new Chart(ctx, {
       type: 'line',
       data: {
-        labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'], // Example months
+        labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
         datasets: [{
           label: 'Average Leave Balance',
-          data: [15, 14, 13, this.leaveBalanceData.averageBalance, 11, 10], // Example data
+          data: [15, 14, 13, this.attendanceData.absent, 11, 10],
           borderColor: '#007bff',
           borderWidth: 2,
           fill: false
         }]
       },
       options: {
-        onClick: () => this.navigateTo(this.empRole?.toUpperCase() === 'MANAGER' ? '/manager/leave-balance' : '/employee/leave-balance'), // Adjust route
+        onClick: () => this.navigateTo(this.empRole?.toUpperCase() === 'MANAGER' ? '/manager/leave-balance' : '/employee/leave-balance'),
         scales: {
           y: {
             beginAtZero: true
@@ -249,3 +283,4 @@ export class ManagerdashboardComponent {
     });
   }
 }
+ 
