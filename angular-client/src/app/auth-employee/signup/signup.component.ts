@@ -12,7 +12,7 @@ import { AuthenticationService } from 'src/app/service/auth/auth.service';
   styleUrls: ['./signup.component.css'],
 })
 export class SignupComponent implements OnInit, OnDestroy {
-  signupForm!: FormGroup; // Use the '!' non-null assertion operator
+  signupForm!: FormGroup;
   userSignUp: UserSignUp = new UserSignUp();
   errorMessage: string = '';
   signUpSubscription: Subscription | undefined;
@@ -69,7 +69,7 @@ export class SignupComponent implements OnInit, OnDestroy {
         this.errorMessage = error.error.message;
       } else if (typeof error.error === 'string') {
         console.log('error.error is string:', error.error);
-        this.errorMessage = error.error; // Assign the string directly
+        this.errorMessage = error.error;
       } else {
         console.log('error.error is object but no message:', error.error);
       }
@@ -82,7 +82,7 @@ export class SignupComponent implements OnInit, OnDestroy {
 
   register() {
     if (this.signupForm.valid) {
-      this.userSignUp = this.signupForm.value; // Assign form values to userSignUp
+      this.userSignUp = this.signupForm.value;
       console.log('Submitting registration (Component):', this.userSignUp);
 
       this.signUpSubscription = this.authService

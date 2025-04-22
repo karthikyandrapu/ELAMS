@@ -1,4 +1,3 @@
-// login.component.ts
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
@@ -7,7 +6,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-login',
-  standalone:false,
+  standalone: false,
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css'],
 })
@@ -79,10 +78,10 @@ export class LoginComponent implements OnInit, OnDestroy {
   navigateToDashboard() {
     if (this.loginservice.isUserNotAdmin()) {
       console.log('navigating to employee dashboard');
-      this.router.navigate(['/employee-dashboard']); // Assuming you have a route for the employee dashboard
+      this.router.navigate(['/employee-dashboard']);
     } else {
       console.log('navigating to manager dashboard');
-      this.router.navigate(['/manager-dashboard']); // Assuming you have a route for the manager dashboard
+      this.router.navigate(['/manager-dashboard']);
     }
   }
 
