@@ -13,7 +13,7 @@ import {
   Subject,
   map,
   throwError,
-} from 'rxjs'; // Import throwError
+} from 'rxjs';
 import { User } from 'src/app/model/user-model/user';
 import { UserSignUp } from 'src/app/model/user-model/userSignUp';
 

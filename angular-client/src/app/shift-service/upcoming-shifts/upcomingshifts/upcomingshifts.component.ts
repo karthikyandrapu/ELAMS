@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Shift } from 'src/app/model/shift-model/shift';
 import { AuthenticationService } from 'src/app/service/auth/auth.service';
 import { ShiftserviceService } from 'src/app/service/shift-service/shift.service';
-import { Router } from '@angular/router'; // Import the Router
+import { Router } from '@angular/router'; 
 
 @Component({
   selector: 'app-upcomingshifts',
@@ -11,14 +11,14 @@ import { Router } from '@angular/router'; // Import the Router
   styleUrls: ['./upcomingshifts.component.css']
 })
 export class UpcomingshiftsComponent implements OnInit {
-  upcomingShifts: Shift[] = []; // Array to hold the list of all upcoming shifts
-  pagedUpcomingShifts: Shift[] = []; // Array for shifts on the current page
-  employeeId!: number; // Employee ID fetched from session storage
-  noRecordFound = false; // Flag to indicate if no records are found
-  errorMessage: string = ''; // To store error messages
+  upcomingShifts: Shift[] = []; 
+  pagedUpcomingShifts: Shift[] = []; 
+  employeeId!: number; 
+  noRecordFound = false; 
+  errorMessage: string = ''; 
 
   // Pagination properties
-  pageSize = 5; // Adjust as needed
+  pageSize = 5; 
   currentPage = 1;
   totalUpcomingShifts = 0;
   totalPages = 0;
@@ -28,15 +28,14 @@ export class UpcomingshiftsComponent implements OnInit {
   constructor(
     private shiftService: ShiftserviceService,
     private authService: AuthenticationService,
-    private router: Router // Inject the Router
+    private router: Router 
   ) {}
 
   ngOnInit(): void {
-    // Fetch employeeId from session storage via AuthenticationService
     const empId = this.authService.getLoggedInEmpId();
     if (empId) {
-      this.employeeId = parseInt(empId, 10); // Convert empId to number
-      this.fetchUpcomingEmployeeShifts(); // Automatically fetch upcoming shifts on initialization
+      this.employeeId = parseInt(empId, 10); 
+      this.fetchUpcomingEmployeeShifts(); 
     } else {
       console.error('Employee ID not found in session storage.');
       this.errorMessage = 'Employee ID not found. Please log in again.';
@@ -47,7 +46,7 @@ export class UpcomingshiftsComponent implements OnInit {
     this.noRecordFound = false;
     this.errorMessage = '';
 
-    // Call the service to fetch upcoming employee shifts
+    
     this.shiftService.getUpcomingEmployeeShifts(this.employeeId).subscribe({
       next: (response: Shift[]) => {
         this.upcomingShifts = response;

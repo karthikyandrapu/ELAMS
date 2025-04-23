@@ -558,7 +558,7 @@ class ShiftControllerTestCase {
 	    void getUpcomingEmployeeShifts_Positive_EmployeeRole() {
 	    	Long employeeId = 2L;
 	        EmployeeRole role = EmployeeRole.EMPLOYEE;
-	        List<ShiftDTO> upcomingShifts = List.of(new ShiftDTO(), new ShiftDTO()); // Mock upcoming shifts
+	        List<ShiftDTO> upcomingShifts = List.of(new ShiftDTO(), new ShiftDTO());
 
 	        when(shiftService.viewUpcomingEmployeeShifts(employeeId)).thenReturn(upcomingShifts);
 
@@ -585,7 +585,7 @@ class ShiftControllerTestCase {
 	    void viewEmployeeSwapRequests_Positive_EmployeeRole() {
 	        Long employeeId = 3L;
 	        EmployeeRole role = EmployeeRole.EMPLOYEE;
-	        List<ShiftDTO> swapRequests = List.of(new ShiftDTO()); // Mock employee's swap requests
+	        List<ShiftDTO> swapRequests = List.of(new ShiftDTO());
 
 	        when(shiftService.viewEmployeeSwapRequests(employeeId)).thenReturn(swapRequests);
 
@@ -614,7 +614,7 @@ class ShiftControllerTestCase {
 	    void viewEmployeeRejectedSwapRequests_Positive_EmployeeRole() {
 	        Long employeeId = 4L;
 	        EmployeeRole role = EmployeeRole.EMPLOYEE;
-	        List<ShiftDTO> rejectedRequests = List.of(new ShiftDTO()); // Mock rejected swap requests
+	        List<ShiftDTO> rejectedRequests = List.of(new ShiftDTO()); 
 
 	        when(shiftService.viewEmployeeRejectedSwapRequests(employeeId)).thenReturn(rejectedRequests);
 
@@ -643,7 +643,7 @@ class ShiftControllerTestCase {
 	    void viewEmployeeApprovedSwapRequests_Positive_EmployeeRole() {
 	        Long employeeId = 5L;
 	        EmployeeRole role = EmployeeRole.EMPLOYEE;
-	        List<ShiftDTO> approvedRequests = List.of(new ShiftDTO()); // Mock approved swap requests
+	        List<ShiftDTO> approvedRequests = List.of(new ShiftDTO()); 
 
 	        when(shiftService.viewEmployeeApprovedSwapRequests(employeeId)).thenReturn(approvedRequests);
 
@@ -672,7 +672,7 @@ class ShiftControllerTestCase {
 	    void viewEmployeeSwappedWithAnotherEmployee_Positive_EmployeeRole() {
 	        Long employeeId = 6L;
 	        EmployeeRole role = EmployeeRole.EMPLOYEE;
-	        List<ShiftDTO> swappedShifts = List.of(new ShiftDTO()); // Mock swapped shifts
+	        List<ShiftDTO> swappedShifts = List.of(new ShiftDTO()); 
 
 	        when(shiftService.viewEmployeeSwappedWithAnotherEmployee(employeeId)).thenReturn(swappedShifts);
 

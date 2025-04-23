@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Shift } from 'src/app/model/shift-model/shift';
 import { AuthenticationService } from 'src/app/service/auth/auth.service';
 import { ShiftserviceService } from 'src/app/service/shift-service/shift.service';
-import { ActivatedRoute } from '@angular/router'; // Import ActivatedRoute
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-getcolleagueshifts',
@@ -11,17 +11,16 @@ import { ActivatedRoute } from '@angular/router'; // Import ActivatedRoute
   styleUrls: ['./getcolleagueshifts.component.css'],
 })
 export class GetcolleagueshiftsComponent implements OnInit {
-  shifts: Shift[] = []; // Array to hold the list of all shifts
-  pagedShifts: Shift[] = []; // Array for shifts on the current page
-  shiftId: number | null = null; // To store the shift ID for context
-  shiftDate: string = ''; // Date in YYYY-MM-DD format
-  noRecordFound = false; // Flag to indicate if no records are found
-  errorMessage: string = ''; // To store error messages
-  successMessage: string = ''; // To store success messages for swap requests
-  private employeeId!: number; // Employee ID fetched from session storage
+  shifts: Shift[] = []; 
+  pagedShifts: Shift[] = []; 
+  shiftId: number | null = null;
+  shiftDate: string = '';
+  noRecordFound = false; 
+  errorMessage: string = ''; 
+  successMessage: string = ''; 
+  private employeeId!: number;
 
-  // Pagination properties
-  pageSize = 10; // Adjust as needed
+  pageSize = 10; 
   currentPage = 1;
   totalShifts = 0;
   totalPages = 0;
@@ -31,14 +30,13 @@ export class GetcolleagueshiftsComponent implements OnInit {
   constructor(
     private shiftService: ShiftserviceService,
     private authService: AuthenticationService,
-    private route: ActivatedRoute // Inject ActivatedRoute
+    private route: ActivatedRoute
   ) {}
 
   ngOnInit(): void {
-    // Fetch employeeId from session storage via AuthenticationService
     const empId = this.authService.getLoggedInEmpId();
     if (empId) {
-      this.employeeId = parseInt(empId, 10); // Convert empId to number
+      this.employeeId = parseInt(empId, 10); 
     } else {
       console.error('Employee ID not found in session storage.');
       this.errorMessage = 'Employee ID not found. Please log in again.';
@@ -48,7 +46,6 @@ export class GetcolleagueshiftsComponent implements OnInit {
     this.route.queryParams.subscribe(params => {
       this.shiftId = params['shiftId'];
       this.shiftDate = params['shiftDate'] || '';
-      // Fetch colleagues immediately when the component loads with shift details
       if (this.shiftDate) {
         this.getColleagueShifts();
       }
@@ -58,9 +55,8 @@ export class GetcolleagueshiftsComponent implements OnInit {
   getColleagueShifts(): void {
     this.noRecordFound = false;
     this.errorMessage = '';
-    this.successMessage = ''; // Clear any previous success message
+    this.successMessage = ''; 
 
-    // Call the service to fetch colleague shifts
     this.shiftService
       .getColleagueShifts(this.employeeId, this.shiftDate)
       .subscribe({
@@ -135,15 +131,13 @@ export class GetcolleagueshiftsComponent implements OnInit {
 
   requestSwap(colleagueId: number): void {
     this.errorMessage = '';
-    this.successMessage = ''; // Clear any previous success message
+    this.successMessage = ''; 
     if (this.shiftId) {
       this.shiftService.requestShiftSwap(this.employeeId, this.shiftId, colleagueId)
         .subscribe({
           next: (response) => {
             console.log('Swap request successful:', response);
             this.successMessage = 'Shift swap request sent successfully!';
-            // Optionally, you might want to refresh the colleague shifts list here
-            // this.getColleagueShifts();
           },
           error: (error) => {
             console.error('Error requesting swap:', error);

@@ -8,11 +8,10 @@ import { AuthenticationService } from '../service/auth/auth.service';
   styleUrls: ['./header.component.css'],
 })
 export class HeaderComponent implements OnInit {
-  empRole: string | null = null; // Role of the logged-in user (EMPLOYEE or MANAGER)
-  isLoggedOut: boolean = true; // By default, navbar is hidden
+  empRole: string | null = null; 
+  isLoggedOut: boolean = true;
 
   constructor(private authService: AuthenticationService) {}
-  // header.component.ts
   ngOnInit() {
     if (this.authService.isUserLoggedIn()) {
       this.empRole = sessionStorage.getItem('role');
@@ -23,9 +22,8 @@ export class HeaderComponent implements OnInit {
   }
 
   logout() {
-    // Call the logout method from AuthenticationService
     this.authService.logOut();
-    this.empRole = null; // Clear the role
-    this.isLoggedOut = true; // Set logged-out state
+    this.empRole = null;
+    this.isLoggedOut = true;
   }
 }

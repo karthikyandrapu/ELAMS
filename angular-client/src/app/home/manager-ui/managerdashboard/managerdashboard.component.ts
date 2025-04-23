@@ -85,13 +85,12 @@ export class ManagerdashboardComponent implements OnInit {
     forkJoin([shifts$, leaveRequests$]).subscribe({
       next: () => {
         this.loadingCharts = false;
-        this.renderCharts(); // Render charts only after both observables complete
+        this.renderCharts(); // Call the renderCharts method after loading data
       },
       error: (error) => {
         console.error('Error fetching initial data and leave requests:', error);
         this.loadingCharts = false;
         this.errorMessage = 'Failed to load dashboard data.';
-        // Handle error appropriately
       },
     });
   }

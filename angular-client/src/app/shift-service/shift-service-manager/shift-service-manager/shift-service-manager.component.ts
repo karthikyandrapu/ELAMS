@@ -12,7 +12,7 @@ import { ShiftserviceService } from 'src/app/service/shift-service/shift.service
   styleUrls: ['./shift-service-manager.component.css'],
 })
 export class ShiftServiceManagerComponent implements OnInit {
-  swapRequestCount: number = 0; // Initialize the count
+  swapRequestCount: number = 0; 
   shift: Shift = new Shift();
   shifts: Shift[] = [];
   totalEmployeeCount: number = 0;
@@ -34,7 +34,6 @@ export class ShiftServiceManagerComponent implements OnInit {
     private authService: AuthenticationService
   ) {}
   ngOnInit(): void {
-    // Fetch managerId from session storage via AuthenticationService
     const empId = this.authService.getLoggedInEmpId();
     if (empId) {
       this.managerId = parseInt(empId, 10);
@@ -59,10 +58,10 @@ export class ShiftServiceManagerComponent implements OnInit {
     this.shiftService.getManagerSwapRequests(this.managerId).subscribe({
       next: (requests: Shift[]) => {
         this.swapRequests = requests;
-        this.swapRequestCount = requests.length; // Update the count based on the fetched requests
+        this.swapRequestCount = requests.length; 
         if (this.swapRequests.length === 0) {
           this.noRecordFound = true;
-          this.swapRequestCount = 0; // Reset count if no requests found
+          this.swapRequestCount = 0; 
         }
       },
       error: (error: HttpErrorResponse) => {
@@ -76,7 +75,7 @@ export class ShiftServiceManagerComponent implements OnInit {
     this.noRecordFound = false;
     this.errorMessage = '';
 
-    // Call the service to fetch manager's own shifts
+    
     this.shiftService.viewManagerOwnShifts(this.managerId).subscribe(
       (response: Shift[]) => {
         this.shifts = response;
@@ -98,7 +97,6 @@ export class ShiftServiceManagerComponent implements OnInit {
     this.noRecordFound = false;
     this.errorMessage = '';
 
-    // Call the service to fetch manager's shifts
     this.shiftService.viewManagerShifts(this.managerId).subscribe(
       (response: Shift[]) => {
         this.shifts = response;

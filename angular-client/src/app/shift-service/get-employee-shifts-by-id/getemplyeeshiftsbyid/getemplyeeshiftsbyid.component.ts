@@ -5,7 +5,7 @@ import { Shift } from 'src/app/model/shift-model/shift';
 import { HttpErrorResponse } from '@angular/common/http';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { EmployeeserviceService } from 'src/app/service/employee-service/employee.service';
-import { Router } from '@angular/router'; // Import Router
+import { Router } from '@angular/router'; 
 
 @Component({
   selector: 'app-getemplyeeshiftsbyid',
@@ -16,7 +16,7 @@ import { Router } from '@angular/router'; // Import Router
 export class GetemplyeeshiftsbyidComponent implements OnInit {
   managerId!: number;
   employeeShifts: Shift[] | null = null;
-  pagedEmployeeShifts: Shift[] = []; // For paginated shifts
+  pagedEmployeeShifts: Shift[] = [];
   errorMessage: string = '';
   viewEmployeeShiftsForm!: FormGroup;
   employeesUnderManager: number[] = [];
@@ -26,7 +26,7 @@ export class GetemplyeeshiftsbyidComponent implements OnInit {
   deleteErrorMessage: string = '';
 
   // Pagination properties
-  pageSize = 10; // Adjust as needed
+  pageSize = 10;
   currentPage = 1;
   totalEmployeeShifts = 0;
   totalPages = 0;
@@ -38,7 +38,7 @@ export class GetemplyeeshiftsbyidComponent implements OnInit {
     private authService: AuthenticationService,
     private formBuilder: FormBuilder,
     private employeeService: EmployeeserviceService,
-    private router: Router // Inject Router
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -91,7 +91,7 @@ export class GetemplyeeshiftsbyidComponent implements OnInit {
         this.employeeShifts = shifts;
         this.totalEmployeeShifts = this.employeeShifts.length;
         this.setPagination();
-        this.changePage(1); // Load the first page
+        this.changePage(1); 
         this.errorMessage = '';
         this.showEmployeeShiftsTable = true;
         this.deleteSuccessMessage = '';
@@ -164,7 +164,7 @@ export class GetemplyeeshiftsbyidComponent implements OnInit {
     this.deleteSuccessMessage = '';
     this.deleteErrorMessage = '';
 
-    this.shiftService.deleteShift(shiftId, this.managerId).subscribe({ // Call the service method
+    this.shiftService.deleteShift(shiftId, this.managerId).subscribe({
       next: () => {
         console.log(`Shift with ID ${shiftId} deleted successfully.`);
         this.employeeShifts = this.employeeShifts?.filter(shift => shift.shiftId !== shiftId) || [];

@@ -10,14 +10,14 @@ import { ShiftserviceService } from 'src/app/service/shift-service/shift.service
   styleUrls: ['./viewmanagerownshifts.component.css'],
 })
 export class ViewmanagerownshiftsComponent implements OnInit {
-  shifts: Shift[] = []; // Array to hold the list of all shifts
-  pagedShifts: Shift[] = []; // Array for shifts on the current page
-  managerId!: number; // Manager ID fetched from session storage
-  noRecordFound = false; // Flag to indicate if no records are found
-  errorMessage: string = ''; // To store error messages
+  shifts: Shift[] = []; 
+  pagedShifts: Shift[] = []; 
+  managerId!: number; 
+  noRecordFound = false; 
+  errorMessage: string = '';
 
   // Pagination properties
-  pageSize = 10; // Adjust as needed
+  pageSize = 10; 
   currentPage = 1;
   totalShifts = 0;
   totalPages = 0;
@@ -26,15 +26,14 @@ export class ViewmanagerownshiftsComponent implements OnInit {
 
   constructor(
     private shiftService: ShiftserviceService,
-    private authService: AuthenticationService // Inject AuthenticationService
+    private authService: AuthenticationService 
   ) {}
 
   ngOnInit(): void {
-    // Fetch managerId from session storage via AuthenticationService
     const empId = this.authService.getLoggedInEmpId();
     if (empId) {
-      this.managerId = parseInt(empId, 10); // Convert empId to number
-      this.fetchManagerOwnShifts(); // Automatically fetch shifts on initialization
+      this.managerId = parseInt(empId, 10); 
+      this.fetchManagerOwnShifts(); 
     } else {
       console.error('Manager ID not found in session storage.');
       this.errorMessage = 'Manager ID not found. Please log in again.';
@@ -44,14 +43,12 @@ export class ViewmanagerownshiftsComponent implements OnInit {
   fetchManagerOwnShifts(): void {
     this.noRecordFound = false;
     this.errorMessage = '';
-
-    // Call the service to fetch manager's own shifts
     this.shiftService.viewManagerOwnShifts(this.managerId).subscribe({
       next: (response: Shift[]) => {
         this.shifts = response;
         this.totalShifts = this.shifts.length;
         this.setPagination();
-        this.changePage(1); // Load the first page
+        this.changePage(1);
         if (this.shifts.length === 0) {
           this.noRecordFound = true;
         }

@@ -12,7 +12,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 })
 export class ViewmanagerswaprequestsComponent implements OnInit {
   swapRequests: Shift[] = [];
-  pagedSwapRequests: Shift[] = []; // For paginated requests
+  pagedSwapRequests: Shift[] = []; 
   managerId!: number;
   noRecordFound = false;
   errorMessage: string = '';
@@ -22,7 +22,7 @@ export class ViewmanagerswaprequestsComponent implements OnInit {
   rejectErrorMessage: string = '';
 
   // Pagination properties
-  pageSize = 5; // Adjust as needed
+  pageSize = 5; 
   currentPage = 1;
   totalSwapRequests = 0;
   totalPages = 0;
@@ -35,7 +35,6 @@ export class ViewmanagerswaprequestsComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    // Fetch managerId from session storage via AuthenticationService
     const empId = this.authService.getLoggedInEmpId();
     if (empId) {
       this.managerId = parseInt(empId, 10);

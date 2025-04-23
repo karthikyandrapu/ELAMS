@@ -17,7 +17,7 @@ export class SwaprequestedComponent implements OnInit {
   noRecordFound = false;
 
   // Pagination properties
-  pageSize = 10; // Adjust as needed
+  pageSize = 10; 
   currentPage = 1;
   totalRequestedSwaps = 0;
   totalPages = 0;

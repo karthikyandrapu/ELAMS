@@ -1,4 +1,3 @@
-/* You can add global styles to this file, and also import other style files */
 body {
   font-family: "Arial", sans-serif;
   background-color: white;
@@ -10,9 +9,8 @@ body {
   margin: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;
 }
-/* In your component's CSS or a global styles file */
 .bg-light {
-  background-color: #f8f9fa !important; /* Light grey background */
+  background-color: #f8f9fa !important; 
 }
 .text-center {
   text-align: center !important;

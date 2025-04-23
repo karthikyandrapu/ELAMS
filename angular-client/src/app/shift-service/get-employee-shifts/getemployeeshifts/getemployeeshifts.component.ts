@@ -10,14 +10,14 @@ import { ShiftserviceService } from 'src/app/service/shift-service/shift.service
   styleUrls: ['./getemployeeshifts.component.css'],
 })
 export class GetemployeeshiftsComponent implements OnInit {
-  shifts: Shift[] = []; // Array to hold the list of all shifts
-  pagedShifts: Shift[] = []; // Array for shifts on the current page
-  employeeId!: number; // Employee ID fetched from session storage
-  noRecordFound = false; // Flag to indicate if no records are found
-  errorMessage: string = ''; // To store error messages
+  shifts: Shift[] = [];
+  pagedShifts: Shift[] = [];
+  employeeId!: number;
+  noRecordFound = false; 
+  errorMessage: string = ''; 
 
   // Pagination properties
-  pageSize = 10; // Adjust as needed
+  pageSize = 10;
   currentPage = 1;
   totalShifts = 0;
   totalPages = 0;
@@ -26,15 +26,14 @@ export class GetemployeeshiftsComponent implements OnInit {
 
   constructor(
     private shiftService: ShiftserviceService,
-    private authService: AuthenticationService // Inject AuthenticationService
+    private authService: AuthenticationService 
   ) {}
 
   ngOnInit(): void {
-    // Fetch employeeId from session storage via AuthenticationService
     const empId = this.authService.getLoggedInEmpId();
     if (empId) {
-      this.employeeId = parseInt(empId, 10); // Convert empId to number
-      this.fetchEmployeeShifts(); // Automatically fetch shifts on initialization
+      this.employeeId = parseInt(empId, 10); 
+      this.fetchEmployeeShifts(); 
     } else {
       console.error('Employee ID not found in session storage.');
       this.errorMessage = 'Employee ID not found. Please log in again.';
@@ -45,13 +44,12 @@ export class GetemployeeshiftsComponent implements OnInit {
     this.noRecordFound = false;
     this.errorMessage = '';
 
-    // Call the service to fetch employee shifts
     this.shiftService.getEmployeeShifts(this.employeeId).subscribe({
       next: (response: Shift[]) => {
         this.shifts = response;
         this.totalShifts = this.shifts.length;
         this.setPagination();
-        this.changePage(1); // Load the first page
+        this.changePage(1)
         if (this.shifts.length === 0) {
           this.noRecordFound = true;
         }

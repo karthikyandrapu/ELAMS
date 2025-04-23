@@ -1,10 +1,10 @@
 import { Component, OnInit, AfterViewInit } from '@angular/core';
-import { Router } from '@angular/router'; // Import Router
+import { Router } from '@angular/router';
 import { Chart } from 'chart.js';
 import { ShiftserviceService } from 'src/app/service/shift-service/shift.service';
 import { AuthenticationService } from 'src/app/service/auth/auth.service';
 import { Shift } from 'src/app/model/shift-model/shift';
-import { forkJoin } from 'rxjs'; // Import forkJoin to handle multiple observables
+import { forkJoin } from 'rxjs'; 
 
 @Component({
   selector: 'app-shift-service-employee',
@@ -14,27 +14,27 @@ import { forkJoin } from 'rxjs'; // Import forkJoin to handle multiple observabl
 })
 export class ShiftServiceEmployeeComponent implements OnInit, AfterViewInit {
   isShiftSwapTrackerOpen = false;
-  shiftData = { totalShifts: 0, scheduledShifts: 0, completedShifts: 0, swappedShiftsCount: 0 }; // Updated shiftData
+  shiftData = { totalShifts: 0, scheduledShifts: 0, completedShifts: 0, swappedShiftsCount: 0 };
   swapRequestsData = { total: 0, pending: 0, approved: 0, rejected: 0 };
   employeeId!: number;
-  swappedShifts: Shift[] = []; // To store swapped shifts data
-  showSwappedShiftsPopup = false; // Control visibility of swapped shifts
-  loadingCharts = true; // Add a loading flag for charts
+  swappedShifts: Shift[] = [];
+  showSwappedShiftsPopup = false; 
+  loadingCharts = true; 
 
   constructor(
     private router: Router,
     private shiftService: ShiftserviceService,
     private authService: AuthenticationService
-  ) {} // Inject Router and ShiftService
+  ) {} 
 
   ngOnInit() {
     const empId = this.authService.getLoggedInEmpId();
     if (empId) {
       this.employeeId = parseInt(empId, 10);
-      this.loadInitialData(); // Load all necessary data
+      this.loadInitialData();
     } else {
       console.error('Employee ID not found in session storage.');
-      this.loadingCharts = false; // Ensure loading flag is false in case of error
+      this.loadingCharts = false;
     }
   }
 
@@ -63,11 +63,11 @@ export class ShiftServiceEmployeeComponent implements OnInit, AfterViewInit {
       error: (error) => {
         console.error('Error fetching initial data:', error);
         this.loadingCharts = false;
-        // Handle error appropriately
+        
       }
     });
 
-    this.loadSwappedShiftsCount(); // Load swapped shifts count separately if needed in the notification
+    this.loadSwappedShiftsCount(); 
   }
 
   loadSwappedShiftsCount(): void {
@@ -77,7 +77,6 @@ export class ShiftServiceEmployeeComponent implements OnInit, AfterViewInit {
       },
       error: (error) => {
         console.error('Error fetching swapped shifts:', error);
-        // Optionally handle error
       }
     });
   }

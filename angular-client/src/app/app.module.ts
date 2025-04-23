@@ -80,7 +80,6 @@ import { LeaveHomeManagerComponent } from './leave-balance-service/leave-home-pa
 import { RequestLeaveManagerComponent } from './leave-balance-service/request-leave-manager/request-leave-manager.component';
 import { GetLeaveRequestsManagerComponent } from './leave-balance-service/get-leave-requests-manager/get-leave-requests-manager.component';
 import { AddLeaveBalanceComponent } from './leave-balance-service/add-leave-balance/add-leave-balance.component';
-import { LeaveBalance } from './model/leave-model/LeaveBalance';
 import { SwapWithAnotherEmployeeComponent } from './shift-service/swap-with-another-employee/swap-with-another-employee.component';
 import { GetallComponent } from './leave-balance-service/get-leave-balance/get-leave-balance.component';
 @NgModule({

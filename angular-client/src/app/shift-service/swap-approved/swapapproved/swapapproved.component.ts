@@ -17,7 +17,7 @@ export class SwapapprovedComponent implements OnInit {
   noRecordFound = false;
 
   // Pagination properties
-  pageSize = 10; // Adjust as needed
+  pageSize = 10; 
   currentPage = 1;
   totalApprovedSwaps = 0;
   totalPages = 0;
@@ -48,7 +48,7 @@ export class SwapapprovedComponent implements OnInit {
         this.approvedSwaps = data;
         this.totalApprovedSwaps = this.approvedSwaps.length;
         this.setPagination();
-        this.changePage(1); // Load the first page
+        this.changePage(1); 
         if (this.approvedSwaps.length === 0) {
           this.noRecordFound = true;
         }

@@ -19,7 +19,7 @@ export class SwapWithAnotherEmployeeComponent implements OnInit {
   loading: boolean = false;
 
   // Pagination properties
-  pageSize = 10; // Adjust as needed
+  pageSize = 10;
   currentPage = 1;
   totalSwappedShifts = 0;
   totalPages = 0;

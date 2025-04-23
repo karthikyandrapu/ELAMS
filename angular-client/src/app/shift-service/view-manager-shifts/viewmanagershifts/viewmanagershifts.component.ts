@@ -12,16 +12,16 @@ import { Router } from '@angular/router';
   styleUrls: ['./viewmanagershifts.component.css'],
 })
 export class ViewmanagershiftsComponent implements OnInit {
-  shifts: Shift[] = []; // Array to hold the list of all shifts
-  pagedShifts: Shift[] = []; // Array for shifts on the current page
-  managerId!: number; // Manager ID fetched from session storage
-  noRecordFound = false; // Flag to indicate if no records are found
-  errorMessage: string = ''; // To store error messages
+  shifts: Shift[] = []; 
+  pagedShifts: Shift[] = []; 
+  managerId!: number;
+  noRecordFound = false; 
+  errorMessage: string = ''; 
   deleteSuccessMessage: string = '';
   deleteErrorMessage: string = '';
 
   // Pagination properties
-  pageSize = 10; // Adjust as needed
+  pageSize = 10; 
   currentPage = 1;
   totalShifts = 0;
   totalPages = 0;
@@ -30,16 +30,15 @@ export class ViewmanagershiftsComponent implements OnInit {
 
   constructor(
     private shiftService: ShiftserviceService,
-    private authService: AuthenticationService, // Inject AuthenticationService
+    private authService: AuthenticationService, 
     private router: Router
   ) {}
 
   ngOnInit(): void {
-    // Fetch managerId from session storage via AuthenticationService
     const empId = this.authService.getLoggedInEmpId();
     if (empId) {
-      this.managerId = parseInt(empId, 10); // Convert empId to number
-      this.fetchManagerShifts(); // Automatically fetch shifts on initialization
+      this.managerId = parseInt(empId, 10);
+      this.fetchManagerShifts();
     } else {
       console.error('Manager ID not found in session storage.');
       this.errorMessage = 'Manager ID not found. Please log in again.';
@@ -52,7 +51,6 @@ export class ViewmanagershiftsComponent implements OnInit {
     this.deleteSuccessMessage = '';
     this.deleteErrorMessage = '';
 
-    // Call the service to fetch manager's shifts
     this.shiftService.viewManagerShifts(this.managerId).subscribe({
       next: (response: Shift[]) => {
         this.shifts = response;

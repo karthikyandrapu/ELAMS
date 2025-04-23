@@ -6,8 +6,8 @@ import { EmployeeserviceService } from 'src/app/service/employee-service/employe
 import { ShiftserviceService } from 'src/app/service/shift-service/shift.service';
 import { LeaveRequestService } from 'src/app/service/leave-request-service/leave-request.service';
 import { HttpClient } from '@angular/common/http';
-import { forkJoin } from 'rxjs'; // Import forkJoin
-import { tap } from 'rxjs/operators'; // Import tap for cleaner side effects
+import { forkJoin } from 'rxjs'; 
+import { tap } from 'rxjs/operators'; 
  
 Chart.register(...registerables);
  
@@ -87,13 +87,13 @@ export class EmployeedashboardComponent implements OnInit {
     forkJoin([shifts$, leaveRequests$]).subscribe({
       next: () => {
         this.loadingCharts = false;
-        this.renderCharts(); // Render charts only after both observables complete
+        this.renderCharts(); // Call the renderCharts method after loading data
       },
       error: (error) => {
         console.error('Error fetching initial data and leave requests:', error);
         this.loadingCharts = false;
         this.errorMessage = 'Failed to load dashboard data.';
-        // Handle error appropriately
+    
       },
     });
   }

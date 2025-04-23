@@ -28,11 +28,11 @@ export class ShiftserviceService {
   public getColleaguesUrl = this.apiURL + '/colleagues';
   public viewManagerEmployeeShiftsUrl = this.apiURL + '/manager';
   public getManagerSwapRequestsUrl = this.apiURL + '/manager';
-  public getUpcomingEmployeeShiftsUrl = this.apiURL + '/employee'; // Define URL for upcoming shifts
+  public getUpcomingEmployeeShiftsUrl = this.apiURL + '/employee';
   public getEmployeeSwapRequestsUrl = this.apiURL + '/employee';
   public getEmployeeRejectedSwapRequestsUrl = this.apiURL + '/employee';
   public getEmployeeApprovedSwapRequestsUrl = this.apiURL + '/employee';
-  public viewEmployeeSwappedWithAnotherEmployeeUrl = this.apiURL + '/employee'; // New URL
+  public viewEmployeeSwappedWithAnotherEmployeeUrl = this.apiURL + '/employee';
 
   public assignShift(shift: Shift, managerId: number): Observable<Shift> {
     const params = new HttpParams().set('managerId', managerId.toString());
@@ -141,8 +141,8 @@ export class ShiftserviceService {
     employeeId: number,
     shiftDate: string
   ): Observable<Shift[]> {
-    const params = new HttpParams().set('shiftDate', shiftDate); // Set shiftDate as a query parameter
-    const headers = httpOptions.headers.set('role', 'EMPLOYEE'); // Add the required 'role' header
+    const params = new HttpParams().set('shiftDate', shiftDate);
+    const headers = httpOptions.headers.set('role', 'EMPLOYEE');
     return this.http.get<Shift[]>(`${this.getColleaguesUrl}/${employeeId}`, {
       headers,
       params,
@@ -168,7 +168,6 @@ export class ShiftserviceService {
     );
   }
 
-  // New method to get upcoming shifts for an employee
   public getUpcomingEmployeeShifts(employeeId: number): Observable<Shift[]> {
     const headers = httpOptions.headers.set('role', 'EMPLOYEE');
     return this.http.get<Shift[]>(
@@ -177,7 +176,6 @@ export class ShiftserviceService {
     );
   }
 
-  // New methods for employee swap requests
   public viewEmployeeSwapRequests(employeeId: number): Observable<Shift[]> {
     const headers = httpOptions.headers.set('role', 'EMPLOYEE');
     return this.http.get<Shift[]>(
@@ -206,7 +204,6 @@ export class ShiftserviceService {
     );
   }
 
-  // New method to view shifts swapped with another employee for a specific employee
   public viewEmployeeSwappedWithAnotherEmployee(
     employeeId: number
   ): Observable<Shift[]> {
