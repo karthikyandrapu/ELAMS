@@ -1,0 +1,77 @@
+{
+	"info": {
+		"_postman_id": "fc34b221-e132-4530-a8c2-ba508a7c0e53",
+		"name": "Authentication",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "43140723"
+	},
+	"item": [
+		{
+			"name": "Register",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "empRole",
+						"value": "",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"empId\":201,\r\n    \"empName\":\"Karthik\",\r\n    \"empRole\":\"EMPLOYEE\",\r\n    \"userName\":\"karthik122\",\r\n    \"password\":\"karthik1\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8089/authenticate/register",
+					"host": [
+						"localhost"
+					],
+					"port": "8089",
+					"path": [
+						"authenticate",
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"userName\":\"karthik1\",\r\n    \"password\":\"karthik1\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8089/authenticate/users",
+					"host": [
+						"localhost"
+					],
+					"port": "8089",
+					"path": [
+						"authenticate",
+						"users"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

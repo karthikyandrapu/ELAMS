@@ -1,0 +1,1024 @@
+{
+	"info": {
+		"_postman_id": "61fb5e6d-abc4-4650-aa45-096837d44c6b",
+		"name": "shift-management",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "43140723"
+	},
+	"item": [
+		{
+			"name": "assignShift-Fail",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "role",
+						"value": "MANAGER",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"employeeId\": -1,\r\n  \"shiftDate\": \"2025-03-16\",\r\n  \"shiftTime\": \"900:00:00\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8051/shifts/assign?managerId=102",
+					"host": [
+						"localhost"
+					],
+					"port": "8051",
+					"path": [
+						"shifts",
+						"assign"
+					],
+					"query": [
+						{
+							"key": "managerId",
+							"value": "102"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "assignShift-Success",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "role",
+						"value": "MANAGER",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"employeeId\": 201,\r\n  \"shiftDate\": \"2025-04-24\",\r\n  \"shiftTime\": \"09:00:00\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8051/shifts/assign?managerId=102",
+					"host": [
+						"localhost"
+					],
+					"port": "8051",
+					"path": [
+						"shifts",
+						"assign"
+					],
+					"query": [
+						{
+							"key": "managerId",
+							"value": "102"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getEmployeeShifts-Fail",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8051/shifts/employee/208",
+					"host": [
+						"localhost"
+					],
+					"port": "8051",
+					"path": [
+						"shifts",
+						"employee",
+						"208"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getEmployeeShifts-Success",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8051/shifts/employee/201",
+					"host": [
+						"localhost"
+					],
+					"port": "8051",
+					"path": [
+						"shifts",
+						"employee",
+						"201"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getUpcomingEmployeeShifts",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "role",
+						"value": "EMPLOYEE",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "localhost:8051/shifts/employee/201/upcoming",
+					"host": [
+						"localhost"
+					],
+					"port": "8051",
+					"path": [
+						"shifts",
+						"employee",
+						"201",
+						"upcoming"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "viewManagerOwnShifts - Fail",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "role",
+						"value": "MANAGER",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "localhost:8051/shifts/manager/109",
+					"host": [
+						"localhost"
+					],
+					"port": "8051",
+					"path": [
+						"shifts",
+						"manager",
+						"109"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "viewManagerOwnShifts - Success",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "role",
+						"value": "MANAGER",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "localhost:8051/shifts/manager/102",
+					"host": [
+						"localhost"
+					],
+					"port": "8051",
+					"path": [
+						"shifts",
+						"manager",
+						"102"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "viewManagerAllShifts - Fail",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "role",
+						"value": "MANAGER",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "localhost:8051/shifts/manager/104/employees",
+					"host": [
+						"localhost"
+					],
+					"port": "8051",
+					"path": [
+						"shifts",
+						"manager",
+						"104",
+						"employees"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "viewManagerAllShifts - Succes",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "role",
+						"value": "MANAGER",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "localhost:8051/shifts/manager/102/employees",
+					"host": [
+						"localhost"
+					],
+					"port": "8051",
+					"path": [
+						"shifts",
+						"manager",
+						"102",
+						"employees"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "viewManagerParticularEmployeeShifts",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "role",
+						"value": "MANAGER",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "localhost:8051/shifts/manager/102/employee/201",
+					"host": [
+						"localhost"
+					],
+					"port": "8051",
+					"path": [
+						"shifts",
+						"manager",
+						"102",
+						"employee",
+						"201"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getColleagueShifts - Fail",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "role",
+						"value": "EMPLOYEE",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "localhost:8051/shifts/colleagues/209?shiftDate=2025-03-25",
+					"host": [
+						"localhost"
+					],
+					"port": "8051",
+					"path": [
+						"shifts",
+						"colleagues",
+						"209"
+					],
+					"query": [
+						{
+							"key": "shiftDate",
+							"value": "2025-03-25"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getColleagueShifts - Success",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "role",
+						"value": "EMPLOYEE",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8051/shifts/colleagues/201?shiftDate=2025-04-09",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8051",
+					"path": [
+						"shifts",
+						"colleagues",
+						"201"
+					],
+					"query": [
+						{
+							"key": "shiftDate",
+							"value": "2025-04-09"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "requestShiftSwap - Fail",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "role",
+						"value": "EMPLOYEE",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8051/shifts/swap/request?employeeId=201&shiftId=3&swapWithEmployeeId=209",
+					"host": [
+						"localhost"
+					],
+					"port": "8051",
+					"path": [
+						"shifts",
+						"swap",
+						"request"
+					],
+					"query": [
+						{
+							"key": "employeeId",
+							"value": "201"
+						},
+						{
+							"key": "shiftId",
+							"value": "3"
+						},
+						{
+							"key": "swapWithEmployeeId",
+							"value": "209"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "requestShiftSwap - Success",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "role",
+						"value": "EMPLOYEE",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8051/shifts/swap/request?employeeId=201&shiftId=7&swapWithEmployeeId=202",
+					"host": [
+						"localhost"
+					],
+					"port": "8051",
+					"path": [
+						"shifts",
+						"swap",
+						"request"
+					],
+					"query": [
+						{
+							"key": "employeeId",
+							"value": "201"
+						},
+						{
+							"key": "shiftId",
+							"value": "7"
+						},
+						{
+							"key": "swapWithEmployeeId",
+							"value": "202"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ManagerSwapRequests - Fail",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "role",
+						"value": "EMPLOYEE",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "localhost:8051/shifts/manager/102/swap-requests",
+					"host": [
+						"localhost"
+					],
+					"port": "8051",
+					"path": [
+						"shifts",
+						"manager",
+						"102",
+						"swap-requests"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ManagerSwapRequests - Success",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "role",
+						"value": "MANAGER",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "localhost:8051/shifts/manager/102/swap-requests",
+					"host": [
+						"localhost"
+					],
+					"port": "8051",
+					"path": [
+						"shifts",
+						"manager",
+						"102",
+						"swap-requests"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "viewEmployeeSwapRequests",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "role",
+						"value": "EMPLOYEE",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "localhost:8051/shifts/employee/201/swap/requests",
+					"host": [
+						"localhost"
+					],
+					"port": "8051",
+					"path": [
+						"shifts",
+						"employee",
+						"201",
+						"swap",
+						"requests"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "approveShiftSwap - Fail",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "role",
+						"value": "EMPLOYEE",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "localhost:8051/shifts/swap/3/approve?managerId=102&swapWithEmployeeId=202",
+					"host": [
+						"localhost"
+					],
+					"port": "8051",
+					"path": [
+						"shifts",
+						"swap",
+						"3",
+						"approve"
+					],
+					"query": [
+						{
+							"key": "managerId",
+							"value": "102"
+						},
+						{
+							"key": "swapWithEmployeeId",
+							"value": "202"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "approveShiftSwap - Success",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "role",
+						"value": "MANAGER",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "localhost:8051/shifts/swap/7/approve?managerId=102&swapWithEmployeeId=202",
+					"host": [
+						"localhost"
+					],
+					"port": "8051",
+					"path": [
+						"shifts",
+						"swap",
+						"7",
+						"approve"
+					],
+					"query": [
+						{
+							"key": "managerId",
+							"value": "102"
+						},
+						{
+							"key": "swapWithEmployeeId",
+							"value": "202"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "viewEmployeeApprovedSwapRequests",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "role",
+						"value": "EMPLOYEE",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "localhost:8051/shifts/employee/201/swap/approved",
+					"host": [
+						"localhost"
+					],
+					"port": "8051",
+					"path": [
+						"shifts",
+						"employee",
+						"201",
+						"swap",
+						"approved"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "viewEmployeeSwappedWithAnotherEmployee",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "role",
+						"value": "EMPLOYEE",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "localhost:8051/shifts/employee/202/swap/anotheremployee",
+					"host": [
+						"localhost"
+					],
+					"port": "8051",
+					"path": [
+						"shifts",
+						"employee",
+						"202",
+						"swap",
+						"anotheremployee"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "rejectShiftSwap",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "role",
+						"value": "MANAGER",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "localhost:8051/shifts/swap/9/reject?managerId=102",
+					"host": [
+						"localhost"
+					],
+					"port": "8051",
+					"path": [
+						"shifts",
+						"swap",
+						"9",
+						"reject"
+					],
+					"query": [
+						{
+							"key": "managerId",
+							"value": "102"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "rejectShiftSwap - Success",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "role",
+						"value": "MANAGER",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "localhost:8051/shifts/swap/7/reject?managerId=102",
+					"host": [
+						"localhost"
+					],
+					"port": "8051",
+					"path": [
+						"shifts",
+						"swap",
+						"7",
+						"reject"
+					],
+					"query": [
+						{
+							"key": "managerId",
+							"value": "102"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "viewEmployeeRejectedSwapRequests",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "role",
+						"value": "EMPLOYEE",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "localhost:8051/shifts/employee/202/swap/rejected",
+					"host": [
+						"localhost"
+					],
+					"port": "8051",
+					"path": [
+						"shifts",
+						"employee",
+						"202",
+						"swap",
+						"rejected"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "updateShift - Success",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "role",
+						"value": "MANAGER",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"employeeId\": 202,\r\n    \"shiftDate\": \"2025-03-16\",\r\n    \"shiftTime\": \"09:00:00\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8051/shifts/3/update?managerId=102",
+					"host": [
+						"localhost"
+					],
+					"port": "8051",
+					"path": [
+						"shifts",
+						"3",
+						"update"
+					],
+					"query": [
+						{
+							"key": "managerId",
+							"value": "102"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "deleteShift",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "role",
+						"value": "MANAGER",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "localhost:8051/shifts/5/delete?managerId=103",
+					"host": [
+						"localhost"
+					],
+					"port": "8051",
+					"path": [
+						"shifts",
+						"5",
+						"delete"
+					],
+					"query": [
+						{
+							"key": "managerId",
+							"value": "103"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "deleteShift - Success",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "role",
+						"value": "MANAGER",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "localhost:8051/shifts/3/delete?managerId=102",
+					"host": [
+						"localhost"
+					],
+					"port": "8051",
+					"path": [
+						"shifts",
+						"3",
+						"delete"
+					],
+					"query": [
+						{
+							"key": "managerId",
+							"value": "102"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}
