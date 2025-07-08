@@ -1,0 +1,60 @@
+.swapped-shifts-container {
+  max-width: 600px; /* Adjust as needed */
+  margin-top: 50px; /* Add some top margin */
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+}
+
+.table {
+  width: 100%; /* Make the table take the full width of its container */
+  margin-bottom: 0; /* Remove default bottom margin of table */
+}
+
+.table th,
+.table td {
+  text-align: center;
+}
+
+.d-flex {
+  display: flex;
+}
+
+.flex-column {
+  flex-direction: column;
+}
+
+.align-items-center {
+  align-items: center; /* Center items horizontally */
+}
+
+/* Style for alternating rows */
+.table tbody tr:nth-child(odd) {
+  background-color: white; /* White background for odd rows */
+}
+
+.table tbody tr:nth-child(even) {
+  background-color: #f2f2f2; /* Light gray background for even rows */
+}
+
+/* Style for hover effect */
+.table tbody tr:hover {
+  background-color: #ddd; /* Light gray background on hover */
+}
+
+/* Optional: Style for error message */
+.error-message {
+  color: red;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+/* Optional: Style for loading message */
+.alert-info {
+  background-color: #d1ecf1;
+  color: #0c5460;
+  border-color: #bee5eb;
+  margin-top: 10px;
+  text-align: center;
+}

@@ -1,0 +1,54 @@
+/* You might not have a specific CSS file for this component yet.
+   If you do, add these styles there. Otherwise, you can add them
+   to a global stylesheet or the component's inline styles. */
+
+   .container {
+    margin-top: 30px; /* Adjust top margin as needed */
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-right: auto;
+    /* Remove the fixed left margin to allow centering */
+    margin-left: 300px;
+    /* Optionally set a maximum width for better readability on large screens */
+    max-width: 960px; /* Adjust as needed based on your content */
+  }
+  
+  h2 {
+    text-align: center;
+    color: #007bff; /* Primary blue color */
+    margin-bottom: 20px;
+  }
+  
+  .table {
+    width: 100%;
+    margin-bottom: 1rem;
+    color: #212529;
+  }
+  
+  .table-bordered {
+    border: 1px solid #dee2e6;
+  }
+  
+  .table-bordered th,
+  .table-bordered td {
+    border: 1px solid #dee2e6;
+  }
+  
+  .table-striped tbody tr:nth-of-type(odd) {
+    background-color: rgba(0, 0, 0, 0.05);
+  }
+  
+  .table-primary thead th {
+    color: #fff;
+    background-color: #007bff;
+    border-color: #007bff;
+  }
+  
+  th {
+    text-align: left;
+  }
+  
+  /* You might have other styles for .container-* classes in your Bootstrap setup.
+     It's generally best to avoid modifying core Bootstrap classes directly.
+     If you need different behavior for other containers, consider using
+     a more specific class for this table container. */

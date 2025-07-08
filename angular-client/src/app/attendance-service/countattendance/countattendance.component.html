@@ -1,0 +1,63 @@
+<div class="container-fluid mt-3 mb-5">
+  <h3 *ngIf="userRole=='MANAGER'">Count Employee Attendance</h3>
+  <h3 *ngIf="userRole=='EMPLOYEE'">Count Your Attendance</h3>   
+  <div class="card squared-card card-with-hover">
+    <div class="card-body d-flex flex-column justify-content-center align-items-center">
+      <div class="d-flex flex-wrap align-items-center justify-content-center gap-2 mb-3">
+        <!-- Employee ID Field -->
+        <div class="input-group" style="width: auto;">
+          <label for="employeeDropdown" class="col-form-label pe-2">Employee ID:</label>
+          <!-- <input
+            *ngIf="userRole.toUpperCase() === 'MANAGER'"
+            type="number"
+            id="employeeIdCount"
+            [(ngModel)]="countSelectedEmployeeId"
+            class="form-control"
+            placeholder="Enter employee ID"
+          /> -->
+      <select id="employeeDropdown" [(ngModel)]="countSelectedEmployeeId" class="form-select" *ngIf="userRole.toUpperCase() === 'MANAGER'">
+        <option value="" disabled selected>Select an employee</option>
+        <option *ngFor="let id of employeeIds" [value]="id">{{ id }}</option>
+      </select>
+
+          <input
+            *ngIf="userRole.toUpperCase() === 'EMPLOYEE'"
+            type="number"
+            id="employeeIdCount"
+            [value]="countSelectedEmployeeId"
+            class="form-control"
+            readonly
+            disabled
+            placeholder=""
+          />
+        </div>
+
+        <!-- Date Range Fields -->
+        <div class="input-group" style="width: auto;">
+          <label for="startDate" class="col-form-label pe-2">Start Date:</label>
+          <input type="date" id="startDate" [(ngModel)]="startDate" class="form-control">
+        </div>
+
+        <div class="input-group" style="width: auto;">
+          <label for="endDate" class="col-form-label pe-2">End Date:</label>
+          <input type="date" id="endDate" [(ngModel)]="endDate" class="form-control">
+        </div>
+
+        <!-- Count Button -->
+        <button class="btn btn-primary" (click)="countAttendance()" [disabled]="isCounting || !startDate || !endDate">
+          <span *ngIf="isCounting" class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
+          Count Attendance
+        </button>
+      </div>
+
+      <!-- Results Display -->
+      <div *ngIf="countResult !== null" class="alert alert-info mt-3 mb-0 text-center" style="width: 100%;">
+        Attendance Count: <strong>{{ countResult }}</strong> days between {{ startDate | date }} and {{ endDate | date }}
+      </div>
+      
+      <!-- <div *ngIf="errorMessage" class="alert alert-danger mt-3 mb-0" style="width: 100%;">
+        Invalid Id: Enter Valid Employee Id
+      </div> -->
+    </div>
+  </div>
+</div>

@@ -1,0 +1,68 @@
+<!-- 
+
+<app-attendancemanagerhome></app-attendancemanagerhome>
+<div class="container-fluid">
+    <h1>Attendance Report</h1>
+  
+    <div class="form-group">
+      <label for="employeeIdSelect">Select Employee:</label>
+      <select
+        class="form-control"
+        id="employeeIdSelect"
+        (change)="onEmployeeSelectionChange($event)"
+        [(ngModel)]="selectedEmployeeId"
+      >
+        <option *ngFor="let employeeId of employeeIds" [value]="employeeId">
+          {{ employeeId }}
+        </option>
+      </select>
+    </div>
+  
+    <div
+      class="chart-container"
+      style="position: relative; height: 40vh; width: 80vw"
+      *ngIf="selectedEmployeeId"
+    >
+      <canvas #attendanceChartCanvas></canvas>
+    </div>
+    <div *ngIf="!selectedEmployeeId">Please select an Employee to view the report</div>
+  </div> -->
+  <!-- <app-attendancemanagerhome></app-attendancemanagerhome>
+<div class="container" style="max-width: 600px; margin: auto;">
+    <h1 class="text-center my-4">Attendance Report</h1>
+  
+    <div class="form-group">
+        <label for="employeeIdSelect">Select Employee:</label>
+        <select class="form-control" id="employeeIdSelect" (change)="onEmployeeSelectionChange($event)" [(ngModel)]="selectedEmployeeId">
+            <option *ngFor="let employeeId of employeeIds" [value]="employeeId">
+                {{ employeeId }}
+            </option>
+        </select>
+    </div>
+  
+    <div class="chart-container mt-4" style="position: relative; height: 40vh; width: 100%;" *ngIf="selectedEmployeeId">
+        <canvas #attendanceChartCanvas></canvas>
+    </div>
+    <div class="alert alert-info mt-4" *ngIf="!selectedEmployeeId">Please select an Employee to view the report</div>
+</div> -->
+<app-attendancemanagerhome></app-attendancemanagerhome>
+<div class="container" style="max-width: 600px; margin: auto;">
+    <h1 class="text-center my-4">Attendance Report</h1>
+
+    <div class="form-group">
+        <label for="employeeIdSelect">Select Employee:</label>
+        <select class="form-control" id="employeeIdSelect" (change)="onEmployeeSelectionChange($event)" [(ngModel)]="selectedEmployeeId">
+            <option value="125">125</option>
+            <option value="128">128</option>
+            <option value="129">129</option>
+        </select>
+    </div>
+
+    <div class="chart-container mt-4" style="position: relative; height: 80vh; width: 100%;" *ngIf="selectedEmployeeId">
+        <canvas #attendanceChartCanvas></canvas>
+    </div>
+    <div class="alert alert-info mt-4" *ngIf="!selectedEmployeeId">Please select an Employee to view the report</div>
+</div>
+
+
+ 

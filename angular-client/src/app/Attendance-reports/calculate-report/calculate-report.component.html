@@ -1,0 +1,164 @@
+<!-- 
+<div class="section">
+    <h3>Calculate Report</h3>
+    <form (submit)="calculateReport()" class="form">
+      <label for="calculateEmployeeId">Employee ID:</label>
+      <input type="number" id="calculateEmployeeId" [(ngModel)]="calculateData.employeeId" name="calculateEmployeeId" required>
+      
+      <label for="calculateDateRange">Date Range:</label>
+      <input type="text" id="calculateDateRange" [(ngModel)]="calculateData.dateRange" name="calculateDateRange" required>
+      
+      <label for="leaveType">Leave Type:</label>
+      <input type="text" id="leaveType" [(ngModel)]="calculateData.leaveType" name="leaveType" required>
+      
+      <label for="role">Role:</label>
+      <input type="text" id="role" [(ngModel)]="calculateData.role" name="role" required>
+      
+      <button type="submit" class="btn">Calculate Report</button>
+    </form>
+  </div> -->
+  <!-- <app-attendancemanagerhome></app-attendancemanagerhome>
+<div class="container mt-4">
+    <div class="section">
+        <h3>Calculate Report</h3>
+        <form (submit)="calculateReport()" class="form">
+            <div class="form-group">
+                <label for="calculateEmployeeId">Employee ID:</label>
+                <input type="number" id="calculateEmployeeId" [(ngModel)]="calculateData.employeeId" name="calculateEmployeeId" required class="form-control">
+            </div>
+            
+            <div class="form-group">
+                <label for="calculateDateRange">Date Range:</label>
+                <input type="text" id="calculateDateRange" [(ngModel)]="calculateData.dateRange" name="calculateDateRange" required class="form-control">
+            </div>
+            
+            <div class="form-group">
+                <label for="leaveType">Leave Type:</label>
+                <input type="text" id="leaveType" [(ngModel)]="calculateData.leaveType" name="leaveType" required class="form-control">
+            </div>
+            
+            <div class="form-group">
+                <label for="role">Role:</label>
+                <input type="text" id="role" [(ngModel)]="calculateData.role" name="role" required class="form-control">
+            </div>
+            
+            <button type="submit" class="btn btn-primary">Calculate Report</button>
+        </form>
+    </div>
+
+    <div *ngIf="reports" class="section">
+        <h3>Reports</h3>
+        <ul>
+            <li *ngFor="let report of reports">
+                Employee ID: {{ report.employeeId }}<br>
+                Date Range: {{ report.dateRange }}<br>
+                Total Attendance: {{ report.totalAttendance }}<br>
+                Absenteeism: {{ report.absenteeism }}
+            </li>
+        </ul>
+    </div>
+</div>
+
+   -->
+   <!-- <app-attendancemanagerhome></app-attendancemanagerhome>
+   <div class="container mt-4">
+       <div class="section">
+           <h3>Calculate Report</h3>
+           <form (submit)="calculateReport()" class="form">
+               <div class="form-group">
+                   <label for="calculateEmployeeId">Employee ID:</label>
+                   <input type="number" id="calculateEmployeeId" [(ngModel)]="calculateData.employeeId" name="calculateEmployeeId" required class="form-control">
+               </div>
+               
+               <div class="form-group">
+                   <label for="calculateDateRange">Date Range:</label>
+                   <input type="text" id="calculateDateRange" [(ngModel)]="calculateData.dateRange" name="calculateDateRange" required class="form-control">
+               </div>
+               
+               <div class="form-group">
+                   <label for="leaveType">Leave Type:</label>
+                   <input type="text" id="leaveType" [(ngModel)]="calculateData.leaveType" name="leaveType" required class="form-control">
+               </div>
+               
+               <div class="form-group">
+                   <label for="role">Role:</label>
+                   <input type="text" id="role" [(ngModel)]="calculateData.role" name="role" required class="form-control">
+               </div>
+               
+               <button type="submit" class="btn btn-primary">Calculate Report</button>
+           </form>
+           
+           <div *ngIf="message" class="alert mt-3" [ngClass]="{'alert-success': message.includes('successfully'), 'alert-danger': message.includes('Error')}">
+               {{ message }}
+           </div>
+       </div>
+   
+       <div *ngIf="reports" class="section">
+           <h3>Reports</h3>
+           <ul>
+               <li *ngFor="let report of reports">
+                   Employee ID: {{ report.employeeId }}<br>
+                   Date Range: {{ report.dateRange }}<br>
+                   Total Attendance: {{ report.totalAttendance }}<br>
+                   Absenteeism: {{ report.absenteeism }}
+               </li>
+           </ul>
+       </div>
+   </div>
+    -->
+   <app-attendancemanagerhome></app-attendancemanagerhome>
+    <div class="container mt-4">
+      <div class="section">
+        <h3>Calculate Report</h3>
+        <form (submit)="calculateReport()" class="form">
+          <mat-form-field appearance="outline" class="form-group">
+            <mat-label>Employee ID</mat-label>
+            <mat-icon matPrefix>badge</mat-icon>
+            <input matInput type="number" id="calculateEmployeeId" [(ngModel)]="calculateData.employeeId" name="calculateEmployeeId" required>
+            <mat-hint>Enter the employee's unique identifier</mat-hint>
+          </mat-form-field>
+    
+          <mat-form-field appearance="outline" class="form-group">
+            <mat-label>Date Range</mat-label>
+            <mat-icon matPrefix>date_range</mat-icon>
+            <input matInput type="text" id="calculateDateRange" [(ngModel)]="calculateData.dateRange" name="calculateDateRange" required>
+            <mat-hint>e.g., YYYY-MM-DD to YYYY-MM-DD</mat-hint>
+          </mat-form-field>
+    
+          <mat-form-field appearance="outline" class="form-group">
+            <mat-label>Leave Type</mat-label>
+            <mat-icon matPrefix>type_specimen</mat-icon>
+            <input matInput type="text" id="leaveType" [(ngModel)]="calculateData.leaveType" name="leaveType" required>
+            <mat-hint>Specify the type of leave</mat-hint>
+          </mat-form-field>
+    
+          <mat-form-field appearance="outline" class="form-group">
+            <mat-label>Role</mat-label>
+            <mat-icon matPrefix>person</mat-icon>
+            <input matInput type="text" id="role" [(ngModel)]="calculateData.role" name="role" required>
+            <mat-hint>Enter the employee's role</mat-hint>
+          </mat-form-field>
+    
+          <button mat-raised-button color="primary" type="submit">
+            <mat-icon>calculate</mat-icon>
+            Calculate Report
+          </button>
+        </form>
+    
+        <div *ngIf="message" class="alert mt-3" [ngClass]="{'alert-success': message.includes('successfully'), 'alert-danger': message.includes('Error')}">
+          {{ message }}
+        </div>
+      </div>
+    
+      <div *ngIf="reports" class="section">
+        <h3>Reports</h3>
+        <ul>
+          <li *ngFor="let report of reports">
+            Employee ID: {{ report.employeeId }}<br>
+            Date Range: {{ report.dateRange }}<br>
+            Total Attendance: {{ report.totalAttendance }}<br>
+            Absenteeism: {{ report.absenteeism }}
+          </li>
+        </ul>
+      </div>
+    </div>

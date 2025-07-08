@@ -1,0 +1,93 @@
+<!-- 
+   <app-attendancemanagerhome></app-attendancemanagerhome>
+<div class="container mt-4">
+    <div class="section">
+        <h3>Delete All Reports by Employee ID</h3>
+        <form (submit)="deleteAllReportsByEmployeeId()" class="form">
+            <div class="form-group">
+                <label for="deleteAllEmployeeId">Employee ID:</label>
+                <input type="number" id="deleteAllEmployeeId" [(ngModel)]="employeeId" name="deleteAllEmployeeId" class="form-control" required>
+            </div>
+            <button type="submit" class="btn btn-danger">Delete All Reports</button>
+        </form>
+       
+        <div *ngIf="message" class="alert mt-3" [ngClass]="{'alert-success': message.includes('successfully'), 'alert-danger': !message.includes('successfully')}">
+            {{ message }}
+        </div>
+    </div>
+
+   
+
+    <div *ngIf="trendKeys.length > 0" class="trends-section mt-4">
+        <h4>Employees by Attendance Trend</h4>
+        <div class="list-group">
+            <div *ngFor="let trend of trendKeys" class="list-group-item">
+                <strong class="text-capitalize">{{ trend }}:</strong>
+                <ul class="list-group mt-2">
+                    <li *ngFor="let employeeId of employeesByTrend[trend]" class="list-group-item">
+                        Employee ID: <span class="font-weight-bold">{{ employeeId }}</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div *ngIf="trendKeys.length === 0" class="alert alert-warning mt-4 no-employees-message" role="alert">
+        <h4 class="alert-heading">No Employees Found</h4>
+        <p>No employees found for the given trend.</p>
+    </div>
+
+    <div class="chart-container">
+        <canvas #attendanceChartCanvas></canvas>
+    </div>
+</div>
+
+    -->
+  <app-attendancemanagerhome></app-attendancemanagerhome>
+    <div class="container mt-4">
+      <div class="section">
+        <h3>Delete All Reports by Employee ID</h3>
+        <form (submit)="deleteAllReportsByEmployeeId()" class="form">
+          <mat-form-field appearance="outline" class="form-group">
+            <mat-label>Employee ID</mat-label>
+            <mat-icon matPrefix>badge</mat-icon>
+            <input matInput type="number" id="deleteAllEmployeeId" [(ngModel)]="employeeId" name="deleteAllEmployeeId" required>
+            <mat-hint>Enter the Employee ID to delete all associated reports</mat-hint>
+          </mat-form-field>
+    
+          <button mat-raised-button color="warn" type="submit">
+            <mat-icon>delete_forever</mat-icon>
+            Delete All Reports
+          </button>
+        </form>
+        <div *ngIf="message" class="alert mt-3" [ngClass]="{'alert-success': message.includes('successfully'), 'alert-danger': !message.includes('successfully')}">
+          {{ message }}
+        </div>
+      </div>
+    
+      <div *ngIf="trendKeys.length > 0" class="trends-section mt-4">
+        <h4>Employees by Attendance Trend</h4>
+        <mat-list>
+          <div *ngFor="let trend of trendKeys">
+            <mat-list-item>
+              <mat-icon matListItemIcon>trending_up</mat-icon>
+              <h4 matListItemTitle class="text-capitalize">{{ trend }}</h4>
+            </mat-list-item>
+            <mat-list>
+              <mat-list-item *ngFor="let employeeId of employeesByTrend[trend]">
+                <mat-icon matListItemIcon>person</mat-icon>
+                <span matListItemLine>Employee ID: <strong class="font-weight-bold">{{ employeeId }}</strong></span>
+              </mat-list-item>
+            </mat-list>
+            <mat-divider></mat-divider>
+          </div>
+        </mat-list>
+      </div>
+      <div *ngIf="trendKeys.length === 0" class="alert alert-warning mt-4 no-employees-message" role="alert">
+        <h4 class="alert-heading">No Employees Found</h4>
+        <p>No employees found for the given trend.</p>
+      </div>
+    
+      <div class="chart-container mt-4">
+        <canvas #attendanceChartCanvas></canvas>
+      </div>
+    </div>

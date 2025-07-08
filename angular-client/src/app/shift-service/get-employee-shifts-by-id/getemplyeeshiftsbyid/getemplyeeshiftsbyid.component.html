@@ -1,0 +1,131 @@
+<app-shiftmanagerhome></app-shiftmanagerhome>
+<div class="d-flex flex-column align-items-center">
+
+  <div class="view-employee-shifts-container">
+    <h2>View Employee Shifts</h2>
+
+    <div *ngIf="errorMessage" class="error-message">
+      {{ errorMessage }}
+    </div>
+
+    <form
+      [formGroup]="viewEmployeeShiftsForm"
+      (ngSubmit)="viewShiftsForEmployee()"
+    >
+      <div class="form-group">
+        <label for="employeeId">Select Employee:</label>
+        <select
+          formControlName="employeeId"
+          id="employeeId"
+          class="form-control"
+          required
+        >
+          <option value="" disabled selected>Select an Employee</option>
+          <option
+            *ngFor="let employeeId of employeesUnderManager"
+            [value]="employeeId"
+          >
+            {{ employeeId }}
+          </option>
+        </select>
+        <div
+          *ngIf="
+            viewEmployeeShiftsForm.controls['employeeId'].invalid &&
+            (viewEmployeeShiftsForm.controls['employeeId'].dirty ||
+              viewEmployeeShiftsForm.controls['employeeId'].touched)
+          "
+          class="error"
+        >
+          Employee is required.
+        </div>
+      </div>
+      <button type="submit" class="btn btn-primary">View Shifts</button>
+    </form>
+
+    <div *ngIf="deleteSuccessMessage" class="alert alert-success">
+      {{ deleteSuccessMessage }}
+    </div>
+
+    <div *ngIf="deleteErrorMessage" class="alert alert-danger">
+      {{ deleteErrorMessage }}
+    </div>
+
+    <div
+      *ngIf="
+        showEmployeeShiftsTable && employeeShifts && employeeShifts.length > 0
+      "
+      class="centered-table"
+    >
+      <h3>Shifts for Employee ID: {{ selectedEmployeeId }}</h3>
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th>Shift ID</th>
+            <th>Shift Date</th>
+            <th>Shift Time</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let shift of pagedEmployeeShifts">
+            <td>{{ shift.shiftId }}</td>
+            <td>{{ shift.shiftDate }}</td>
+            <td>{{ shift.shiftTime }}</td>
+            <td class="text-center">
+              <button
+                class="btn btn-sm btn-success"
+                (click)="updateShift(shift)"
+              >
+                Update
+              </button>
+              <button
+                class="btn btn-sm btn-danger"
+                (click)="deleteShift(shift.shiftId)"
+              >
+                Delete
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div *ngIf="totalPages > 1" class="d-flex justify-content-center mt-3">
+        <nav aria-label="Employee Shifts Pagination">
+          <ul class="pagination">
+            <li class="page-item" [class.disabled]="currentPage === 1">
+              <button class="page-link" (click)="changePage(currentPage - 1)">Previous</button>
+            </li>
+
+            <ng-container *ngFor="let page of pages">
+              <li *ngIf="!isEllipsis(page)" class="page-item" [class.active]="page === currentPage">
+                <button class="page-link" (click)="changePage(page)">{{ page }}</button>
+              </li>
+              <li *ngIf="isEllipsis(page)" class="page-item disabled">
+                <span class="page-link">...</span>
+              </li>
+            </ng-container>
+
+            <li class="page-item" [class.disabled]="currentPage === totalPages">
+              <button class="page-link" (click)="changePage(currentPage + 1)">Next</button>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+
+    <div
+      *ngIf="
+        showEmployeeShiftsTable &&
+        employeeShifts &&
+        employeeShifts.length === 0 &&
+        !errorMessage
+      "
+    >
+      No shifts found for the selected employee.
+    </div>
+
+    <div *ngIf="showEmployeeShiftsTable && !employeeShifts && !errorMessage">
+      Loading employee shifts...
+    </div>
+  </div>
+</div>

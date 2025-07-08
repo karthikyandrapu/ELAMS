@@ -1,0 +1,45 @@
+<app-shiftmanagerhome></app-shiftmanagerhome>
+<div class="d-flex flex-column align-items-center">
+
+  <div class="update-shift-container">
+    <div *ngIf="errorMessage" class="error-message">
+      {{ errorMessage }}
+    </div>
+
+    <div *ngIf="successMessage" class="success-message">
+      {{ successMessage }}
+    </div>
+
+    <form (ngSubmit)="updateShift()" *ngIf="!successMessage">
+      <div class="form-group">
+        <label for="shiftId">Shift ID:</label>
+        <input type="number" id="shiftId" class="form-control" [(ngModel)]="shiftId" name="shiftId" [readonly]="true">
+      </div>
+      <div class="form-group">
+        <label for="shiftDate">Shift Date:</label>
+        <input type="date" id="shiftDate" class="form-control" [(ngModel)]="shiftDate" name="shiftDate" required>
+      </div>
+      <div class="form-group">
+        <label for="shiftTime">Shift Time:</label>
+        <select
+          id="shiftTime"
+          class="form-control"
+          [(ngModel)]="shiftTime"
+          name="shiftTime"
+          required
+        >
+          <option value="" disabled selected>Select Shift Time</option>
+          <option *ngFor="let timeOption of shiftTimeOptions" [value]="timeOption.value">
+            {{ timeOption.display }}
+          </option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="employeeId">Employee ID:</label>
+        <input type="number" id="employeeId" class="form-control" [(ngModel)]="employeeId" name="employeeId" [readonly]="true">
+      </div>
+      <button type="submit" class="btn btn-primary">Update Shift</button>
+    </form>
+  </div>
+</div>
+

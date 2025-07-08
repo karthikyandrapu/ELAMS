@@ -1,0 +1,112 @@
+/* Styles for the Check Leave Request Status component */
+
+.container {
+  margin-top: 30px; /* Adjust top margin as needed */
+  padding: 20px;
+  background-color: #f8f9fa; /* Light background for the container */
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+  /* Center the container using margin auto */
+  margin-left: auto;
+  margin-right: auto;
+  /* Optionally set a maximum width for the container */
+  max-width: 600px; /* Adjust as needed */
+}
+
+h2 {
+  text-align: center;
+  color: #17a2b8; /* Info blue color */
+  margin-bottom: 25px;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: bold;
+  color: #343a40; /* Dark gray color */
+}
+
+input[type="text"].form-control {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ced4da; /* Light gray border */
+  border-radius: 6px;
+  box-sizing: border-box;
+  font-size: 1rem;
+  color: #495057; /* Medium gray color */
+}
+
+input[type="text"].form-control:read-only {
+  background-color: #e9ecef; /* Light gray background for readonly */
+  opacity: 1;
+}
+
+select.form-control {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ced4da; /* Light gray border */
+  border-radius: 6px;
+  box-sizing: border-box;
+  font-size: 1rem;
+  color: #495057; /* Medium gray color */
+  appearance: none; /* Remove default arrow */
+  background-image: url('data:image/svg+xml;utf8,<svg fill=\'currentColor\' viewBox=\'0 0 24 24\'><path d=\'M7 10l5 5 5-5z\'/></svg>');
+  background-repeat: no-repeat;
+  background-position-x: 95%;
+  background-position-y: center;
+  background-size: 16px 16px;
+  padding-right: 30px; /* Space for the arrow */
+}
+
+button.btn-info {
+  background-color: #17a2b8; /* Info blue color */
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 1rem;
+  width: 100%;
+  transition: background-color 0.3s ease;
+  margin-top: 15px;
+}
+
+button.btn-info:hover {
+  background-color: #138496;
+}
+
+button.btn-info:disabled {
+  background-color: #cddbe0;
+  color: #495057;
+  cursor: not-allowed;
+}
+
+.mt-4 {
+  margin-top: 20px;
+}
+
+h4 {
+  color: #28a745; /* Success green color for status */
+  margin-bottom: 10px;
+}
+
+p {
+  margin-bottom: 5px;
+  color: #495057;
+}
+
+.alert {
+  padding: 12px 15px;
+  border-radius: 6px;
+  margin-top: 15px;
+}
+
+.alert-danger {
+  background-color: #f8d7da;
+  color: #721c24;
+  border: 1px solid #f5c6cb;
+}

@@ -1,0 +1,49 @@
+<div class="dashboard-container">
+  <div class="head-container">
+    <app-header></app-header>
+  </div>
+
+  <div class="main-content">
+    <div class="navigation">
+      <ul>
+        <h1 style="margin-top: 30px">Attendance Management</h1>
+        <li>
+          <button
+            (click)="showComponent('display-attendance')"
+            [class.active]="activeComponent === 'display-attendance'"
+          >
+            View Your Attendance
+          </button>
+        </li>
+        <li>
+          <button
+            (click)="showComponent('view-attendance-by-date')"
+            [class.active]="activeComponent === 'view-attendance-by-date'"
+          >
+            View Attendance by Date
+          </button>
+        </li>
+        <li>
+          <button
+            (click)="showComponent('count-attendance')"
+            [class.active]="activeComponent === 'count-attendance'"
+          >
+            Count Attendance
+          </button>
+        </li>
+      </ul>
+    </div>
+
+    <div class="content-area">
+      <app-displayattendance
+        *ngIf="activeComponent === 'display-attendance'"
+      ></app-displayattendance>
+      <app-viewyourattedancebydate
+        *ngIf="activeComponent === 'view-attendance-by-date'"
+      ></app-viewyourattedancebydate>
+      <app-countattendance
+        *ngIf="activeComponent === 'count-attendance'"
+      ></app-countattendance>
+    </div>
+  </div>
+</div>

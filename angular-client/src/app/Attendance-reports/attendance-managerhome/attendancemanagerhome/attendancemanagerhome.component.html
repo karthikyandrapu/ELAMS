@@ -1,0 +1,104 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+    <head></head>
+    <body>
+        
+<div class="d-flex" id="wrapper">
+  <div class="bg-dark border-right" id="sidebar-wrapper">
+    <div class="sidebar-heading text-white">Attendance Reports</div>
+    <div class="list-group list-group-flush">
+        <a
+        routerLink="/dashboard"
+        class="list-group-item list-group-item-action text-white"
+        >Home</a
+      >
+      <a
+        routerLink="/manager-reports"
+        class="list-group-item list-group-item-action text-white"
+        >Manager-select</a
+      >
+      <a
+        routerLink="/fetch-employees-by-attendance-trend"
+        class="list-group-item list-group-item-action text-white"
+        >Employee Trends</a
+      >
+    
+      <a
+        routerLink="/delete-all-reports-by-employee-id"
+        class="list-group-item list-group-item-action text-white"
+        >Delete Reports</a
+      >
+      <a
+        routerLink="/calculate-report"
+        class="list-group-item list-group-item-action text-white"
+        >Calculate Report</a
+      >
+      <a
+        routerLink="/fetch-attendance-trends"
+        class="list-group-item list-group-item-action text-white"
+        >Attendance Trends</a
+      >
+      <a
+        routerLink="/all-reports"
+        class="list-group-item list-group-item-action text-white"
+        >All Reports</a
+      >
+     
+    </div>
+  </div>
+</div>
+ 
+ 
+    </body>
+</html>
+
+
+       
+
+      
+       -->
+       <mat-toolbar color="primary">
+        <mat-toolbar-row>
+          <button mat-icon-button class="mr-2">
+            <mat-icon>menu</mat-icon>
+          </button>
+          <span class="app-title">Attendance Reports</span>
+          <!-- <span class="spacer"></span>
+          <div class="user-profile">
+            <button mat-icon-button class="mr-1">
+              <mat-icon>account_circle</mat-icon>
+            </button>
+            <span>User Name</span> </div> -->
+        </mat-toolbar-row>
+      
+        <mat-toolbar-row class="navigation-links">
+          <button mat-button routerLink="/dashboard" routerLinkActive="active">
+            <mat-icon class="mr-1">home</mat-icon>
+            Home
+          </button>
+          <button mat-button routerLink="/manager-reports" routerLinkActive="active">
+            <mat-icon class="mr-1">group</mat-icon>
+            Manager Select
+          </button>
+          <button mat-button routerLink="/fetch-employees-by-attendance-trend" routerLinkActive="active">
+            <mat-icon class="mr-1">trending_up</mat-icon>
+            Employee Trends
+          </button>
+          <button mat-button routerLink="/delete-all-reports-by-employee-id" routerLinkActive="active">
+            <mat-icon class="mr-1">delete</mat-icon>
+            Delete Reports
+          </button>
+          <button mat-button routerLink="/calculate-report" routerLinkActive="active">
+            <mat-icon class="mr-1">calculate</mat-icon>
+            Calculate Report
+          </button>
+          <button mat-button routerLink="/fetch-attendance-trends" routerLinkActive="active">
+            <mat-icon class="mr-1">show_chart</mat-icon>
+            Attendance Trends
+          </button>
+          <button mat-button routerLink="/all-reports" routerLinkActive="active">
+            <mat-icon class="mr-1">list_alt</mat-icon>
+            All Reports
+          </button>
+          </mat-toolbar-row>
+      </mat-toolbar>

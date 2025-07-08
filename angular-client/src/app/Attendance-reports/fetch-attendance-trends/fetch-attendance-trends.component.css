@@ -1,0 +1,69 @@
+.chart-card {
+  max-width: 500px;
+  margin: 20px auto;
+}
+
+.chart-container {
+  position: relative;
+  width: 100%;
+  height: 300px; /* Ensure the container has a fixed height */
+}
+
+.chart-legend {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.legend-color {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  margin-right: 8px;
+}
+
+.legend-color.attendance {
+  background-color: rgba(75, 192, 192, 0.8);
+  border: 1px solid rgba(75, 192, 192, 1);
+}
+
+.legend-color.absenteeism {
+  background-color: rgba(255, 99, 132, 0.8);
+  border: 1px solid rgba(255, 99, 132, 1);
+}
+
+.overall-trend {
+  margin-top: 16px;
+  font-style: italic;
+  color: rgba(0, 0, 0, 0.6);
+}
+
+.fetch-form {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.fetch-form .mat-form-field {
+  flex-grow: 1;
+  min-width: 150px;
+}
+
+.fetch-form button {
+  flex-shrink: 0;
+}
+
+.no-data {
+  color: rgba(0, 0, 0, 0.54);
+  font-style: italic;
+  margin-top: 16px;
+  text-align: center;
+}
